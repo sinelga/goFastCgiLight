@@ -1,0 +1,30 @@
+package checksiteexist
+
+import (
+//	"domains"
+	"encoding/json"
+//	"fmt"
+	"github.com/HouzuoGuo/tiedot/db"
+	"log/syslog"
+)
+
+func CheckDB(golog syslog.Writer, tDB *db.DB, pathinfo string) map[uint64]struct{}{
+
+//	var sitesarr []domains.Site
+
+	sites := tDB.Use("Sites")
+
+	queryStr := `[{"eq": "` + pathinfo + `", "in": ["Pathinfo"]}]`
+//	queryStr := `[{"eq": "fi_FI/porno/www.test.com/index.html", "in": ["Pathinfo"]}]`
+
+	var query interface{}
+	json.Unmarshal([]byte(queryStr), &query)
+
+	queryResult := make(map[uint64]struct{})
+	if err := db.EvalQuery(query, sites, &queryResult); err != nil {
+		panic(err)
+	}
+
+	return queryResult
+//	sites.Close()
+}

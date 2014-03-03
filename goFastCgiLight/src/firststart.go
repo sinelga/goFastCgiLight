@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/HouzuoGuo/tiedot/db"
 	"math/rand"
+	//	"os"
 	"time"
 )
 
@@ -24,6 +25,8 @@ func main() {
 	// Create and open database
 
 	dir := "tiedotDB"
+	//	os.RemoveAll(dir)
+	//	defer os.RemoveAll(dir)
 
 	myDB, err := db.OpenDB(dir)
 	if err != nil {
@@ -32,11 +35,33 @@ func main() {
 	if err := myDB.Create("Sites", 2); err != nil {
 		panic(err)
 	}
-	
-		for name := range myDB.StrCol {
+
+	for name := range myDB.StrCol {
 		fmt.Printf("I have a collection called %s\n", name)
 	}
+	//	myDB.Scrub("Sites")
+
+	sites := myDB.Use("Sites")
+
+	if err := sites.Index([]string{"Pathinfo"}); err != nil {
+		panic(err)
+	}
+	if err := sites.Index([]string{"Created"}); err != nil {
+		panic(err)
+	}
+	if err := sites.Index([]string{"Updated"}); err != nil {
+		panic(err)
+	}
+
+	if err := sites.Index([]string{"Hits"}); err != nil {
+		panic(err)
+	}
+
+	for path := range sites.SecIndexes {
+		fmt.Printf("I have an index on path %s\n", path)
+	}
+
 	myDB.Flush()
 	myDB.Close()
-	
+
 }
