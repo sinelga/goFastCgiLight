@@ -1,7 +1,7 @@
 package domains
 
 import (
-	"time"
+
 )
 
 type Site struct {
@@ -11,10 +11,11 @@ type Site struct {
 	Created  int
 	Updated  int
 	Hits     int
+	Paragraphs []Paragraph
 }
 
 type Paragraph struct {
-	Created    time.Time
+//	Created    time.Time
 	Ptitle     string
 	Pphrase    string
 	Plocallink string

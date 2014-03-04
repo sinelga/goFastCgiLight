@@ -6,36 +6,33 @@ import (
 	"log/syslog"
 //	"encoding/json"
 	"time"
-//	"domains"
+	"domains"
+	"findfreeparagraph"
 )
 
 func CreateSite(golog syslog.Writer, tDB *db.DB, pathinfo string) {
 		
-//	site := domains.Site {
-//	
-//		Locale: locale,
-//		Themes: themes,
-//		Domain: domain,
-//		Host: host,
-//		Pathinfo: pathinfo,	
-//	
-//	}
-//	
 	sites := tDB.Use("Sites")
 	
 	nowUnix :=time.Now().Unix()
 	var nowUnixInt int
 	
 	nowUnixInt = int(nowUnix)
-		
-//	fmt.Printf("now %v\n",nowUnix) 	
+	
+	var paragraphs []domains.Paragraph
+//	paragraph := findfreeparagraph.GetRecqueParagraph("fi_FI","porno")
+	paragraph := findfreeparagraph.FindFromQ(golog,"fi_FI","porno")
+	
+	paragraphs = append(paragraphs,paragraph)
+	
 	
 	docID, err :=sites.Insert(map[string]interface{}{
 	
 		"Pathinfo": pathinfo,
 		"Created": nowUnixInt,
 		"Updated": nowUnixInt,
-		"Hits": 0,	
+		"Hits": 0,
+		"Paragraphs": paragraphs,	
 	
 	} )
 	if err != nil {

@@ -52,7 +52,7 @@ func main() {
 		fmt.Printf("I have a collection called %s\n", name)
 	}
 
-	pathinfo := "fi_FI/porno/www.test5.com/index.html"
+	pathinfo := "fi_FI/porno/www.test10.com/index.html"
 
 	idsitesarr := checksiteexist.CheckDB(*golog, tDB, pathinfo)
 
