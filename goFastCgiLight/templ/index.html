@@ -6,18 +6,13 @@
 </ul>	
 </div>        
      
-    <h1 class="well well-lg">{{.Title }}</h1>
-    {{range .Paragraphs}}
-    	<div class="well">
-    	<h2>{{.Ptitle }} </h2>
-    	<h3>{{.Pphrase }}</h3> 
-    	</div> 
+    <h1 class="well well-lg">{{.Ptitle }}</h1>
+    <h1 class="well well">{{.Pphrase }}</h1>
     	<div class="well well-sm">
-    	{{range .Sentences }}
+       {{range .Sentences }}
     		{{.}}    	
     	{{end}}	
 		</div>
-		<a href="http://{{.Plocallink }}">{{.Ptitle }}</a> 
-	{{end}}
-	
+		<a href="{{.Plocallink }}">{{.Ptitle }}</a>
+		
 {{ end }}

@@ -7,6 +7,7 @@ import (
 	"log/syslog"
 	"strconv"
 	"time"
+	"updatehtmlpage"
 )
 
 func Update(golog syslog.Writer, tDB *db.DB, siteid map[uint64]struct{}) {
@@ -26,14 +27,12 @@ func Update(golog syslog.Writer, tDB *db.DB, siteid map[uint64]struct{}) {
 		golog.Info("updatesite:Update Updated " + strconv.Itoa(site.Updated))
 
 		golog.Info("updatesite:Update Paragraphs " + strconv.Itoa(len(site.Paragraphs)))
-//		golog.Info("updatesite:Update 
 
 		for _, sent := range site.Paragraphs {
 
 			golog.Info(sent.Ptitle)
 		}
 
-		//		freeparagraph := findfreeparagraph.GetRecqueParagraph("fi_FI","porno")
 		freeparagraph := findfreeparagraph.FindFromQ(golog, "fi_FI", "porno")
 
 		err := sites.Update(id, map[string]interface{}{
@@ -43,8 +42,10 @@ func Update(golog syslog.Writer, tDB *db.DB, siteid map[uint64]struct{}) {
 			"Hits":       site.Hits + 1,
 			"Paragraphs": append(site.Paragraphs, freeparagraph)})
 		if err != nil {
-
 			golog.Crit(err.Error())
+		} else {
+		
+			updatehtmlpage.UpdatePage(golog,site.Pathinfo,site.Paragraphs)
 		}
 
 	}

@@ -1,24 +1,36 @@
 package bthandler
 
 import (
+	"clean_pathinfo"
+	"createpage"
 	"log/syslog"
 	"net/http"
-	"clean_pathinfo"
 	"strings"
-	"createpage"
+	"createfirstgz"
 )
 
 func BTrequestHandler(golog syslog.Writer, resp http.ResponseWriter, req *http.Request, locale string, themes string, site string, pathinfo string) {
 
-pathinfoclean := clean_pathinfo.CleanPath(golog, pathinfo)
+	pathinfoclean := clean_pathinfo.CleanPath(golog, pathinfo)
 
-//htmlfile := string("www/" + locale + "/" + themes + "/" + site + pathinfoclean)
+	//htmlfile := string("www/" + locale + "/" + themes + "/" + site + pathinfoclean)
 
-if strings.HasSuffix(pathinfoclean, ".html") || strings.HasSuffix(pathinfoclean, ".php") || strings.HasSuffix(pathinfoclean, ".jsp") {
+	var bytepage []byte
+	if strings.HasSuffix(pathinfoclean, ".html") || strings.HasSuffix(pathinfoclean, ".php") || strings.HasSuffix(pathinfoclean, ".jsp") {
 
-	createpage.CreateHtmlPage(golog,locale,themes)
+		bytepage = createpage.CreateHtmlPage(golog, locale, themes)
 
-}
+		resp.Write(bytepage)
 
+	} else {
+
+		resp.WriteHeader(404)
+	}
+	
+	if strings.HasSuffix(pathinfoclean, ".html") {
+
+		go createfirstgz.Creategzhtml(golog,locale,themes,site,pathinfoclean,bytepage)
+
+	}	
 
 }

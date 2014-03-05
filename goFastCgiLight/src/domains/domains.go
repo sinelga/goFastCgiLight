@@ -6,7 +6,6 @@ import (
 
 type Site struct {
 
-
 	Pathinfo string
 	Created  int
 	Updated  int
@@ -21,4 +20,11 @@ type Paragraph struct {
 	Plocallink string
 	Phost      string
 	Sentences  []string
+}
+
+type SiteQue struct {
+	Locale   string
+	Themes   string
+	Domain   string
+	Pathinfo string
 }
