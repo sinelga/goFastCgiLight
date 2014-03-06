@@ -10,8 +10,8 @@ import (
 func CreateHtmlPage(golog syslog.Writer, locale string, themes string) []byte {
 
 	var index = template.Must(template.ParseFiles(
-		"templ/_base.html",
-		"templ/index.html",
+		"templ/_firstbase.html",
+		"templ/firstindex.html",
 	))
 	paragraph := findfreeparagraph.FindFromQ(golog, locale, themes)
 

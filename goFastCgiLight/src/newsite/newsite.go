@@ -20,7 +20,7 @@ func CreateSite(golog syslog.Writer, tDB *db.DB, pathinfo string) {
 	nowUnixInt = int(nowUnix)
 	
 	var paragraphs []domains.Paragraph
-//	paragraph := findfreeparagraph.GetRecqueParagraph("fi_FI","porno")
+
 	paragraph := findfreeparagraph.FindFromQ(golog,"fi_FI","porno")
 	
 	paragraphs = append(paragraphs,paragraph)

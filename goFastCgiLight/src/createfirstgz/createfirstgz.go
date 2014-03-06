@@ -2,11 +2,8 @@ package createfirstgz
 
 import (
 	"bytes"
-	//	"checkpathinfo"
 	"compress/gzip"
-	//	"github.com/garyburd/redigo/redis"
 	"io/ioutil"
-	//	"log"
 	"log/syslog"
 	"os"
 	"path"

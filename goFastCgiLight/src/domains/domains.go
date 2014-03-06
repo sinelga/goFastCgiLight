@@ -22,6 +22,12 @@ type Paragraph struct {
 	Sentences  []string
 }
 
+type Htmlpage struct {
+
+	Paragraphs []Paragraph 
+}
+
+
 type SiteQue struct {
 	Locale   string
 	Themes   string

@@ -27,7 +27,9 @@ func main() {
 	if  strings.HasSuffix(htmlfileflag,".gz")  || strings.HasSuffix(htmlfileflag,"/index.html") {
 
 		if *eventflag == "CLOSE_NOWRITE,CLOSE" {
-		
+			
+			golog.Info("CLOSE --> "+htmlfileflag)
+			
 			htmlfilesp := strings.Split(htmlfileflag, "/")
 			locale := htmlfilesp[1]
 			themes := htmlfilesp[2]

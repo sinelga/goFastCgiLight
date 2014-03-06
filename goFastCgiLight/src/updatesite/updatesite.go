@@ -8,6 +8,8 @@ import (
 	"strconv"
 	"time"
 	"updatehtmlpage"
+	"strings"
+	"createfirstgz"
 )
 
 func Update(golog syslog.Writer, tDB *db.DB, siteid map[uint64]struct{}) {
@@ -24,7 +26,7 @@ func Update(golog syslog.Writer, tDB *db.DB, siteid map[uint64]struct{}) {
 
 		sites.Read(id, &site)
 		golog.Info("updatesite:Update Hits " + strconv.Itoa(site.Hits))
-		golog.Info("updatesite:Update Updated " + strconv.Itoa(site.Updated))
+//		golog.Info("updatesite:Update Updated " + strconv.Itoa(site.Updated))
 
 		golog.Info("updatesite:Update Paragraphs " + strconv.Itoa(len(site.Paragraphs)))
 
@@ -45,7 +47,26 @@ func Update(golog syslog.Writer, tDB *db.DB, siteid map[uint64]struct{}) {
 			golog.Crit(err.Error())
 		} else {
 		
-			updatehtmlpage.UpdatePage(golog,site.Pathinfo,site.Paragraphs)
+			webpagebytes :=updatehtmlpage.UpdatePage(golog,site.Pathinfo,site.Paragraphs)
+			
+			htmlfilesplit :=strings.Split(site.Pathinfo,"/")
+			
+			locale := htmlfilesplit[1]
+			themes :=htmlfilesplit[2]
+			site :=htmlfilesplit[3]
+			
+			var pathinfo string
+			for _,path :=range htmlfilesplit[4:len(htmlfilesplit)] {
+			
+				pathinfo = pathinfo +"/"+path
+				
+			}
+			
+			golog.Info("pathinfo-->"+ pathinfo)
+			
+			createfirstgz.Creategzhtml(golog,locale,themes,site,pathinfo,webpagebytes)
+			
+			
 		}
 
 	}
