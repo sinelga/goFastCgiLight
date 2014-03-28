@@ -1,7 +1,7 @@
 package checksiteexist
 
 import (
-//	"domains"
+
 	"encoding/json"
 //	"fmt"
 	"github.com/HouzuoGuo/tiedot/db"
@@ -9,8 +9,6 @@ import (
 )
 
 func CheckDB(golog syslog.Writer, tDB *db.DB, pathinfo string) map[uint64]struct{}{
-
-//	var sitesarr []domains.Site
 
 	sites := tDB.Use("Sites")
 

@@ -44,7 +44,6 @@ func main() {
 				if i < (len(htmlfilesp) - 1) {
 					pathinfo = pathinfo + "/"
 				}
-
 			}
 
 			pushinqueue.PushInQueue(*golog, "redis", locale, themes, host, pathinfo)
