@@ -32,22 +32,7 @@ func FindFromQ(golog syslog.Writer,locale string, themes string) domains.Paragra
 	}
 
 	queuename := locale + ":" + themes
-//	newdomainsqueuename := "newdomains:" + queuename
-//	newdomainsqueuename := "newdomains"
-	
-//	var newdomain string
-//	
-//	if quan_newdomains,err := redis.Int(c.Do("SCARD", newdomainsqueuename)); err != nil {
-//		log.Fatal(err)
-//	} else {
-//		
-//		if quan_newdomains > 0{
-//		
-//			 newdomain,_ =redis.String(c.Do("SRANDMEMBER", newdomainsqueuename))
-//		
-//		}
-//	
-//	}
+
 			
 	var unmarPar domains.Paragraph
 
@@ -60,7 +45,6 @@ func FindFromQ(golog syslog.Writer,locale string, themes string) domains.Paragra
 		if quan_prs > 1 {
 
 			bparagraph, _ := redis.Bytes(c.Do("LPOP", queuename))
-
 			
 			err := json.Unmarshal(bparagraph, &unmarPar)
 			if err != nil {

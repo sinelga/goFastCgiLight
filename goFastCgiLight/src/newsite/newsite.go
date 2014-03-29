@@ -1,19 +1,25 @@
 package newsite
 
 import (
-	"fmt"
 	"github.com/HouzuoGuo/tiedot/db"
 	"log/syslog"
-//	"encoding/json"
 	"time"
 	"domains"
 	"findfreeparagraph"
+	"strings"
 )
 
 func CreateSite(golog syslog.Writer, col *db.Col, pathinfo string) {
+
+	golog.Info("CreateSite: "+pathinfo)
+	var htmlfilesplit []string
+	var locale string
+	var themes string
+
+	htmlfilesplit = strings.Split(pathinfo, "/")
+	locale = htmlfilesplit[1]
+	themes = htmlfilesplit[2]
 		
-//	sites := tDB.Use("Sites")
-	
 	nowUnix :=time.Now().Unix()
 	var nowUnixInt int
 	
@@ -21,12 +27,12 @@ func CreateSite(golog syslog.Writer, col *db.Col, pathinfo string) {
 	
 	var paragraphs []domains.Paragraph
 
-	paragraph := findfreeparagraph.FindFromQ(golog,"fi_FI","porno")
+	paragraph := findfreeparagraph.FindFromQ(golog,locale,themes)
 	
 	paragraphs = append(paragraphs,paragraph)
 	
 	
-	docID, err :=col.Insert(map[string]interface{}{
+	_, err :=col.Insert(map[string]interface{}{
 	
 		"Pathinfo": pathinfo,
 		"Created": nowUnixInt,
@@ -36,35 +42,9 @@ func CreateSite(golog syslog.Writer, col *db.Col, pathinfo string) {
 	
 	} )
 	if err != nil {
-		panic(err)
-	} else {
-	
-		fmt.Println(docID)
-	
-	}
-	
-//	sites.Close()
-	
-	
-//	queryStr := `[{"eq": "fi_FI/porno/www.test.com/index.html", "in": ["Pathinfo"]}]`
-//	queryStr := `[{"int-from": 1393734423,"int-to": 1393735206,"limit": 3,"in": ["Created"]}]`
-//	
-//	var query interface{}
-//	json.Unmarshal([]byte(queryStr), &query)
-//	
-//	queryResult := make(map[uint64]struct{})
-//	if err := db.EvalQuery(query, sites, &queryResult); err != nil {
-//		panic(err)
-//	}
-//	for id := range queryResult {
-//		fmt.Printf("Query returned document ID %d\n", id)
-//	}
-//	var readBack domains.Site
-//	for id := range queryResult {
-//		sites.Read(id, &readBack)
-//		fmt.Printf("Query returned document %v\n", readBack.Created)
-//	}
-	
-	
+		
+		golog.Crit(err.Error())
+	} 
+		
 	
 }
