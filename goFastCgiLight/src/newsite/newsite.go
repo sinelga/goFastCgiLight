@@ -10,9 +10,9 @@ import (
 	"findfreeparagraph"
 )
 
-func CreateSite(golog syslog.Writer, tDB *db.DB, pathinfo string) {
+func CreateSite(golog syslog.Writer, col *db.Col, pathinfo string) {
 		
-	sites := tDB.Use("Sites")
+//	sites := tDB.Use("Sites")
 	
 	nowUnix :=time.Now().Unix()
 	var nowUnixInt int
@@ -26,7 +26,7 @@ func CreateSite(golog syslog.Writer, tDB *db.DB, pathinfo string) {
 	paragraphs = append(paragraphs,paragraph)
 	
 	
-	docID, err :=sites.Insert(map[string]interface{}{
+	docID, err :=col.Insert(map[string]interface{}{
 	
 		"Pathinfo": pathinfo,
 		"Created": nowUnixInt,

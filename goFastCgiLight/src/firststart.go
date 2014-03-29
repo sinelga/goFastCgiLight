@@ -22,11 +22,8 @@ func main() {
 	}
 
 	rand.Seed(time.Now().UTC().UnixNano())
-	// Create and open database
 
 	dir := "tiedotDB"
-	//	os.RemoveAll(dir)
-	//	defer os.RemoveAll(dir)
 
 	myDB, err := db.OpenDB(dir)
 	if err != nil {

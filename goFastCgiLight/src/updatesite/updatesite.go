@@ -12,9 +12,9 @@ import (
 	"createfirstgz"
 )
 
-func Update(golog syslog.Writer, tDB *db.DB, siteid map[uint64]struct{}) {
+func Update(golog syslog.Writer, col *db.Col, siteid map[uint64]struct{}) {
 
-	sites := tDB.Use("Sites")
+//	sites := tDB.Use("Sites")
 	var site domains.Site
 
 	nowUnix := time.Now().Unix()
@@ -24,7 +24,7 @@ func Update(golog syslog.Writer, tDB *db.DB, siteid map[uint64]struct{}) {
 
 	for id := range siteid {
 
-		sites.Read(id, &site)
+		col.Read(id, &site)
 		golog.Info("updatesite:Update Hits " + strconv.Itoa(site.Hits))
 //		golog.Info("updatesite:Update Updated " + strconv.Itoa(site.Updated))
 
@@ -37,7 +37,7 @@ func Update(golog syslog.Writer, tDB *db.DB, siteid map[uint64]struct{}) {
 
 		freeparagraph := findfreeparagraph.FindFromQ(golog, "fi_FI", "porno")
 
-		err := sites.Update(id, map[string]interface{}{
+		err := col.Update(id, map[string]interface{}{
 			"Pathinfo":   site.Pathinfo,
 			"Created":    site.Created,
 			"Updated":    nowUnixInt,

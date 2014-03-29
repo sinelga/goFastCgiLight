@@ -17,6 +17,8 @@ import (
 const APP_VERSION = "0.1"
 
 // The flag package provides a default help printer via -h switch
+
+// serve for test
 var versionFlag *bool = flag.Bool("v", false, "Print the version number.")
 
 func main() {
@@ -41,31 +43,32 @@ func main() {
 
 	dir := "tiedotDB"
 
-	tDB, err := db.OpenDB(dir)
+	tdDB, err := db.OpenDB(dir)
 	if err != nil {
 		panic(err)
 	}
-	defer tDB.Flush()
-	defer tDB.Close()
+	defer tdDB.Flush()
+	defer tdDB.Close()
 
-	for name := range tDB.StrCol {
+	for name := range tdDB.StrCol {
 		fmt.Printf("I have a collection called %s\n", name)
 	}
-
+	col := tdDB.Use("Sites")
+	
 	pathinfo := "fi_FI/porno/www.test10.com/index.html"
 
-	idsitesarr := checksiteexist.CheckDB(*golog, tDB, pathinfo)
+	idsitesarr := checksiteexist.CheckDB(*golog, col, pathinfo)
 
 	if len(idsitesarr) == 1 {
 
 		golog.Info("sitesmaker:Update " + pathinfo)
-		updatesite.Update(*golog, tDB,idsitesarr)
+		updatesite.Update(*golog, col,idsitesarr)
 
 	} else if len(idsitesarr) == 0 {
 
 		golog.Info("sitesmaker:Createnew site "+pathinfo)
 
-		newsite.CreateSite(*golog, tDB, pathinfo)
+		newsite.CreateSite(*golog, col, pathinfo)
 
 		//		fmt.Println(len(sitesarr))
 	} else {

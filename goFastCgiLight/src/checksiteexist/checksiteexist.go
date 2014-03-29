@@ -8,9 +8,9 @@ import (
 	"log/syslog"
 )
 
-func CheckDB(golog syslog.Writer, tDB *db.DB, pathinfo string) map[uint64]struct{}{
+func CheckDB(golog syslog.Writer, col *db.Col, pathinfo string) map[uint64]struct{}{
 
-	sites := tDB.Use("Sites")
+//	sites := tDB.Use("Sites")
 
 	queryStr := `[{"eq": "` + pathinfo + `", "in": ["Pathinfo"]}]`
 //	queryStr := `[{"eq": "fi_FI/porno/www.test.com/index.html", "in": ["Pathinfo"]}]`
@@ -19,7 +19,7 @@ func CheckDB(golog syslog.Writer, tDB *db.DB, pathinfo string) map[uint64]struct
 	json.Unmarshal([]byte(queryStr), &query)
 
 	queryResult := make(map[uint64]struct{})
-	if err := db.EvalQuery(query, sites, &queryResult); err != nil {
+	if err := db.EvalQuery(query, col, &queryResult); err != nil {
 		panic(err)
 	}
 

@@ -15,41 +15,41 @@ import (
 	//	"strconv"
 	"checksiteexist"
 	"github.com/HouzuoGuo/tiedot/db"
-	"math/rand"
+//	"math/rand"
 	"newsite"
-	"time"
+//	"time"
 	"updatesite"
 )
 
-func StartCheck(golog syslog.Writer, locale string, themes string, site string, pathinfo string) {
+func StartCheck(golog syslog.Writer, col *db.Col,locale string, themes string, site string, pathinfo string) {
 
 	htmlfile := string("www/" + locale + "/" + themes + "/" + site + pathinfo)
 
 	golog.Info("htmlfileexist:StartCheck: htmlfile " + htmlfile)
 
-	rand.Seed(time.Now().UTC().UnixNano())
+//	rand.Seed(time.Now().UTC().UnixNano())
+//
+//	dir := "tiedotDB"
+//
+//	tDB, err := db.OpenDB(dir)
+//	if err != nil {
+//		panic(err)
+//	}
+//	defer tDB.Flush()
+//	defer tDB.Close()
 
-	dir := "tiedotDB"
-
-	tDB, err := db.OpenDB(dir)
-	if err != nil {
-		panic(err)
-	}
-	defer tDB.Flush()
-	defer tDB.Close()
-
-	idsitesarr := checksiteexist.CheckDB(golog, tDB, htmlfile)
+	idsitesarr := checksiteexist.CheckDB(golog, col, htmlfile)
 
 	if len(idsitesarr) == 1 {
 
 		golog.Info("sitesmaker:Update " + htmlfile)
-		updatesite.Update(golog, tDB, idsitesarr)
+		updatesite.Update(golog, col, idsitesarr)
 
 	} else if len(idsitesarr) == 0 {
 
 		golog.Info("sitesmaker:Createnew site " + htmlfile)
 
-		newsite.CreateSite(golog, tDB, htmlfile)
+		newsite.CreateSite(golog, col, htmlfile)
 
 		//		fmt.Println(len(sitesarr))
 	} else {
