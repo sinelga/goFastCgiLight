@@ -7,8 +7,8 @@ import (
 type Site struct {
 
 	Pathinfo string
-	Created  int
-	Updated  int
+	Created  int64
+	Updated  int64
 	Hits     int
 	Paragraphs []Paragraph
 }

@@ -21,9 +21,9 @@ func CreateSite(golog syslog.Writer, col *db.Col, pathinfo string) {
 	themes = htmlfilesplit[2]
 		
 	nowUnix :=time.Now().Unix()
-	var nowUnixInt int
+//	var nowUnixInt int
 	
-	nowUnixInt = int(nowUnix)
+//	nowUnixInt = int(nowUnix)
 	
 	var paragraphs []domains.Paragraph
 
@@ -35,8 +35,8 @@ func CreateSite(golog syslog.Writer, col *db.Col, pathinfo string) {
 	_, err :=col.Insert(map[string]interface{}{
 	
 		"Pathinfo": pathinfo,
-		"Created": nowUnixInt,
-		"Updated": nowUnixInt,
+		"Created": nowUnix,
+		"Updated": nowUnix,
 		"Hits": 0,
 		"Paragraphs": paragraphs,	
 	

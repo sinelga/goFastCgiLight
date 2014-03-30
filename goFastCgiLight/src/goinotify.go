@@ -28,7 +28,7 @@ func main() {
 
 		if *eventflag == "CLOSE_NOWRITE,CLOSE" {
 			
-			golog.Info("goinotify: CLOSE--> "+htmlfileflag)
+			golog.Info("goinotify: CLOSE_NOWRITE,CLOSE--> "+htmlfileflag)
 			
 			htmlfilesp := strings.Split(htmlfileflag, "/")
 			locale := htmlfilesp[1]

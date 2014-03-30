@@ -17,8 +17,8 @@ func Update(golog syslog.Writer, col *db.Col, siteid map[uint64]struct{}) {
 	var site domains.Site
 
 	nowUnix := time.Now().Unix()
-	var nowUnixInt int
-	nowUnixInt = int(nowUnix)
+//	var nowUnixInt int
+//	nowUnixInt = int(nowUnix)
 	var htmlfilesplit []string
 	var locale string
 	var themes string
@@ -27,7 +27,6 @@ func Update(golog syslog.Writer, col *db.Col, siteid map[uint64]struct{}) {
 
 		col.Read(id, &site)
 		golog.Info("updatesite:Update Hits " + strconv.Itoa(site.Hits))
-
 		golog.Info("updatesite:Update Paragraphs " + strconv.Itoa(len(site.Paragraphs)))
 
 		for _, sent := range site.Paragraphs {
@@ -48,7 +47,7 @@ func Update(golog syslog.Writer, col *db.Col, siteid map[uint64]struct{}) {
 		err := col.Update(id, map[string]interface{}{
 			"Pathinfo":   site.Pathinfo,
 			"Created":    site.Created,
-			"Updated":    nowUnixInt,
+			"Updated":    nowUnix,
 			"Hits":       site.Hits + 1,
 //			"Paragraphs": append(site.Paragraphs, freeparagraph)})
 			"Paragraphs": updatedparagraphs,

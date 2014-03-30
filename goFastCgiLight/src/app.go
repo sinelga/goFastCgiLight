@@ -1,13 +1,13 @@
-package main 
+package main
 
 import (
-"net"
+	"bthandler"
+	"jswebserv"
+	"log"
+	"log/syslog"
+	"net"
 	"net/http"
 	"net/http/fcgi"
-		"log"
-	"log/syslog"
-	"bthandler"
-
 )
 
 type FastCGIServer struct{}
@@ -26,23 +26,18 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	site := req.Header.Get("X-DOMAIN")
 	pathinfo := req.Header.Get("X-PATHINFO")
 	bot := req.Header.Get("X-BOT")
-//	rootdir :=req.Header.Get("X-ROOTDIR")
-	golog.Info("REQUEST")
+	rootdir := req.Header.Get("X-ROOTDIR")
+	//	golog.Info("REQUEST")
 
 	if bot == "1" {
-		
-//		checkfirstpage(*golog, resp, req, locale, themes, host, pathinfo)
+
 		bthandler.BTrequestHandler(*golog, resp, req, locale, themes, site, pathinfo)
+	} else if bot == "0" {
+
+		jswebserv.JsServ(*golog, resp, req, rootdir, site)
 	}
-//	
-//	 else if bot == "0" {
-//
-//		jswebserv.JsServ(*golog, resp, req,rootdir,host)
-//	}
 
 }
-
-
 
 func main() {
 
@@ -54,4 +49,3 @@ func main() {
 	fcgi.Serve(listener, srv)
 
 }
-
