@@ -49,7 +49,7 @@ func startCleanup(golog syslog.Writer, hours int) {
 	tdDB, err := db.OpenDB(dir)
 
 	defer tdDB.Close()
-	defer tdDB.Scrub("Sites")
+//	defer tdDB.Scrub("Sites")
 	if err != nil {
 		panic(err)
 	}
