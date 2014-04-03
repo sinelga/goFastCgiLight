@@ -13,8 +13,6 @@ func BTrequestHandler(golog syslog.Writer, resp http.ResponseWriter, req *http.R
 
 	pathinfoclean := clean_pathinfo.CleanPath(golog, pathinfo)
 
-	//htmlfile := string("www/" + locale + "/" + themes + "/" + site + pathinfoclean)
-
 	var bytepage []byte
 	if strings.HasSuffix(pathinfoclean, ".html") || strings.HasSuffix(pathinfoclean, ".php") || strings.HasSuffix(pathinfoclean, ".jsp") {
 

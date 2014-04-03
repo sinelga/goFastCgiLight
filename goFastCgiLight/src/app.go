@@ -27,7 +27,6 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	pathinfo := req.Header.Get("X-PATHINFO")
 	bot := req.Header.Get("X-BOT")
 	rootdir := req.Header.Get("X-ROOTDIR")
-	//	golog.Info("REQUEST")
 
 	if bot == "1" {
 

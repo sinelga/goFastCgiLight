@@ -24,7 +24,7 @@ func Creategzhtml(golog syslog.Writer, locale string, themes string, site string
 
 	pathstr := path.Dir(_htmlfile)
 	
-	golog.Info("pathstr "+pathstr) 
+//	golog.Info("pathstr "+pathstr) 
 
 	if _, err := os.Stat(pathstr); err != nil {
 
