@@ -16,7 +16,7 @@ func LookUp(golog syslog.Writer, col *db.Col, path string) {
 
 	} else if len(idsitesarr) == 0 {
 
-		golog.Info(path + " NOT in db")
+//		golog.Info(path + " NOT in db")
 
 	}
 
