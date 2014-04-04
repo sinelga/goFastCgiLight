@@ -1,22 +1,21 @@
 package main
 
 import (
+	"encoding/csv"
 	"flag"
-	"fmt"
+	//	"fmt"
 	"github.com/HouzuoGuo/tiedot/db"
+	"io"
 	"log"
 	"log/syslog"
 	"math/rand"
 	"orphance"
 	"os"
 	"path/filepath"
+	"strconv"
 	"time"
 )
 
-const APP_VERSION = "0.1"
-
-// The flag package provides a default help printer via -h switch
-var versionFlag *bool = flag.Bool("v", false, "Print the version number.")
 var hoursFlag *int = flag.Int("hours", 0, "Hours was not visited")
 
 func main() {
@@ -28,14 +27,115 @@ func main() {
 
 	}
 
-	flag.Parse() // Scan the arguments list
-	//	int64_0 := int64(0)
+	flag.Parse()
+	var hoursFlagint int
 
 	if *hoursFlag > 0 {
 
-		startCleanup(*golog, *hoursFlag)
+		hoursFlagint = *hoursFlag
+
+	} else {
+
+		oldfile := false
+
+		if _, err := os.Stat("cleanupspace.csv"); err != nil {
+			if os.IsNotExist(err) {
+
+				golog.Info("cleanupspace.csv dont exist create default")
+				csvFile, err := os.Create("cleanupspace.csv")
+				defer csvFile.Close()
+				if err != nil {
+
+					golog.Crit("cleanupspace: " + err.Error())
+				}
+				writer := csv.NewWriter(csvFile)
+
+				csvstring := []string{"800"}
+
+				err = writer.Write(csvstring)
+				if err != nil {
+
+					golog.Crit("cleanupspace: " + err.Error())
+				}
+				writer.Flush()
+				csvFile.Close()
+
+			}
+		}
+		finfo, err := os.Stat("cleanupspace.csv")
+		if err != nil {
+			// TODO: handle errors (e.g. file not found)
+			golog.Crit("cleanupspace: " + err.Error())
+		}
+
+		lasmod := finfo.ModTime().Unix()
+
+		if (time.Now().Unix() - lasmod) > 84400 {
+
+			golog.Info("old don't change createdflagint in cleanupspace.csv")
+			oldfile = true
+		} else {
+
+			golog.Info("resently updated (less 1 day)  cleanupspace.csv modify !!")
+		}
+
+		csvFile, err := os.Open("cleanupspace.csv")
+		defer csvFile.Close()
+		if err != nil {
+
+			golog.Crit("cleanupspace: " + err.Error())
+		}
+		csvReader := csv.NewReader(csvFile)
+
+		var hours int
+		for {
+			fields, err := csvReader.Read()
+			if err == io.EOF {
+				break
+			} else if err != nil {
+				golog.Crit(err.Error())
+			}
+
+			hours, err = strconv.Atoi(fields[0])
+			if err != nil {
+
+				golog.Crit("cleanupspace: " + err.Error())
+			}
+			golog.Info("cleanup: hours from file: " + fields[0])
+
+		}
+
+		if !oldfile && (hours > 9) {
+
+			csvFile, err = os.Create("cleanupspace.csv")
+			defer csvFile.Close()
+			if err != nil {
+
+				golog.Crit("cleanupspace: " + err.Error())
+			}
+
+			hours = hours - 5
+
+			writer := csv.NewWriter(csvFile)
+
+			csvstring := []string{strconv.Itoa(hours)}
+
+			err = writer.Write(csvstring)
+			if err != nil {
+
+				golog.Crit("cleanupspace: " + err.Error())
+			}
+			writer.Flush()
+			csvFile.Close()
+
+		}
+		hoursFlagint = hours
 
 	}
+
+	golog.Info("cleanup: so final hours " + strconv.Itoa(hoursFlagint))
+
+	startCleanup(*golog, hoursFlagint)
 
 }
 
@@ -49,25 +149,20 @@ func startCleanup(golog syslog.Writer, hours int) {
 	tdDB, err := db.OpenDB(dir)
 
 	defer tdDB.Close()
-//	defer tdDB.Scrub("Sites")
+
 	if err != nil {
 		panic(err)
-		
+
 	}
 
 	col := tdDB.Use("Sites")
 
 	var numScanned = 0
-	if *versionFlag {
-		fmt.Println("Version:", APP_VERSION)
-	}
 
 	var scan = func(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 		numScanned++
 
 		if !fileInfo.IsDir() {
-
-//						fmt.Println(path, time.Since( fileInfo.ModTime()).Hours())
 
 			if hoursint64 < time.Since(fileInfo.ModTime()).Hours() {
 
@@ -84,6 +179,6 @@ func startCleanup(golog syslog.Writer, hours int) {
 		golog.Err(err.Error())
 	}
 
-	fmt.Println("Total scanned", numScanned)
+	golog.Info("cleanup:Total files scanned " + strconv.Itoa(numScanned))
 
 }

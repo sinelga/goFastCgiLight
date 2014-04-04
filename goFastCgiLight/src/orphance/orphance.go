@@ -4,6 +4,7 @@ import (
 	"checksiteexist"
 	"github.com/HouzuoGuo/tiedot/db"
 	"log/syslog"
+	"os"
 )
 
 func LookUp(golog syslog.Writer, col *db.Col, path string) {
@@ -12,12 +13,24 @@ func LookUp(golog syslog.Writer, col *db.Col, path string) {
 
 	if len(idsitesarr) == 1 {
 
-		golog.Info(path + " exist in db")
+		golog.Info("orphance:LookUp "+path  + " exist in db")
 
-	} else if len(idsitesarr) == 0 {
+		for id := range idsitesarr {
 
-//		golog.Info(path + " NOT in db")
+			col.Delete(id)
+
+		}
+
+	} else if len(idsitesarr) > 1 {
+		golog.Err("orphance:LookUp !!!Someting wrong double record? "+path)
 
 	}
+	
+	if err := os.Remove(path); err != nil {
+		
+		golog.Err(err.Error())
+	
+	}
+	
 
 }
