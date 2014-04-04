@@ -20,7 +20,6 @@ func main() {
 	defer golog.Close()
 	if err != nil {
 		log.Fatal("error writing syslog!!")
-
 	}
 
 	c, err := redis.Dial("tcp", ":6379")
