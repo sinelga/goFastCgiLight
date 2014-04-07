@@ -12,8 +12,6 @@ import (
 	"p_create_locallink"
 	"prtitlegen"
 	"queue/freeparagraphs"
-	//	"selectmarkfile"
-	//	"time"
 	"bytes"
 	"fmt"
 	"strings"
@@ -118,12 +116,12 @@ func CreatePr(golog syslog.Writer, locale string, themes string, keywords []stri
 		prphrase := comutils.UpcaseInitial(phrases[rand.Intn(len(phrases))]) + "."
 		host := hosts[rand.Intn(len(hosts))]
 		locallink := p_create_locallink.CreateLink(keywords)
-		fmt.Println("-------------")
-		fmt.Println(comutils.UpcaseInitial(prtitle[0]) + " " + prtitle[1])
-		fmt.Println(prphrase)
-		fmt.Println(host)
-		fmt.Println(locallink)
-		fmt.Println("-------------")
+//		fmt.Println("-------------")
+//		fmt.Println(comutils.UpcaseInitial(prtitle[0]) + " " + prtitle[1])
+//		fmt.Println(prphrase)
+//		fmt.Println(host)
+//		fmt.Println(locallink)
+//		fmt.Println("-------------")
 
 		var finalsentencesarr []string
 		text := c.Generate(numWords, prtitle[0]) // Generate text.
@@ -146,11 +144,11 @@ func CreatePr(golog syslog.Writer, locale string, themes string, keywords []stri
 
 		}
 
-		for _, fsentence := range finalsentencesarr {
-
-			fmt.Println(fsentence)
-
-		}
+//		for _, fsentence := range finalsentencesarr {
+//
+//			fmt.Println(fsentence)
+//
+//		}
 
 		paragraph := domains.Paragraph{
 
