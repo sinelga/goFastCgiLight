@@ -2,12 +2,7 @@ package getphrasesfromdb
 
 import (
 	_ "code.google.com/p/go-sqlite/go1/sqlite3"
-	//	"comutils"
 	"database/sql"
-	//	"domains"
-	//	"insertsentences"
-	//	"io/ioutil"
-	//	"log"
 	"log/syslog"
 )
 

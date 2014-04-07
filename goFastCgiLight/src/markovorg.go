@@ -17,6 +17,7 @@ import (
 	"paragraphs/getphrasesfromdb"
 	"strings"
 	"time"
+	"comutils"
 )
 
 // Prefix is a Markov chain prefix of one or more words.
@@ -87,7 +88,7 @@ func (c *Chain) Generate(n int, keyword string) string {
 		}
 		next := choices[rand.Intn(len(choices))]
 		if i == 0 {
-			words = append(words, keyword)
+			words = append(words, comutils.UpcaseInitial(keyword))
 		} else {
 
 			words = append(words, next)
@@ -107,7 +108,7 @@ func main() {
 
 	}
 
-	numWords := 25
+	numWords := 250
 	prefixLen := 1
 
 	rand.Seed(time.Now().UnixNano()) // Seed the random number generator.
@@ -121,9 +122,22 @@ func main() {
 
 	var buffer bytes.Buffer
 
+	var sentence string
+
 	for _, phrase := range getphrasesfromdb.GetAll(*golog, db, "fi_FI", "porno") {
 
-		buffer.WriteString(phrase + " ")
+		sentence = sentence + phrase + " "
+
+		if len(sentence) > 80 {
+			
+			sentence = sentence + phrase + ". "	
+			buffer.WriteString(comutils.UpcaseInitial(sentence))
+			sentence = ""
+
+		} else {
+		
+			sentence = sentence + phrase + " "
+		}
 
 	}
 
