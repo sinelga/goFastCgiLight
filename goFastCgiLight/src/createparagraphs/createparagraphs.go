@@ -5,7 +5,7 @@ import (
 	"comutils"
 	//	"cleansentence"
 	"domains"
-	"log"
+//	"log"
 	"log/syslog"
 	//	ml "marklib"
 	"math/rand"
@@ -81,10 +81,9 @@ func (c *Chain) Generate(n int, keyword string) string {
 
 func CreatePr(golog syslog.Writer, locale string, themes string, keywords []string, phrases []string, hosts []string, quant int) {
 
-	log.Println("start CreatePr")
 	golog.Info("createparagraphs:CreatePr: Start")
 
-	numWords := 250
+	numWords := 750
 	prefixLen := 1
 
 	rand.Seed(time.Now().UnixNano()) // Seed the random number generator.
