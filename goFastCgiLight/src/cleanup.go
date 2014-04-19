@@ -158,7 +158,7 @@ func startCleanup(golog syslog.Writer, hours int) {
 	col := tdDB.Use("Sites")
 
 	var numScanned = 0
-	var i64size int64 = 5000
+	var i64size int64 = 10000
 
 	var scan = func(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 		numScanned++
