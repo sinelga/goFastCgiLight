@@ -64,14 +64,12 @@ func main() {
 		}
 		finfo, err := os.Stat("cleanupspace.csv")
 		if err != nil {
-			// TODO: handle errors (e.g. file not found)
 			golog.Crit("cleanupspace: " + err.Error())
 		}
 
 		lasmod := finfo.ModTime().Unix()
 
 		if (time.Now().Unix() - lasmod) > 84400 {
-
 			golog.Info("old don't change createdflagint in cleanupspace.csv")
 			oldfile = true
 		} else {
