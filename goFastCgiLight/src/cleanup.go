@@ -173,7 +173,6 @@ func startCleanup(golog syslog.Writer, hours int) {
 					orphance.LookUp(golog, col, path)
 				}
 			}
-
 		}
 		return
 	}
