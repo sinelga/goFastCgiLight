@@ -158,17 +158,22 @@ func startCleanup(golog syslog.Writer, hours int) {
 	col := tdDB.Use("Sites")
 
 	var numScanned = 0
+	var i64size int64 = 5000
 
 	var scan = func(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 		numScanned++
 
 		if !fileInfo.IsDir() {
-						
-			if hoursint64 < time.Since(fileInfo.ModTime()).Hours() {
+
+			if fileInfo.Size() > i64size {
 
 				filessize := strconv.FormatInt(fileInfo.Size(), 10)
-				golog.Info("filessize "+path+" "+filessize )
-				
+				golog.Info("filessize " + path + " " + filessize)
+
+			}
+
+			if hoursint64 < time.Since(fileInfo.ModTime()).Hours() {
+
 				orphance.LookUp(golog, col, path)
 			}
 

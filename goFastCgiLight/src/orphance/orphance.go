@@ -13,7 +13,7 @@ func LookUp(golog syslog.Writer, col *db.Col, path string) {
 
 	if len(idsitesarr) == 1 {
 
-		golog.Info("orphance:LookUp "+path  + " exist in db")
+//		golog.Info("orphance:LookUp "+path  + " exist in db")
 
 		for id := range idsitesarr {
 
