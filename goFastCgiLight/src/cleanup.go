@@ -163,9 +163,12 @@ func startCleanup(golog syslog.Writer, hours int) {
 		numScanned++
 
 		if !fileInfo.IsDir() {
-
+						
 			if hoursint64 < time.Since(fileInfo.ModTime()).Hours() {
 
+				filessize := strconv.FormatInt(fileInfo.Size(), 10)
+				golog.Info("filessize "+path+" "+filessize )
+				
 				orphance.LookUp(golog, col, path)
 			}
 
