@@ -165,23 +165,30 @@ func startCleanup(golog syslog.Writer, hours int) {
 		if !fileInfo.IsDir() {
 			filessize := strconv.FormatInt(fileInfo.Size(), 10)
 
-			if hoursint64 < time.Since(fileInfo.ModTime()).Hours() {
+			if fileInfo.Size() < i64sizesmall {
+				golog.Info("Small < 10000 filessize delete " + path + " " + filessize)
+				orphance.LookUp(golog, col, path)
 
-				if fileInfo.Size() < i64sizesmall {
-				
-					golog.Info("Small < 10000 filessize delete " + path + " " + filessize)
-					orphance.LookUp(golog, col, path)
+			} else {
 
-				} else {
+				if hoursint64 < time.Since(fileInfo.ModTime()).Hours() {
+
+					//				if fileInfo.Size() < i64sizesmall {
+					//
+					//					golog.Info("Small < 10000 filessize delete " + path + " " + filessize)
+					//					orphance.LookUp(golog, col, path)
+					//
+					//				} else {
 
 					if fileInfo.Size() > i64size {
-//						filessize := strconv.FormatInt(fileInfo.Size(), 10)
+						//						filessize := strconv.FormatInt(fileInfo.Size(), 10)
 						golog.Info("Keep becuse of filessize " + path + " " + filessize)
 
 					} else {
 						orphance.LookUp(golog, col, path)
 					}
 
+					//				}
 				}
 			}
 		}
