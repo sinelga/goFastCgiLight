@@ -24,7 +24,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	err = watcher.Watch("www")
+	err = watcher.Watch("/home/juno/git/goFastCgiLight/goFastCgiLight/www")
 	if err != nil {
 		log.Fatal(err)
 	}
