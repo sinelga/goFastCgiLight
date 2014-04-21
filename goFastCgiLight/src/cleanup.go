@@ -166,7 +166,7 @@ func startCleanup(golog syslog.Writer, hours int) {
 			filessize := strconv.FormatInt(fileInfo.Size(), 10)
 
 			if fileInfo.Size() < i64sizesmall {
-				golog.Info("Small < 10000 filessize delete " + path + " " + filessize)
+				golog.Info("Small < 1000 filessize delete " + path + " " + filessize)
 				orphance.LookUp(golog, col, path)
 
 			} else {
