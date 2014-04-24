@@ -9,9 +9,8 @@ import (
 	"time"
 )
 
-const APP_VERSION = "0.1"
+const APP_VERSION = "0.2"
 
-// The flag package provides a default help printer via -h switch
 var versionFlag *bool = flag.Bool("v", false, "Print the version number.")
 
 func main() {
