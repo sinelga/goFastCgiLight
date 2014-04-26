@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"inotify"
 	"log"
+	"log/syslog"
+	"os"
+	"path/filepath"
 )
 
 const APP_VERSION = "0.1"
@@ -13,6 +16,13 @@ const APP_VERSION = "0.1"
 var versionFlag *bool = flag.Bool("v", false, "Print the version number.")
 
 func main() {
+	golog, err := syslog.New(syslog.LOG_ERR, "golog")
+
+	defer golog.Close()
+	if err != nil {
+		log.Fatal("error writing syslog!!")
+
+	}
 	flag.Parse() // Scan the arguments list
 
 	if *versionFlag {
@@ -28,6 +38,13 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	err = filepath.Walk("www", scan)
+	if err != nil {
+
+		golog.Err(err.Error())
+	}
+
 	for {
 		select {
 		case ev := <-watcher.Event:
@@ -36,4 +53,16 @@ func main() {
 			log.Println("error:", err)
 		}
 	}
+}
+
+func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
+
+	if fileInfo.IsDir() {
+	
+		fmt.Println("dir ",fileInfo.Name())
+	
+	
+	}
+
+	return
 }
