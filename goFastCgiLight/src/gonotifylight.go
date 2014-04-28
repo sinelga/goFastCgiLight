@@ -56,7 +56,7 @@ func main() {
 //			log.Println("event:", ev.String(), ev.Mask)
 
 			if ev.Mask == 1073742080 {
-				fmt.Println("Create dir ", ev.Name)
+//				fmt.Println("Create dir ", ev.Name)
 				//				watcher.AddWatch(ev.Name,inotify.IN_CREATE|inotify.IN_ISDIR|inotify.IN_CLOSE_NOWRITE|inotify.IN_DELETE)
 				watcher.AddWatch(ev.Name, inotify.IN_ALL_EVENTS)
 				err = filepath.Walk(ev.Name, scan)
@@ -116,7 +116,7 @@ func pushHit(golog syslog.Writer, path string) {
 	
 	fmt.Println("pushtoQueueArr len ",len(pushtoQueueArr))
 	
-	if  len(pushtoQueueArr) > 10 {
+	if  len(pushtoQueueArr) > 100 {
 	
 		pipelingpush.PushInQueue(golog, "redis",pushtoQueueArr)
 		pushtoQueueArr = pushtoQueueArr[:0]
