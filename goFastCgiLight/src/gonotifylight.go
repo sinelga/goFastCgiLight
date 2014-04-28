@@ -8,8 +8,9 @@ import (
 	"log/syslog"
 	"os"
 	"path/filepath"
-	"pushinqueue"
+//	"pushinqueue"
 	"strings"
+	"pipelingpush"
 )
 
 const APP_VERSION = "0.1"
@@ -17,6 +18,7 @@ const APP_VERSION = "0.1"
 // The flag package provides a default help printer via -h switch
 var versionFlag *bool = flag.Bool("v", false, "Print the version number.")
 var watcher *inotify.Watcher
+var pushtoQueueArr [][]string
 
 func main() {
 	golog, err := syslog.New(syslog.LOG_ERR, "golog")
@@ -85,8 +87,6 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 
 		//			watcher.AddWatch(path,inotify.IN_CREATE| inotify.IN_ISDIR|inotify.IN_CLOSE_NOWRITE|inotify.IN_DELETE)
 		watcher.AddWatch(path, inotify.IN_ALL_EVENTS)
-
-
 	}
 
 	return
@@ -109,7 +109,24 @@ func pushHit(golog syslog.Writer, path string) {
 			pathinfo = pathinfo + "/"
 		}
 	}
-	fmt.Println(locale, themes, host, pathinfo)
-	pushinqueue.PushInQueue(golog, "redis", locale, themes, host, pathinfo)
+	
+	arr :=[]string{locale,themes,host,pathinfo}
+	
+	pushtoQueueArr =append(pushtoQueueArr,arr)
+	
+	fmt.Println("pushtoQueueArr len ",len(pushtoQueueArr))
+	
+	if  len(pushtoQueueArr) > 10 {
+	
+		pipelingpush.PushInQueue(golog, "redis",pushtoQueueArr)
+		pushtoQueueArr = pushtoQueueArr[:0]
+		
+		fmt.Println("pushtoQueueArr len aftert purge ",len(pushtoQueueArr))
+		
+	}
+	
+	
+//	fmt.Println(locale, themes, host, pathinfo)
+//	pushinqueue.PushInQueue(golog, "redis", locale, themes, host, pathinfo)
 
 }
