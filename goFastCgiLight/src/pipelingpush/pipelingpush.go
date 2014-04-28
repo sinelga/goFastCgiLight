@@ -33,12 +33,17 @@ func PushInQueue(golog syslog.Writer, queuesys string, pushtoQueueArr [][]string
 			os.Exit(1)
 		} else {
 
+			_,err := c.Do("MULTI")
+			if err != nil {
+				golog.Err("PushInQueue: " + err.Error())
+			}
+
 			for _, hit := range sitejsonarr {
 
 				c.Send("SADD", "pagetocreate", hit)
 
 			}
-			_, err := c.Do("EXEC")
+			_, err = c.Do("EXEC")
 			if err != nil {
 				golog.Err("PushInQueue: " + err.Error())
 			}

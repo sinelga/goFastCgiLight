@@ -116,7 +116,7 @@ func pushHit(golog syslog.Writer, path string) {
 	
 	fmt.Println("pushtoQueueArr len ",len(pushtoQueueArr))
 	
-	if  len(pushtoQueueArr) > 100 {
+	if  len(pushtoQueueArr) > 199 {
 	
 		pipelingpush.PushInQueue(golog, "redis",pushtoQueueArr)
 		pushtoQueueArr = pushtoQueueArr[:0]
