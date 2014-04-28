@@ -51,7 +51,7 @@ func main() {
 	for {
 		select {
 		case ev := <-watcher.Event:
-			log.Println("event:", ev.String(), ev.Mask)
+//			log.Println("event:", ev.String(), ev.Mask)
 
 			if ev.Mask == 1073742080 {
 				fmt.Println("Create dir ", ev.Name)
@@ -83,12 +83,9 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 
 	if fileInfo.IsDir() {
 
-		//		if fileInfo.Name() != "www" {
-
 		//			watcher.AddWatch(path,inotify.IN_CREATE| inotify.IN_ISDIR|inotify.IN_CLOSE_NOWRITE|inotify.IN_DELETE)
 		watcher.AddWatch(path, inotify.IN_ALL_EVENTS)
 
-		//		}
 
 	}
 
