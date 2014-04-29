@@ -8,9 +8,9 @@ import (
 	"log/syslog"
 	"os"
 	"path/filepath"
-//	"pushinqueue"
-	"strings"
+	//	"pushinqueue"
 	"pipelingpush"
+	"strings"
 )
 
 const APP_VERSION = "0.1"
@@ -53,12 +53,13 @@ func main() {
 	for {
 		select {
 		case ev := <-watcher.Event:
-//			log.Println("event:", ev.String(), ev.Mask)
+			//			log.Println("event:", ev.String(), ev.Mask)
 
-			if ev.Mask == 1073742080 {
-//				fmt.Println("Create dir ", ev.Name)
-				//				watcher.AddWatch(ev.Name,inotify.IN_CREATE|inotify.IN_ISDIR|inotify.IN_CLOSE_NOWRITE|inotify.IN_DELETE)
-				watcher.AddWatch(ev.Name, inotify.IN_ALL_EVENTS)
+			//			if ev.Mask == 1073742080 {
+			if ev.Mask == inotify.IN_CREATE|inotify.IN_ISDIR {
+				//				fmt.Println("Create dir ", ev.Name)
+				watcher.AddWatch(ev.Name, inotify.IN_CREATE|inotify.IN_ISDIR|inotify.IN_CLOSE_NOWRITE|inotify.IN_DELETE)
+				//				watcher.AddWatch(ev.Name, inotify.IN_ALL_EVENTS)
 				err = filepath.Walk(ev.Name, scan)
 				if err != nil {
 
@@ -66,11 +67,12 @@ func main() {
 				}
 
 			}
-			if ev.Mask == 16 {
+			//			if ev.Mask == 16 {
+			if ev.Mask == inotify.IN_CLOSE_NOWRITE {
 				fmt.Println("Hit on ", ev.Name)
 				pushHit(*golog, ev.Name)
 			}
-			if ev.Mask == 1073742336 {
+			if ev.Mask == inotify.IN_DELETE|inotify.IN_ISDIR {
 				fmt.Println("delete dir ", ev.Name)
 				watcher.RemoveWatch(ev.Name)
 			}
@@ -85,8 +87,8 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 
 	if fileInfo.IsDir() {
 
-		//			watcher.AddWatch(path,inotify.IN_CREATE| inotify.IN_ISDIR|inotify.IN_CLOSE_NOWRITE|inotify.IN_DELETE)
-		watcher.AddWatch(path, inotify.IN_ALL_EVENTS)
+		watcher.AddWatch(path, inotify.IN_CREATE|inotify.IN_ISDIR|inotify.IN_CLOSE_NOWRITE|inotify.IN_DELETE)
+		//		watcher.AddWatch(path, inotify.IN_ALL_EVENTS)
 	}
 
 	return
@@ -109,24 +111,20 @@ func pushHit(golog syslog.Writer, path string) {
 			pathinfo = pathinfo + "/"
 		}
 	}
-	
-	arr :=[]string{locale,themes,host,pathinfo}
-	
-	pushtoQueueArr =append(pushtoQueueArr,arr)
-	
-	fmt.Println("pushtoQueueArr len ",len(pushtoQueueArr))
-	
-	if  len(pushtoQueueArr) > 199 {
-	
-		pipelingpush.PushInQueue(golog, "redis",pushtoQueueArr)
+
+	arr := []string{locale, themes, host, pathinfo}
+
+	pushtoQueueArr = append(pushtoQueueArr, arr)
+
+	fmt.Println("pushtoQueueArr len ", len(pushtoQueueArr))
+
+	if len(pushtoQueueArr) > 199 {
+
+		pipelingpush.PushInQueue(golog, "redis", pushtoQueueArr)
 		pushtoQueueArr = pushtoQueueArr[:0]
-		
-		fmt.Println("pushtoQueueArr len aftert purge ",len(pushtoQueueArr))
-		
+
+		fmt.Println("pushtoQueueArr len aftert purge ", len(pushtoQueueArr))
+
 	}
-	
-	
-//	fmt.Println(locale, themes, host, pathinfo)
-//	pushinqueue.PushInQueue(golog, "redis", locale, themes, host, pathinfo)
 
 }
