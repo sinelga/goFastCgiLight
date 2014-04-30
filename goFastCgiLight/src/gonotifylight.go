@@ -55,11 +55,10 @@ func main() {
 		case ev := <-watcher.Event:
 			//			log.Println("event:", ev.String(), ev.Mask)
 
-			//			if ev.Mask == 1073742080 {
 			if ev.Mask == inotify.IN_CREATE|inotify.IN_ISDIR {
 				//				fmt.Println("Create dir ", ev.Name)
 				watcher.AddWatch(ev.Name, inotify.IN_CREATE|inotify.IN_ISDIR|inotify.IN_CLOSE_NOWRITE|inotify.IN_DELETE)
-				//				watcher.AddWatch(ev.Name, inotify.IN_ALL_EVENTS)
+		
 				err = filepath.Walk(ev.Name, scan)
 				if err != nil {
 
@@ -67,7 +66,7 @@ func main() {
 				}
 
 			}
-			//			if ev.Mask == 16 {
+			
 			if ev.Mask == inotify.IN_CLOSE_NOWRITE {
 				fmt.Println("Hit on ", ev.Name)
 				pushHit(*golog, ev.Name)
@@ -78,7 +77,7 @@ func main() {
 			}
 
 		case err := <-watcher.Error:
-			log.Println("error:", err)
+			log.Println("gonotifylight !!! error:", err)
 		}
 	}
 }
@@ -88,7 +87,7 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 	if fileInfo.IsDir() {
 
 		watcher.AddWatch(path, inotify.IN_CREATE|inotify.IN_ISDIR|inotify.IN_CLOSE_NOWRITE|inotify.IN_DELETE)
-		//		watcher.AddWatch(path, inotify.IN_ALL_EVENTS)
+		
 	}
 
 	return
@@ -97,26 +96,32 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 func pushHit(golog syslog.Writer, path string) {
 
 	htmlfilesp := strings.Split(path, "/")
-	locale := htmlfilesp[1]
-	themes := htmlfilesp[2]
-	host := htmlfilesp[3]
+	if len(htmlfilesp) > 2 {
+		locale := htmlfilesp[1]
+		themes := htmlfilesp[2]
+		host := htmlfilesp[3]
 
-	var pathinfo string = "/"
+		var pathinfo string = "/"
 
-	for i := 4; i < len(htmlfilesp); i++ {
+		for i := 4; i < len(htmlfilesp); i++ {
 
-		pathinfo = pathinfo + htmlfilesp[i]
+			pathinfo = pathinfo + htmlfilesp[i]
 
-		if i < (len(htmlfilesp) - 1) {
-			pathinfo = pathinfo + "/"
+			if i < (len(htmlfilesp) - 1) {
+				pathinfo = pathinfo + "/"
+			}
 		}
+
+		arr := []string{locale, themes, host, pathinfo}
+
+		pushtoQueueArr = append(pushtoQueueArr, arr)
+
+		fmt.Println("pushtoQueueArr len ", len(pushtoQueueArr))
+
+	} else {
+	
+		golog.Err("gonotifylight check !!! "+path)
 	}
-
-	arr := []string{locale, themes, host, pathinfo}
-
-	pushtoQueueArr = append(pushtoQueueArr, arr)
-
-	fmt.Println("pushtoQueueArr len ", len(pushtoQueueArr))
 
 	if len(pushtoQueueArr) > 199 {
 
