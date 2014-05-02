@@ -150,7 +150,6 @@ func startCleanup(golog syslog.Writer, hours int) {
 
 	if err != nil {
 		panic(err)
-
 	}
 
 	col := tdDB.Use("Sites")
@@ -173,22 +172,15 @@ func startCleanup(golog syslog.Writer, hours int) {
 
 				if hoursint64 < time.Since(fileInfo.ModTime()).Hours() {
 
-					//				if fileInfo.Size() < i64sizesmall {
-					//
-					//					golog.Info("Small < 10000 filessize delete " + path + " " + filessize)
-					//					orphance.LookUp(golog, col, path)
-					//
-					//				} else {
-
 					if fileInfo.Size() < i64size {
-						//						filessize := strconv.FormatInt(fileInfo.Size(), 10)
-//						golog.Info("Keep becuse of filessize " + path + " " + filessize)
 
-//					} else {
 						orphance.LookUp(golog, col, path)
+					} else {
+					
+						golog.Info("Not visited but BIG size "+filessize)
+					
 					}
 
-					//				}
 				}
 			}
 		}

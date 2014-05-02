@@ -58,7 +58,7 @@ func main() {
 			if ev.Mask == inotify.IN_CREATE|inotify.IN_ISDIR {
 				//				fmt.Println("Create dir ", ev.Name)
 				watcher.AddWatch(ev.Name, inotify.IN_CREATE|inotify.IN_ISDIR|inotify.IN_CLOSE_NOWRITE|inotify.IN_DELETE)
-		
+
 				err = filepath.Walk(ev.Name, scan)
 				if err != nil {
 
@@ -66,7 +66,7 @@ func main() {
 				}
 
 			}
-			
+
 			if ev.Mask == inotify.IN_CLOSE_NOWRITE {
 				fmt.Println("Hit on ", ev.Name)
 				pushHit(*golog, ev.Name)
@@ -87,7 +87,7 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 	if fileInfo.IsDir() {
 
 		watcher.AddWatch(path, inotify.IN_CREATE|inotify.IN_ISDIR|inotify.IN_CLOSE_NOWRITE|inotify.IN_DELETE)
-		
+
 	}
 
 	return
@@ -119,8 +119,8 @@ func pushHit(golog syslog.Writer, path string) {
 		fmt.Println("pushtoQueueArr len ", len(pushtoQueueArr))
 
 	} else {
-	
-		golog.Err("gonotifylight check !!! "+path)
+
+		golog.Err("gonotifylight check !!! " + path)
 	}
 
 	if len(pushtoQueueArr) > 199 {
