@@ -17,7 +17,7 @@ func LookUp(golog syslog.Writer, col *db.Col, path string) {
 
 		for id := range idsitesarr {
 
-			golog.Info("Delete record for "+path)
+//			golog.Info("Delete record for "+path)
 			col.Delete(id)
 
 		}
