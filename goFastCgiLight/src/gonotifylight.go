@@ -72,7 +72,7 @@ func main() {
 				pushHit(*golog, ev.Name)
 			}
 			if ev.Mask == inotify.IN_DELETE|inotify.IN_ISDIR {
-				fmt.Println("delete dir ", ev.Name)
+//				fmt.Println("delete dir ", ev.Name)
 				watcher.RemoveWatch(ev.Name)
 			}
 
