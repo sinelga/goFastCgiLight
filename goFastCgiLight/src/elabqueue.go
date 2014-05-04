@@ -52,6 +52,7 @@ func main() {
 
 			golog.Info("elabque: site SPOP "+string(i) ) 
 			msite, _ := redis.Bytes(c.Do("SPOP", "pagetocreate"))
+			c.Flush()
 
 			var unmar domains.SiteQue
 			err := json.Unmarshal(msite, &unmar)

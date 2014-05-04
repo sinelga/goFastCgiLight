@@ -9,7 +9,7 @@ import (
 
 func UpdatePage(golog syslog.Writer, htmlfile string, paragraphsarr []domains.Paragraph) []byte {
 
-	golog.Info("updatehtmlpage:UpdatePage: htmlfile " + htmlfile)
+//	golog.Info("updatehtmlpage:UpdatePage: htmlfile " + htmlfile)
 
 	var index = template.Must(template.ParseFiles(
 		"templ/_base.html",
