@@ -77,9 +77,10 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 				}
 
 				if n.Data == "h3" {
-
-					fmt.Println(n.FirstChild.Data)
-					pphrase = n.FirstChild.Data
+					if n.FirstChild != nil {
+						fmt.Println(n.FirstChild.Data)
+						pphrase = n.FirstChild.Data
+					}
 				}
 
 				for _, a := range n.Attr {
@@ -106,8 +107,7 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 					if n.Data == "a" {
 
 						if a.Val != "#" {
-							
-							
+
 							fmt.Println(a.Val)
 							plocallink = a.Val
 
