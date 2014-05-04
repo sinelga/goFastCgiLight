@@ -40,7 +40,6 @@ func main() {
 //
 //	col := tdDB.Use("Sites")
 
-//	golog.Info("elabque: Start pagetocreate")
 	if qpages, err := redis.Int(c.Do("SCARD", "pagetocreate")); err != nil {
 	
 		golog.Crit(err.Error())
@@ -50,7 +49,6 @@ func main() {
 		golog.Info("elabque: Start pagetocreate elaborate "+string(qpages) )
 		for i := 0; i < qpages; i++ {
 
-//			golog.Info("elabque: site SPOP "+string(i) ) 
 			msite, _ := redis.Bytes(c.Do("SPOP", "pagetocreate"))
 			c.Flush()
 
@@ -60,7 +58,6 @@ func main() {
 				golog.Crit(err.Error())
 			}
 
-//			htmlfileexist.StartCheck(*golog, col, unmar.Locale, unmar.Themes, unmar.Domain, unmar.Pathinfo)
 			htmlfileexist.StartCheckNoDB(*golog, unmar.Locale, unmar.Themes, unmar.Domain, unmar.Pathinfo)
 
 		}
