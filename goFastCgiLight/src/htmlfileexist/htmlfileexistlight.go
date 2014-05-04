@@ -118,8 +118,6 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 
 				if ptitle != "" && pphrase != "" && plocallink != "" && len(sentensesarr) > 0 {
 
-					fmt.Println("Create paragraph ")
-
 					paragraph := domains.Paragraph{
 						Ptitle:     ptitle,
 						Pphrase:    pphrase,
