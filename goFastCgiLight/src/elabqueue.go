@@ -40,14 +40,17 @@ func main() {
 //
 //	col := tdDB.Use("Sites")
 
-	golog.Info("elabque: Start pagetocreate")
+//	golog.Info("elabque: Start pagetocreate")
 	if qpages, err := redis.Int(c.Do("SCARD", "pagetocreate")); err != nil {
-		log.Fatal(err)
+	
+		golog.Crit(err.Error())
 
 	} else {
 
+		golog.Info("elabque: Start pagetocreate elaborate "+string(qpages) )
 		for i := 0; i < qpages; i++ {
 
+			golog.Info("elabque: site SPOP "+string(i) ) 
 			msite, _ := redis.Bytes(c.Do("SPOP", "pagetocreate"))
 
 			var unmar domains.SiteQue

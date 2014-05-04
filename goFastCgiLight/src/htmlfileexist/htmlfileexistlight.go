@@ -6,7 +6,7 @@ import (
 	"compress/gzip"
 	"domains"
 	"findfreeparagraph"
-	"fmt"
+//	"fmt"
 	"io/ioutil"
 	"log/syslog"
 	"os"
@@ -25,7 +25,7 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 	}
 
 	if !finfo.IsDir() {
-		golog.Info("htmlfileexist:StartCheckNoDB: htmlfile " + htmlfile + " OK exist")
+//		golog.Info("htmlfileexist:StartCheckNoDB: htmlfile " + htmlfile + " OK exist")
 
 		var index bool = false
 
@@ -62,23 +62,23 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 			}
 		}
 
-		if err != nil {
-			golog.Err(" StartCheckNoDB: " + err.Error())
-		}
+//		if err != nil {
+//			golog.Err(" StartCheckNoDB: " + err.Error())
+//		}
 		var f func(*html.Node)
 		f = func(n *html.Node) {
 			if n.Type == html.ElementNode {
 
 				if n.Data == "h2" {
 					if n.FirstChild != nil {
-						fmt.Println(n.FirstChild.Data)
+//						fmt.Println(n.FirstChild.Data)
 						ptitle = n.FirstChild.Data
 					}
 				}
 
 				if n.Data == "h3" {
 					if n.FirstChild != nil {
-						fmt.Println(n.FirstChild.Data)
+//						fmt.Println(n.FirstChild.Data)
 						pphrase = n.FirstChild.Data
 					}
 				}
@@ -87,14 +87,14 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 
 					if a.Val == "well well-lg" {
 						if n.FirstChild != nil {
-							fmt.Println(n.FirstChild.Data)
+//							fmt.Println(n.FirstChild.Data)
 							ptitle = n.FirstChild.Data
 						}
 
 					}
 					if a.Val == "well well" {
 						if n.FirstChild != nil {
-							fmt.Println(n.FirstChild.Data)
+//							fmt.Println(n.FirstChild.Data)
 							pphrase = n.FirstChild.Data
 						}
 					}
@@ -108,7 +108,7 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 
 						if a.Val != "#" {
 
-							fmt.Println(a.Val)
+//							fmt.Println(a.Val)
 							plocallink = a.Val
 
 						}
