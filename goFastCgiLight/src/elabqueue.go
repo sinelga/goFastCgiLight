@@ -3,13 +3,13 @@ package main
 import (
 	"domains"
 	"encoding/json"
-	"github.com/HouzuoGuo/tiedot/db"
+//	"github.com/HouzuoGuo/tiedot/db"
 	"github.com/garyburd/redigo/redis"
 	"htmlfileexist"
 	"log"
 	"log/syslog"
-	"math/rand"
-	"time"
+//	"math/rand"
+//	"time"
 
 )
 
@@ -29,16 +29,16 @@ func main() {
 	}
 
 
-	dir := "tiedotDB"
-	rand.Seed(time.Now().UTC().UnixNano())
-
-	tdDB, err := db.OpenDB(dir)
-	defer tdDB.Close()
-	if err != nil {
-		panic(err)
-	}
-
-	col := tdDB.Use("Sites")
+//	dir := "tiedotDB"
+//	rand.Seed(time.Now().UTC().UnixNano())
+//
+//	tdDB, err := db.OpenDB(dir)
+//	defer tdDB.Close()
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	col := tdDB.Use("Sites")
 
 	golog.Info("elabque: Start pagetocreate")
 	if qpages, err := redis.Int(c.Do("SCARD", "pagetocreate")); err != nil {
@@ -56,7 +56,8 @@ func main() {
 				golog.Crit(err.Error())
 			}
 
-			htmlfileexist.StartCheck(*golog, col, unmar.Locale, unmar.Themes, unmar.Domain, unmar.Pathinfo)
+//			htmlfileexist.StartCheck(*golog, col, unmar.Locale, unmar.Themes, unmar.Domain, unmar.Pathinfo)
+			htmlfileexist.StartCheckNoDB(*golog, unmar.Locale, unmar.Themes, unmar.Domain, unmar.Pathinfo)
 
 		}
 

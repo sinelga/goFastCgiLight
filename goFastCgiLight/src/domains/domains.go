@@ -14,7 +14,6 @@ type Site struct {
 }
 
 type Paragraph struct {
-//	Created    time.Time
 	Ptitle     string
 	Pphrase    string
 	Plocallink string
