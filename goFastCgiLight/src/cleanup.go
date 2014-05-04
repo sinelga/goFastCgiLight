@@ -4,11 +4,11 @@ import (
 	"encoding/csv"
 	"flag"
 	//	"fmt"
-	"github.com/HouzuoGuo/tiedot/db"
+//	"github.com/HouzuoGuo/tiedot/db"
 	"io"
 	"log"
 	"log/syslog"
-	"math/rand"
+//	"math/rand"
 	"orphance"
 	"os"
 	"path/filepath"
@@ -141,23 +141,23 @@ func startCleanup(golog syslog.Writer, hours int) {
 
 	hoursint64 := float64(hours)
 
-	dir := "tiedotDB"
-	rand.Seed(time.Now().UTC().UnixNano())
+//	dir := "tiedotDB"
+//	rand.Seed(time.Now().UTC().UnixNano())
+//
+//	tdDB, err := db.OpenDB(dir)
+//
+//	defer tdDB.Close()
+//
+//	if err != nil {
+//		panic(err)
+//	}
 
-	tdDB, err := db.OpenDB(dir)
-
-	defer tdDB.Close()
-
-	if err != nil {
-		panic(err)
-	}
-
-	col := tdDB.Use("Sites")
+//	col := tdDB.Use("Sites")
 
 	var numScanned = 0
 	var i64size int64 = 10000
 	var i64sizesmall int64 = 1000
-	var i64sizebig int64=50000
+	var i64sizebig int64=150000
 
 	var scan = func(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 		numScanned++
@@ -167,7 +167,7 @@ func startCleanup(golog syslog.Writer, hours int) {
 
 			if fileInfo.Size() < i64sizesmall {
 				golog.Info("Small < 1000 filessize delete " + path + " " + filessize)
-				orphance.LookUp(golog, col, path)
+				orphance.LookUp(golog, path)
 
 			} else {
 
@@ -175,11 +175,11 @@ func startCleanup(golog syslog.Writer, hours int) {
 
 					if fileInfo.Size() < i64size {
 
-						orphance.LookUp(golog, col, path)
+						orphance.LookUp(golog, path)
 					} else if fileInfo.Size() > i64sizebig {
 											
 						golog.Info("Not visited but BIG size delete "+path+" "+filessize)
-						orphance.LookUp(golog, col, path)
+						orphance.LookUp(golog, path)
 					
 					}
 
@@ -189,7 +189,7 @@ func startCleanup(golog syslog.Writer, hours int) {
 		return
 	}
 
-	err = filepath.Walk("www", scan)
+	err := filepath.Walk("www", scan)
 	if err != nil {
 
 		golog.Err(err.Error())
