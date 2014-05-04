@@ -50,7 +50,7 @@ func main() {
 		golog.Info("elabque: Start pagetocreate elaborate "+string(qpages) )
 		for i := 0; i < qpages; i++ {
 
-			golog.Info("elabque: site SPOP "+string(i) ) 
+//			golog.Info("elabque: site SPOP "+string(i) ) 
 			msite, _ := redis.Bytes(c.Do("SPOP", "pagetocreate"))
 			c.Flush()
 
