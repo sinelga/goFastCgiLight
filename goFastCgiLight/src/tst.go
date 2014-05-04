@@ -11,7 +11,7 @@ import (
 	"domains"
 //	"io/ioutil"
 	"stringbylineparser"
-	"compress/gzip"
+//	"compress/gzip"
 //	"updatehtmlpage"
 //	"findfreeparagraph"
 )
@@ -31,8 +31,8 @@ func main() {
 	var sentensesarr []string
 	var plocallink string
 
-	sf, _ := os.Open("youporn.html.gz")
-	s,_ := gzip.NewReader(sf)
+	s, _ := os.Open("youporn.html")
+//	s,_ := gzip.NewReader(sf)
 
 	doc, err := html.Parse(s)
 	if err != nil {
@@ -51,8 +51,12 @@ func main() {
 
 			if n.Data == "h3" {
 
-				fmt.Println(n.FirstChild.Data)
-				pphrase = n.FirstChild.Data
+				
+				if n.FirstChild != nil {
+					
+					fmt.Println("h3 len",n.FirstChild.Data)
+					pphrase = n.FirstChild.Data
+				}
 			}
 
 			for _, a := range n.Attr {

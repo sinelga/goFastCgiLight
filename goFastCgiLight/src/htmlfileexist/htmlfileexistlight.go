@@ -70,8 +70,10 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 			if n.Type == html.ElementNode {
 
 				if n.Data == "h2" {
-					fmt.Println(n.FirstChild.Data)
-					ptitle = n.FirstChild.Data
+					if n.FirstChild != nil {
+						fmt.Println(n.FirstChild.Data)
+						ptitle = n.FirstChild.Data
+					}
 				}
 
 				if n.Data == "h3" {
@@ -83,22 +85,29 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 				for _, a := range n.Attr {
 
 					if a.Val == "well well-lg" {
-						fmt.Println(n.FirstChild.Data)
-						ptitle = n.FirstChild.Data
+						if n.FirstChild != nil {
+							fmt.Println(n.FirstChild.Data)
+							ptitle = n.FirstChild.Data
+						}
 
 					}
 					if a.Val == "well well" {
-						fmt.Println(n.FirstChild.Data)
-						pphrase = n.FirstChild.Data
+						if n.FirstChild != nil {
+							fmt.Println(n.FirstChild.Data)
+							pphrase = n.FirstChild.Data
+						}
 					}
 					if a.Val == "well well-sm" {
-						sentensesarr = stringbylineparser.Parse(n.FirstChild.Data)
+						if n.FirstChild != nil {
+							sentensesarr = stringbylineparser.Parse(n.FirstChild.Data)
+						}
 					}
 
 					if n.Data == "a" {
 
 						if a.Val != "#" {
-
+							
+							
 							fmt.Println(a.Val)
 							plocallink = a.Val
 
