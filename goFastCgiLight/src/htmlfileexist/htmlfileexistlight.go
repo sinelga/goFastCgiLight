@@ -6,7 +6,7 @@ import (
 	"compress/gzip"
 	"domains"
 	"findfreeparagraph"
-//	"fmt"
+	//	"fmt"
 	"io/ioutil"
 	"log/syslog"
 	"os"
@@ -25,7 +25,6 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 	}
 
 	if !finfo.IsDir() {
-//		golog.Info("htmlfileexist:StartCheckNoDB: htmlfile " + htmlfile + " OK exist")
 
 		var index bool = false
 
@@ -43,11 +42,17 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 		var doc *html.Node
 
 		if !index {
-			sf, _ := os.Open(htmlfile)
-			s, _ := gzip.NewReader(sf)
+			sf, err := os.Open(htmlfile)
 			if err != nil {
 				golog.Err("StartCheckNoDB: " + err.Error())
 			}
+			defer sf.Close()
+			s, err := gzip.NewReader(sf)
+			if err != nil {
+				golog.Err("StartCheckNoDB: " + err.Error())
+			}
+			defer s.Close()
+
 			doc, err = html.Parse(s)
 			if err != nil {
 				golog.Err("StartCheckNoDB: " + err.Error())
@@ -55,7 +60,12 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 
 		} else {
 
-			s, _ := os.Open(htmlfile)
+			s, err := os.Open(htmlfile)
+			if err != nil {
+				golog.Err("StartCheckNoDB: " + err.Error())
+			}
+
+			defer s.Close()
 			doc, err = html.Parse(s)
 			if err != nil {
 				golog.Err("StartCheckNoDB: " + err.Error())
@@ -104,7 +114,6 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 
 						}
 					}
-
 				}
 
 				if ptitle != "" && pphrase != "" && plocallink != "" && len(sentensesarr) > 0 {

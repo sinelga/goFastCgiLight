@@ -3,7 +3,6 @@ package main
 import (
 	"domains"
 	"encoding/json"
-//	"github.com/HouzuoGuo/tiedot/db"
 	"github.com/garyburd/redigo/redis"
 	"htmlfileexist"
 	"log"
@@ -27,18 +26,6 @@ func main() {
 
 		golog.Crit(err.Error())
 	}
-
-
-//	dir := "tiedotDB"
-//	rand.Seed(time.Now().UTC().UnixNano())
-//
-//	tdDB, err := db.OpenDB(dir)
-//	defer tdDB.Close()
-//	if err != nil {
-//		panic(err)
-//	}
-//
-//	col := tdDB.Use("Sites")
 
 	if qpages, err := redis.Int(c.Do("SCARD", "pagetocreate")); err != nil {
 	

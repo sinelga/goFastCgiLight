@@ -3,12 +3,9 @@ package main
 import (
 	"encoding/csv"
 	"flag"
-	//	"fmt"
-//	"github.com/HouzuoGuo/tiedot/db"
 	"io"
 	"log"
 	"log/syslog"
-//	"math/rand"
 	"orphance"
 	"os"
 	"path/filepath"
@@ -141,23 +138,10 @@ func startCleanup(golog syslog.Writer, hours int) {
 
 	hoursint64 := float64(hours)
 
-//	dir := "tiedotDB"
-//	rand.Seed(time.Now().UTC().UnixNano())
-//
-//	tdDB, err := db.OpenDB(dir)
-//
-//	defer tdDB.Close()
-//
-//	if err != nil {
-//		panic(err)
-//	}
-
-//	col := tdDB.Use("Sites")
-
 	var numScanned = 0
 	var i64size int64 = 10000
 	var i64sizesmall int64 = 1000
-	var i64sizebig int64=150000
+	var i64sizebig int64=200000
 
 	var scan = func(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 		numScanned++
