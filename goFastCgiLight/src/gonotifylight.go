@@ -8,14 +8,12 @@ import (
 	"log/syslog"
 	"os"
 	"path/filepath"
-	//	"pushinqueue"
 	"pipelingpush"
 	"strings"
 )
 
 const APP_VERSION = "0.1"
 
-// The flag package provides a default help printer via -h switch
 var versionFlag *bool = flag.Bool("v", false, "Print the version number.")
 var watcher *inotify.Watcher
 var pushtoQueueArr [][]string
@@ -26,13 +24,11 @@ func main() {
 	defer golog.Close()
 	if err != nil {
 		log.Fatal("error writing syslog!!")
-
 	}
 	flag.Parse() // Scan the arguments list
 
 	if *versionFlag {
 		fmt.Println("Version:", APP_VERSION)
-
 	}
 
 	watcher, err = inotify.NewWatcher()
@@ -61,18 +57,17 @@ func main() {
 
 				err = filepath.Walk(ev.Name, scan)
 				if err != nil {
-
 					golog.Err(err.Error())
 				}
 
 			}
 
 			if ev.Mask == inotify.IN_CLOSE_NOWRITE {
-				fmt.Println("Hit on ", ev.Name)
+				//				fmt.Println("Hit on ", ev.Name)
 				pushHit(*golog, ev.Name)
 			}
 			if ev.Mask == inotify.IN_DELETE|inotify.IN_ISDIR {
-//				fmt.Println("delete dir ", ev.Name)
+				//				fmt.Println("delete dir ", ev.Name)
 				watcher.RemoveWatch(ev.Name)
 			}
 
@@ -116,7 +111,7 @@ func pushHit(golog syslog.Writer, path string) {
 
 		pushtoQueueArr = append(pushtoQueueArr, arr)
 
-		fmt.Println("pushtoQueueArr len ", len(pushtoQueueArr))
+		//		fmt.Println("pushtoQueueArr len ", len(pushtoQueueArr))
 
 	} else {
 
@@ -128,7 +123,7 @@ func pushHit(golog syslog.Writer, path string) {
 		pipelingpush.PushInQueue(golog, "redis", pushtoQueueArr)
 		pushtoQueueArr = pushtoQueueArr[:0]
 
-		fmt.Println("pushtoQueueArr len aftert purge ", len(pushtoQueueArr))
+		//		fmt.Println("pushtoQueueArr len aftert purge ", len(pushtoQueueArr))
 
 	}
 
