@@ -50,9 +50,9 @@ func main() {
 		}
 
 	}
-	if _, err := redis.Int(c.Do("DEL", "pagetocreate")); err != nil {
-		golog.Crit(err.Error())
-	}
+//	if _, err := redis.Int(c.Do("DEL", "pagetocreate")); err != nil {
+//		golog.Crit(err.Error())
+//	}
 	
 	golog.Info("elabque: END pagetocreate")
 	c.Flush()
