@@ -1,8 +1,11 @@
 cd /home/juno/git/goFastCgiLight/goFastCgiLight
 
-pgrep cleanup || bin/cleanup
-pgrep find || /usr/bin/find www -type d -empty -delete
-/usr/bin/touch cleanupspace.csv
+/sbin/stop gonotifylight
+su juno -c "pgrep elabqueue || pgrep cleanup || bin/cleanup"
+su juno -c "pgrep find || /usr/bin/find www -type d -empty -delete"
+su juno -c "/usr/bin/touch cleanupspace.csv"
+/sbin/start gonotifylight
+
 
 
 
