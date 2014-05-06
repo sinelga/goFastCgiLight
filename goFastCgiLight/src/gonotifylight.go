@@ -139,7 +139,7 @@ func pushHit(golog syslog.Writer, path string) {
 		golog.Err("gonotifylight check !!! " + path)
 	}
 
-	if len(pushtoQueueArr) > 2 {
+	if len(pushtoQueueArr) > 200 {
 
 		golog.Info("gonotifylight:pipelingpush.PushInQueue 200 hits") 
 		pipelingpush.PushInQueue(golog, "redis", pushtoQueueArr)
