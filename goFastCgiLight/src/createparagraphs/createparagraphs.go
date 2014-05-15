@@ -3,11 +3,8 @@ package createparagraphs
 import (
 	_ "code.google.com/p/go-sqlite/go1/sqlite3"
 	"comutils"
-	//	"cleansentence"
 	"domains"
-//	"log"
 	"log/syslog"
-	//	ml "marklib"
 	"math/rand"
 	"p_create_locallink"
 	"prtitlegen"
@@ -18,7 +15,6 @@ import (
 	"time"
 )
 
-//var markfile string
 var paragraphs []domains.Paragraph
 
 type Prefix []string
@@ -81,7 +77,7 @@ func CreatePr(golog syslog.Writer, locale string, themes string, keywords []stri
 
 	golog.Info("createparagraphs:CreatePr: Start")
 
-	numWords := 750
+	numWords := 850
 	prefixLen := 1
 
 	rand.Seed(time.Now().UnixNano()) // Seed the random number generator.
@@ -110,18 +106,10 @@ func CreatePr(golog syslog.Writer, locale string, themes string, keywords []stri
 
 	for i := 0; i < quant; i++ {
 
-		//		var clsentensesarr []string
-		//
 		prtitle := prtitlegen.Generate(keywords)
 		prphrase := comutils.UpcaseInitial(phrases[rand.Intn(len(phrases))]) + "."
 		host := hosts[rand.Intn(len(hosts))]
 		locallink := p_create_locallink.CreateLink(keywords)
-//		fmt.Println("-------------")
-//		fmt.Println(comutils.UpcaseInitial(prtitle[0]) + " " + prtitle[1])
-//		fmt.Println(prphrase)
-//		fmt.Println(host)
-//		fmt.Println(locallink)
-//		fmt.Println("-------------")
 
 		var finalsentencesarr []string
 		text := c.Generate(numWords, prtitle[0]) // Generate text.
@@ -143,12 +131,6 @@ func CreatePr(golog syslog.Writer, locale string, themes string, keywords []stri
 			finalsentencesarr = append(finalsentencesarr, sentence+".")
 
 		}
-
-//		for _, fsentence := range finalsentencesarr {
-//
-//			fmt.Println(fsentence)
-//
-//		}
 
 		paragraph := domains.Paragraph{
 
