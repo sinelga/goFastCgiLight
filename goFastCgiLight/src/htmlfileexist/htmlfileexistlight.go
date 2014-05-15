@@ -44,31 +44,31 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 		if !index {
 			sf, err := os.Open(htmlfile)
 			if err != nil {
-				golog.Err("StartCheckNoDB: " + err.Error())
+				golog.Err("StartCheckNoDB: "+htmlfile + err.Error())
 			}
 			defer sf.Close()
 			s, err := gzip.NewReader(sf)
 			if err != nil {
-				golog.Err("StartCheckNoDB: " + err.Error())
+				golog.Err("StartCheckNoDB: "+htmlfile + err.Error())
 			}
 			defer s.Close()
 
 			doc, err = html.Parse(s)
 			if err != nil {
-				golog.Err("StartCheckNoDB: " + err.Error())
+				golog.Err("StartCheckNoDB: "+ htmlfile+ err.Error())
 			}
 
 		} else {
 
 			s, err := os.Open(htmlfile)
 			if err != nil {
-				golog.Err("StartCheckNoDB: " + err.Error())
+				golog.Err("StartCheckNoDB: "+htmlfile + err.Error())
 			}
 
 			defer s.Close()
 			doc, err = html.Parse(s)
 			if err != nil {
-				golog.Err("StartCheckNoDB: " + err.Error())
+				golog.Err("StartCheckNoDB: "+ htmlfile+ err.Error())
 			}
 		}
 
