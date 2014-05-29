@@ -3,7 +3,7 @@ apt-get autoremove --purge
 
  echo 524288 > /proc/sys/fs/inotify/max_user_watches
  vi /etc/sysctl.conf
- fs.inotify.max_user_watches=1200000
+ fs.inotify.max_user_watches=1900000
  vm.overcommit_memory = 1  ??
  sysctl -p
 
@@ -13,7 +13,8 @@ strace -p 3544 -p 3545 -p 3546 -p 3547 2>&1 | grep gz
 
 ps -eo %mem,rss,pid,args --sort rss | tail -10
 
-dd if=/dev/zero of=/swapfile bs=1024 count=256k
+dd if=/dev/zero of=/swapfile bs=1024 count=128k
+
 mkswap /swapfile
 swapon /swapfile
 swapon -s
