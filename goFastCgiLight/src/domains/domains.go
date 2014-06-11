@@ -1,15 +1,12 @@
 package domains
 
-import (
-
-)
+import ()
 
 type Site struct {
-
-	Pathinfo string
-	Created  int64
-	Updated  int64
-	Hits     int
+	Pathinfo   string
+	Created    int64
+	Updated    int64
+	Hits       int
 	Paragraphs []Paragraph
 }
 
@@ -22,14 +19,19 @@ type Paragraph struct {
 }
 
 type Htmlpage struct {
-
-	Paragraphs []Paragraph 
+	Paragraphs []Paragraph
 }
-
 
 type SiteQue struct {
 	Locale   string
 	Themes   string
 	Domain   string
 	Pathinfo string
+}
+
+type Domaincsv struct {
+	Locale string
+	Themes string
+	Domain string
+	Ip     string
 }
