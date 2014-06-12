@@ -58,7 +58,7 @@ func FindFromQ(golog syslog.Writer, locale string, themes string) domains.Paragr
 
 			} else {
 
-				if pushsite == nil {
+				if pushsite != nil {
 
 					golog.Info("pushsite--> " + pushsite[0])
 					unmarPar.Pushsite = pushsite[0]
