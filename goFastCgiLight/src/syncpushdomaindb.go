@@ -94,7 +94,7 @@ func main() {
 
 				for _,host :=range hostsarr {
 
-				if r, err := c.Do("ZADD", "pushdomains", "0", host+"."+extdomain.Domain); err != nil {
+				if r, err := c.Do("ZADD", "pushdomains", "1", host+"."+extdomain.Domain); err != nil {
 					golog.Err("syncpushdomains: " + err.Error())
 
 				} else {
