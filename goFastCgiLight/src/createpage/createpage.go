@@ -14,6 +14,8 @@ func CreateHtmlPage(golog syslog.Writer, locale string, themes string) []byte {
 		"/home/juno/git/goFastCgiLight/goFastCgiLight/templ/firstindex.html",
 	))
 	paragraph := findfreeparagraph.FindFromQ(golog, locale, themes)
+	
+	golog.Info("paragraph.Pushsite "+paragraph.Pushsite)
 
 	webpage := bytes.NewBuffer(nil)
 
