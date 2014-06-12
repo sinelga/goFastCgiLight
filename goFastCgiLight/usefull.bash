@@ -24,3 +24,6 @@ vi /etc/fstab
 vm.swappiness = 10  in /etc/sysctl.conf  "sysctl -p"
 cat /proc/sys/vm/swappiness
 
+
+GOPATH=$GOPATH:/home/juno/git/goFastCgiLight/goFastCgiLight go test -v
+

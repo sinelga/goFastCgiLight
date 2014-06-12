@@ -16,6 +16,7 @@ type Paragraph struct {
 	Plocallink string
 	Phost      string
 	Sentences  []string
+	Pushsite   string
 }
 
 type Htmlpage struct {

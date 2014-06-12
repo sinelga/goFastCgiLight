@@ -51,8 +51,7 @@ func main() {
 		select {
 		case ev := <-watcher.Event:
 //						log.Println("event:", ev.String(), ev.Mask)
-						
-						
+												
 			if 	 ev.Mask == inotify.IN_OPEN {
 				
 				INMODIFY = false
@@ -69,21 +68,15 @@ func main() {
 				}
 
 			}
-//			if ev.Mask == inotify.IN_MODIFY {
-//				fmt.Println("IN_MODIFY ", ev.Name)
-//				INMODIFY = true
-//				
-//			}
+
 			if ev.Mask == inotify.IN_CLOSE_WRITE {
-//				fmt.Println("IN_CLOSE_WRITE ", ev.Name)
 				INMODIFY = true
 			}
 			
 			if ev.Mask == inotify.IN_CLOSE_NOWRITE {
-//			if ev.Mask == inotify.IN_CLOSE {
 																
 				if !INMODIFY {
-					fmt.Println("Hit on ", ev.Name,INMODIFY )				
+//					fmt.Println("Hit on ", ev.Name,INMODIFY )				
 					pushHit(*golog, ev.Name)
 				}
 			}
@@ -144,8 +137,6 @@ func pushHit(golog syslog.Writer, path string) {
 		golog.Info("gonotifylight:pipelingpush.PushInQueue 200 hits") 
 		pipelingpush.PushInQueue(golog, "redis", pushtoQueueArr)
 		pushtoQueueArr = pushtoQueueArr[:0]
-
-		//		fmt.Println("pushtoQueueArr len aftert purge ", len(pushtoQueueArr))
 
 	}
 

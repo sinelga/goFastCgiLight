@@ -2,7 +2,7 @@ package findfreeparagraph
 
 import (
 	"domains"
-		"encoding/json"
+	"encoding/json"
 	"github.com/garyburd/redigo/redis"
 	"log/syslog"
 )
@@ -22,18 +22,17 @@ func GetRecqueParagraph(locale string, themes string) domains.Paragraph {
 	return paragraph
 }
 
-func FindFromQ(golog syslog.Writer,locale string, themes string) domains.Paragraph  {
+func FindFromQ(golog syslog.Writer, locale string, themes string) domains.Paragraph {
 
 	c, err := redis.Dial("tcp", ":6379")
 	if err != nil {
-	
+
 		golog.Crit(err.Error())
-		
+
 	}
 
 	queuename := locale + ":" + themes
 
-			
 	var unmarPar domains.Paragraph
 
 	if quan_prs, err := redis.Int(c.Do("LLEN", queuename)); err != nil {
@@ -45,17 +44,38 @@ func FindFromQ(golog syslog.Writer,locale string, themes string) domains.Paragra
 		if quan_prs > 1 {
 
 			bparagraph, _ := redis.Bytes(c.Do("LPOP", queuename))
-			
+
 			err := json.Unmarshal(bparagraph, &unmarPar)
 			if err != nil {
-	
+
 				golog.Crit(err.Error())
+
+			}
+
+			if pushsite, err := redis.Strings(c.Do("ZRANGEBYSCORE", "pushdomains", "-inf", "+inf", "LIMIT", 0, 1)); err != nil {
+
+				golog.Crit("FindFromQ: " + err.Error())
+
+			} else {
+
+				if pushsite == nil {
+
+					golog.Info("pushsite--> " + pushsite[0])
+					unmarPar.Pushsite = pushsite[0]
+
+					_, err = c.Do("ZINCRBY", "pushdomains", 1, pushsite[0])
+					if err != nil {
+
+						golog.Crit(err.Error())
+
+					}
+
+				}
 
 			}
 
 		} else {
 
-	
 			golog.Crit("need more free paragraphs!!!!")
 
 		}
