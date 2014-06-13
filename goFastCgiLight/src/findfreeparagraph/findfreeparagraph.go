@@ -3,10 +3,9 @@ package findfreeparagraph
 import (
 	"domains"
 	"encoding/json"
+//	"fmt"
 	"github.com/garyburd/redigo/redis"
 	"log/syslog"
-	"fmt"
-	
 )
 
 func GetRecqueParagraph(locale string, themes string) domains.Paragraph {
@@ -59,15 +58,9 @@ func FindFromQ(golog syslog.Writer, locale string, themes string) domains.Paragr
 				golog.Crit("FindFromQ: " + err.Error())
 
 			} else {
-			
-				
-//				print("pushsite ",pushsite)
-				fmt.Println("pushsite ",len(pushsite))
-				
 
-				if len(pushsite)> 0 {
+				if len(pushsite) > 0 {
 
-//					golog.Info("pushsite--> " + pushsite[0])
 					unmarPar.Pushsite = pushsite[0]
 
 					_, err = c.Do("ZINCRBY", "pushdomains", 1, pushsite[0])

@@ -15,7 +15,7 @@ func CreateHtmlPage(golog syslog.Writer, locale string, themes string) []byte {
 	))
 	paragraph := findfreeparagraph.FindFromQ(golog, locale, themes)
 	
-	golog.Info("paragraph.Pushsite "+paragraph.Pushsite)
+//	golog.Info("paragraph.Pushsite "+paragraph.Pushsite)
 
 	webpage := bytes.NewBuffer(nil)
 
