@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"fmt"
+	//	"fmt"
 	"inotify"
 	"log"
 	"log/syslog"
@@ -12,9 +12,6 @@ import (
 	"strings"
 )
 
-const APP_VERSION = "0.1"
-
-var versionFlag *bool = flag.Bool("v", false, "Print the version number.")
 var watcher *inotify.Watcher
 var pushtoQueueArr [][]string
 
@@ -26,10 +23,6 @@ func main() {
 		log.Fatal("error writing syslog!!")
 	}
 	flag.Parse() // Scan the arguments list
-
-	if *versionFlag {
-		fmt.Println("Version:", APP_VERSION)
-	}
 
 	watcher, err = inotify.NewWatcher()
 	if err != nil {
@@ -46,21 +39,19 @@ func main() {
 		golog.Err(err.Error())
 	}
 
-	var INMODIFY bool=false
+	var INMODIFY bool = false
 	for {
 		select {
 		case ev := <-watcher.Event:
-//						log.Println("event:", ev.String(), ev.Mask)
-												
-			if 	 ev.Mask == inotify.IN_OPEN {
-				
+
+			if ev.Mask == inotify.IN_OPEN {
+
 				INMODIFY = false
-			
-			}		
+
+			}
 
 			if ev.Mask == inotify.IN_CREATE|inotify.IN_ISDIR {
-				//				fmt.Println("Create dir ", ev.Name)
-//				watcher.AddWatch(ev.Name, inotify.IN_CREATE|inotify.IN_ISDIR|inotify.IN_CLOSE_NOWRITE|inotify.IN_DELETE)
+
 				watcher.AddWatch(ev.Name, inotify.IN_CREATE|inotify.IN_ISDIR|inotify.IN_CLOSE_NOWRITE|inotify.IN_DELETE|inotify.IN_OPEN|inotify.IN_CLOSE_WRITE)
 				err = filepath.Walk(ev.Name, scan)
 				if err != nil {
@@ -72,22 +63,19 @@ func main() {
 			if ev.Mask == inotify.IN_CLOSE_WRITE {
 				INMODIFY = true
 			}
-			
+
 			if ev.Mask == inotify.IN_CLOSE_NOWRITE {
-																
+
 				if !INMODIFY {
-//					fmt.Println("Hit on ", ev.Name,INMODIFY )				
 					pushHit(*golog, ev.Name)
 				}
 			}
 			if ev.Mask == inotify.IN_DELETE|inotify.IN_ISDIR {
-				//				fmt.Println("delete dir ", ev.Name)
 				watcher.RemoveWatch(ev.Name)
 			}
 
 		case err := <-watcher.Error:
-//			log.Println("gonotifylight !!! error:", err)
-			golog.Err("gonotifylight: "+err.Error())
+			golog.Err("gonotifylight: " + err.Error())
 		}
 	}
 }
@@ -97,7 +85,7 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 	if fileInfo.IsDir() {
 
 		watcher.AddWatch(path, inotify.IN_CREATE|inotify.IN_ISDIR|inotify.IN_CLOSE_NOWRITE|inotify.IN_DELETE|inotify.IN_OPEN|inotify.IN_CLOSE_WRITE)
-//		watcher.AddWatch(path, inotify.IN_ALL_EVENTS)
+		//		watcher.AddWatch(path, inotify.IN_ALL_EVENTS)
 
 	}
 
@@ -134,7 +122,7 @@ func pushHit(golog syslog.Writer, path string) {
 
 	if len(pushtoQueueArr) > 200 {
 
-		golog.Info("gonotifylight:pipelingpush.PushInQueue 200 hits") 
+		golog.Info("gonotifylight:pipelingpush.PushInQueue 200 hits")
 		pipelingpush.PushInQueue(golog, "redis", pushtoQueueArr)
 		pushtoQueueArr = pushtoQueueArr[:0]
 
