@@ -27,3 +27,8 @@ cat /proc/sys/vm/swappiness
 
 GOPATH=$GOPATH:/home/juno/git/goFastCgiLight/goFastCgiLight go test -v
 
+
+bin/syncpushdomaindb -locale=fi_FI -themes=porno
+
+ZRANGEBYSCORE pushdomains -inf +inf withscores  LIMIT 0 10000
+
