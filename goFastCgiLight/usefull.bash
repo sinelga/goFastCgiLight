@@ -32,3 +32,6 @@ bin/syncpushdomaindb -locale=fi_FI -themes=porno
 
 ZRANGEBYSCORE pushdomains -inf +inf withscores  LIMIT 0 10000
 
+
+
+
