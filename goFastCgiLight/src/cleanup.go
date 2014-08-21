@@ -140,7 +140,7 @@ func startCleanup(golog syslog.Writer, hours int) {
 	var numScanned = 0
 	var i64size int64 = 10000
 	var i64sizesmall int64 = 1000
-	var i64sizebig int64=150000
+	var i64sizebig int64=120000
 
 	var scan = func(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 		numScanned++
@@ -161,7 +161,7 @@ func startCleanup(golog syslog.Writer, hours int) {
 						orphance.LookUp(golog, path)
 					} else if fileInfo.Size() > i64sizebig {
 											
-						golog.Info("Not visited but BIG size 150000 delete "+path+" "+filessize)
+						golog.Info("Not visited but BIG size 120000 delete "+path+" "+filessize)
 						orphance.LookUp(golog, path)
 					
 					
