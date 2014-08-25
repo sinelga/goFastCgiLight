@@ -58,6 +58,11 @@ func main() {
 
 			locale = "fi_FI"
 			themes = "fortune"
+			
+		} else if *localeFlag == "en_US" && *themesFlag == "finance" {
+
+			locale = "en_US"
+			themes = "finance"			
 
 		} else {
 
