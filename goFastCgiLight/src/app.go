@@ -31,13 +31,6 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	bthandler.BTrequestHandler(*golog, resp, req, locale, themes, site, pathinfo,bot)
 	
 
-//	if bot == "1" {
-//
-//		bthandler.BTrequestHandler(*golog, resp, req, locale, themes, site, pathinfo)
-//	} else if bot == "0" {
-//
-//		jswebserv.JsServ(*golog, resp, req, rootdir, site)
-//	}
 
 }
 

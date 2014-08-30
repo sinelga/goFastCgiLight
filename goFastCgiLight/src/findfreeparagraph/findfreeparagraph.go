@@ -3,7 +3,6 @@ package findfreeparagraph
 import (
 	"domains"
 	"encoding/json"
-//	"fmt"
 	"github.com/garyburd/redigo/redis"
 	"log/syslog"
 )
@@ -23,7 +22,7 @@ func GetRecqueParagraph(locale string, themes string) domains.Paragraph {
 	return paragraph
 }
 
-func FindFromQ(golog syslog.Writer, locale string, themes string) domains.Paragraph {
+func FindFromQ(golog syslog.Writer, locale string, themes string, bot string) domains.Paragraph {
 
 	c, err := redis.Dial("tcp", ":6379")
 	if err != nil {
@@ -59,7 +58,7 @@ func FindFromQ(golog syslog.Writer, locale string, themes string) domains.Paragr
 
 			} else {
 
-				if len(pushsite) > 0 {
+				if len(pushsite) > 0 && bot =="bing" {
 
 					unmarPar.Pushsite = pushsite[0]
 

@@ -7,13 +7,13 @@ import (
 	"log/syslog"
 )
 
-func CreateHtmlPage(golog syslog.Writer, locale string, themes string) []byte {
+func CreateHtmlPage(golog syslog.Writer, locale string, themes string,bot string) []byte {
 
 	var index = template.Must(template.ParseFiles(
 		"/home/juno/git/goFastCgiLight/goFastCgiLight/templ/_firstbase.html",
 		"/home/juno/git/goFastCgiLight/goFastCgiLight/templ/firstindex.html",
 	))
-	paragraph := findfreeparagraph.FindFromQ(golog, locale, themes)
+	paragraph := findfreeparagraph.FindFromQ(golog, locale, themes,bot)
 
 	webpage := bytes.NewBuffer(nil)
 
