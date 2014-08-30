@@ -140,7 +140,7 @@ func startCleanup(golog syslog.Writer, hours int) {
 	var numScanned = 0
 	var i64size int64 = 10000
 	var i64sizesmall int64 = 1000
-	var i64sizebig int64=90000
+	var i64sizebig int64=80000
 
 	var scan = func(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 		numScanned++
