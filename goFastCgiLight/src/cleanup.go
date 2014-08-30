@@ -161,7 +161,7 @@ func startCleanup(golog syslog.Writer, hours int) {
 						orphance.LookUp(golog, path)
 					} else if fileInfo.Size() > i64sizebig {
 											
-						golog.Info("Not visited but BIG size 90000 delete "+path+" "+filessize)
+						golog.Info("Not visited but BIG size 80000 delete "+path+" "+filessize)
 						orphance.LookUp(golog, path)
 					
 					
