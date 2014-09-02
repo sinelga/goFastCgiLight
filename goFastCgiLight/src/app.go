@@ -12,6 +12,7 @@ import (
 )
 
 var startOnce sync.Once
+var startparameters []string
 
 type FastCGIServer struct{}
 
@@ -23,7 +24,7 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Fatal("error writing syslog!!")
 	}
-	var startparameters []string
+	
 
 	themes := req.Header.Get("X-THEMES")
 	locale := req.Header.Get("X-LOCALE")
