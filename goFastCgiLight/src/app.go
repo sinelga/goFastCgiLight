@@ -2,13 +2,16 @@ package main
 
 import (
 	"bthandler"
-//	"jswebserv"
 	"log"
 	"log/syslog"
 	"net"
 	"net/http"
 	"net/http/fcgi"
+	"startones"
+	"sync"
 )
+
+var startOnce sync.Once
 
 type FastCGIServer struct{}
 
@@ -26,9 +29,12 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	site := req.Header.Get("X-DOMAIN")
 	pathinfo := req.Header.Get("X-PATHINFO")
 	bot := req.Header.Get("X-BOT")
-	
-	bthandler.BTrequestHandler(*golog, resp, req, locale, themes, site, pathinfo,bot)
-	
+
+	startOnce.Do(func() {
+		startones.Start(*golog)
+	})
+
+	bthandler.BTrequestHandler(*golog, resp, req, locale, themes, site, pathinfo, bot)
 
 }
 
