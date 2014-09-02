@@ -24,7 +24,10 @@ func GetRecqueParagraph(locale string, themes string) domains.Paragraph {
 
 func FindFromQ(golog syslog.Writer, locale string, themes string, bot string,startparameters []string) domains.Paragraph {
 
-	c, err := redis.Dial("tcp", ":6379")
+	redisprotocol := startparameters[0]
+	redishost := startparameters[1]
+	
+	c, err := redis.Dial(redisprotocol, redishost)
 	if err != nil {
 
 		golog.Crit(err.Error())
