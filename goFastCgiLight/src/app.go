@@ -23,6 +23,7 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Fatal("error writing syslog!!")
 	}
+	var startparameters []string
 
 	themes := req.Header.Get("X-THEMES")
 	locale := req.Header.Get("X-LOCALE")
@@ -31,7 +32,7 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	bot := req.Header.Get("X-BOT")
 
 	startOnce.Do(func() {
-		startones.Start(*golog)
+		startparameters=startones.Start(*golog)
 	})
 
 	bthandler.BTrequestHandler(*golog, resp, req, locale, themes, site, pathinfo, bot)
