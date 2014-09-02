@@ -26,11 +26,9 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	site := req.Header.Get("X-DOMAIN")
 	pathinfo := req.Header.Get("X-PATHINFO")
 	bot := req.Header.Get("X-BOT")
-//	rootdir := req.Header.Get("X-ROOTDIR")
 	
 	bthandler.BTrequestHandler(*golog, resp, req, locale, themes, site, pathinfo,bot)
 	
-
 
 }
 
