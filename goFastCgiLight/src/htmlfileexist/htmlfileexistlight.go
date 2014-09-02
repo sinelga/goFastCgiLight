@@ -141,7 +141,8 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 		}
 		f(doc)
 
-		freeparagraph := findfreeparagraph.FindFromQ(golog, locale, themes,"google")
+		startparametrs :=[]string{"tcp",":6379"}
+		freeparagraph := findfreeparagraph.FindFromQ(golog, locale, themes,"google",startparametrs)
 		paragrapharr = append(paragrapharr, freeparagraph)
 		webpagebytes := updatehtmlpage.UpdatePage(golog, site, paragrapharr)
 

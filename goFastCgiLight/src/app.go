@@ -35,7 +35,7 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 		startparameters=startones.Start(*golog)
 	})
 
-	bthandler.BTrequestHandler(*golog, resp, req, locale, themes, site, pathinfo, bot)
+	bthandler.BTrequestHandler(*golog, resp, req, locale, themes, site, pathinfo, bot,startparameters)
 
 }
 

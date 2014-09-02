@@ -22,7 +22,7 @@ func GetRecqueParagraph(locale string, themes string) domains.Paragraph {
 	return paragraph
 }
 
-func FindFromQ(golog syslog.Writer, locale string, themes string, bot string) domains.Paragraph {
+func FindFromQ(golog syslog.Writer, locale string, themes string, bot string,startparameters []string) domains.Paragraph {
 
 	c, err := redis.Dial("tcp", ":6379")
 	if err != nil {

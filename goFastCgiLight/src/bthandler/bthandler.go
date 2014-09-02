@@ -9,7 +9,7 @@ import (
 	"createfirstgz"
 )
 
-func BTrequestHandler(golog syslog.Writer, resp http.ResponseWriter, req *http.Request, locale string, themes string, site string, pathinfo string,bot string) {
+func BTrequestHandler(golog syslog.Writer, resp http.ResponseWriter, req *http.Request, locale string, themes string, site string, pathinfo string,bot string,startparameters []string) {
 
 	
 	pathinfoclean := clean_pathinfo.CleanPath(golog, pathinfo)
@@ -17,7 +17,7 @@ func BTrequestHandler(golog syslog.Writer, resp http.ResponseWriter, req *http.R
 	var bytepage []byte
 	if strings.HasSuffix(pathinfoclean, ".html") || strings.HasSuffix(pathinfoclean, ".php") || strings.HasSuffix(pathinfoclean, ".jsp") {
 
-		bytepage = createpage.CreateHtmlPage(golog, locale, themes, bot)
+		bytepage = createpage.CreateHtmlPage(golog, locale, themes, bot,startparameters)
 
 		resp.Write(bytepage)
 
