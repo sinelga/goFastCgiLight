@@ -15,10 +15,11 @@ func Start(golog syslog.Writer) []string {
 		golog.Err(err.Error())
 	}
 	parameters := strings.Split(string(content), ",")
+	cleanparameters :=[]string{strings.TrimSpace(parameters[0]),strings.TrimSpace(parameters[1])}
 	
 	golog.Info("startones redis "+parameters[0]+" "+parameters[1])
 	
 
-	return parameters
+	return cleanparameters 
 
 }

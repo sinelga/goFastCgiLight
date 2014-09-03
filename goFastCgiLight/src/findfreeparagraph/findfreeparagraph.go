@@ -31,8 +31,8 @@ func FindFromQ(golog syslog.Writer, locale string, themes string, bot string,sta
 	golog.Info("FindFromQ: redis "+redisprotocol+redishost) 
 	
 //	c, err := redis.Dial("tcp", ":6379")
-	c, err := redis.Dial("tcp", "10.128.230.234:6379")
-//	c, err := redis.Dial(redisprotocol, redishost)
+//	c, err := redis.Dial("tcp", "10.128.230.234:6379")
+	c, err := redis.Dial(redisprotocol, redishost)
 	if err != nil {
 
 		golog.Crit(err.Error())
