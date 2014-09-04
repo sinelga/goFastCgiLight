@@ -7,8 +7,11 @@ import (
 	"htmlfileexist"
 	"log"
 	"log/syslog"
+	"startones"
 
 )
+
+var startparameters []string
 
 func main() {
 
@@ -18,6 +21,8 @@ func main() {
 	if err != nil {
 		log.Fatal("error writing syslog!!")
 	}
+
+	startparameters=startones.Start(*golog)
 
 	c, err := redis.Dial("tcp", ":6379")
 	if err != nil {
@@ -43,7 +48,7 @@ func main() {
 				golog.Crit(err.Error())
 			}
 
-			htmlfileexist.StartCheckNoDB(*golog, unmar.Locale, unmar.Themes, unmar.Domain, unmar.Pathinfo)
+			htmlfileexist.StartCheckNoDB(*golog, unmar.Locale, unmar.Themes, unmar.Domain, unmar.Pathinfo,startparameters)
 
 		}
 

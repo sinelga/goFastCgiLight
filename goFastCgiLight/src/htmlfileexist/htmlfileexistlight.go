@@ -15,7 +15,7 @@ import (
 	"updatehtmlpage"
 )
 
-func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site string, pathinfo string) {
+func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site string, pathinfo string,startparameters []string) {
 
 	htmlfile := string("www/" + locale + "/" + themes + "/" + site + pathinfo)
 	finfo, err := os.Stat(htmlfile)
@@ -141,8 +141,8 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 		}
 		f(doc)
 
-		startparametrs :=[]string{"tcp",":6379"}
-		freeparagraph := findfreeparagraph.FindFromQ(golog, locale, themes,"google",startparametrs)
+//		startparametrs :=[]string{"tcp",":6379"}
+		freeparagraph := findfreeparagraph.FindFromQ(golog, locale, themes,"google",startparameters)
 		paragrapharr = append(paragrapharr, freeparagraph)
 		webpagebytes := updatehtmlpage.UpdatePage(golog, site, paragrapharr)
 
