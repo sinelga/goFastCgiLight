@@ -32,6 +32,9 @@ bin/syncpushdomaindb -locale=fi_FI -themes=porno
 
 ZRANGEBYSCORE pushdomains -inf +inf withscores  LIMIT 0 10000
 
+ZADD pushdomains 1 pilluseksi.com
+ZADD pushdomains 1 pilluseksi.info
+
 
 
 
