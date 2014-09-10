@@ -37,4 +37,7 @@ ZADD pushdomains 1 pilluseksi.info
 
 
 
+stop gofast && start gofast && stop nginx && start nginx
+
+
 
