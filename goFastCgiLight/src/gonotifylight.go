@@ -120,9 +120,9 @@ func pushHit(golog syslog.Writer, path string) {
 		golog.Err("gonotifylight check !!! " + path)
 	}
 
-	if len(pushtoQueueArr) > 2 {
+	if len(pushtoQueueArr) > 20 {
 
-		golog.Info("gonotifylight:pipelingpush.PushInQueue 2 hits")
+		golog.Info("gonotifylight:pipelingpush.PushInQueue 20 hits")
 		pipelingpush.PushInQueue(golog, "redis", pushtoQueueArr)
 		pushtoQueueArr = pushtoQueueArr[:0]
 
