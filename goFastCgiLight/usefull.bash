@@ -40,4 +40,8 @@ ZADD pushdomains 1 pilluseksi.info
 stop gofast && start gofast && stop nginx && start nginx
 
 
+echo 'export TZ="Europe/Helsinki"' >> /etc/default/rsyslog
+restart rsyslog
+
+
 

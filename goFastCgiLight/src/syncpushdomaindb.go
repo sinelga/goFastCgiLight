@@ -45,11 +45,11 @@ func main() {
 		if locale != "" && themes != "" {
 
 			var extdomainsarr []domains.Domaincsv
-			var extdomainsarrtoinsert []domains.Domaincsv
-			var domainstopush []string
+//			var extdomainsarrtoinsert []domains.Domaincsv
+//			var domainstopush []string
 			var hostsarr []string
 
-			db, err := sql.Open("sqlite3", "/home/juno/git/goFastCgiLight/goFastCgiLight/singo.db")
+			db, err := sql.Open("sqlite3", "/home/juno/git/goFastCgiLight/goFastCgiLight/singolight.db")
 			if err != nil {
 
 				golog.Err(err.Error())
@@ -91,7 +91,7 @@ func main() {
 				}
 
 			} else {
-				
+
 				// probably I don't need it
 
 				//			sqlstr = "select Locale,Themes,Domain,Ip from extdomains where Block=0 and Locale='" + locale + "' and Themes='" + themes + "' order by random()"
@@ -120,7 +120,6 @@ func main() {
 
 						} else {
 
-							//				golog.Info(r)
 							fmt.Println("r ", r)
 
 						}
@@ -128,87 +127,89 @@ func main() {
 
 				}
 				rows.Close()
-				db.Close()
+				//				db.Close()
 
-				c.Flush()
-				c.Close()
+//				c.Flush()
+//				c.Close()
 
-				db, err = sql.Open("sqlite3", "/home/juno/git/goFastCgiLight/goFastCgiLight/pushdomains.db")
-				if err != nil {
-
-					golog.Err(err.Error())
-				}
-				sqlstr = "select Domain from pushdomains"
-				rows, err = db.Query(sqlstr)
-				if err != nil {
-					golog.Err(err.Error())
-				}
-				defer rows.Close()
-
-				for rows.Next() {
-					var domaintopush string
-					rows.Scan(&domaintopush)
-					domainstopush = append(domainstopush, domaintopush)
-				}
-
-				rows.Close()
-
-				var newpushdomain bool
-
-				for _, extdomain := range extdomainsarr {
-
-					newpushdomain = false
-
-					for _, pushdomain := range domainstopush {
-
-						if extdomain.Domain == pushdomain {
-
-							newpushdomain = true
-						}
-
-					}
-
-					if !newpushdomain {
-
-						golog.Info("Add " + extdomain.Domain)
-						extdomainsarrtoinsert = append(extdomainsarrtoinsert, extdomain)
-
-					}
-
-				}
-
-				if len(extdomainsarrtoinsert) > 0 {
-
-					sqlstr = "insert into pushdomains(Locale,Themes,Domain,Ip) values(?,?,?,?)"
-
-					tx, err := db.Begin()
-					if err != nil {
-						golog.Err(err.Error())
-					}
-					stmt, err := tx.Prepare(sqlstr)
-					if err != nil {
-						log.Fatal(err)
-						golog.Err(err.Error())
-					}
-					defer stmt.Close()
-
-					for _, domain := range extdomainsarrtoinsert {
-
-						if _, err = stmt.Exec(domain.Locale, domain.Themes, domain.Domain, domain.Ip); err != nil {
-
-							golog.Err(err.Error())
-
-						}
-
-					}
-					stmt.Close()
-					tx.Commit()
-
-				}
-
+				//				db, err = sql.Open("sqlite3", "/home/juno/git/goFastCgiLight/goFastCgiLight/pushdomains.db")
+				//				if err != nil {
+				//
+				//					golog.Err(err.Error())
+				//				}
+				//				sqlstr = "select Domain from pushdomains"
+				//				rows, err = db.Query(sqlstr)
+				//				if err != nil {
+				//					golog.Err(err.Error())
+				//				}
+				//				defer rows.Close()
+				//
+				//				for rows.Next() {
+				//					var domaintopush string
+				//					rows.Scan(&domaintopush)
+				//					domainstopush = append(domainstopush, domaintopush)
+				//				}
+				//
+				//				rows.Close()
+				//
+				//				var newpushdomain bool
+				//
+				//				for _, extdomain := range extdomainsarr {
+				//
+				//					newpushdomain = false
+				//
+				//					for _, pushdomain := range domainstopush {
+				//
+				//						if extdomain.Domain == pushdomain {
+				//
+				//							newpushdomain = true
+				//						}
+				//
+				//					}
+				//
+				//					if !newpushdomain {
+				//
+				//						golog.Info("Add " + extdomain.Domain)
+				//						extdomainsarrtoinsert = append(extdomainsarrtoinsert, extdomain)
+				//
+				//					}
+				//
+				//				}
+				//
+				//				if len(extdomainsarrtoinsert) > 0 {
+				//
+				//					sqlstr = "insert into pushdomains(Locale,Themes,Domain,Ip) values(?,?,?,?)"
+				//
+				//					tx, err := db.Begin()
+				//					if err != nil {
+				//						golog.Err(err.Error())
+				//					}
+				//					stmt, err := tx.Prepare(sqlstr)
+				//					if err != nil {
+				//						log.Fatal(err)
+				//						golog.Err(err.Error())
+				//					}
+				//					defer stmt.Close()
+				//
+				//					for _, domain := range extdomainsarrtoinsert {
+				//
+				//						if _, err = stmt.Exec(domain.Locale, domain.Themes, domain.Domain, domain.Ip); err != nil {
+				//
+				//							golog.Err(err.Error())
+				//
+				//						}
+				//
+				//					}
+				//					stmt.Close()
+				//					tx.Commit()
+				//
+				//				}
+				//
 			}
-
+			//
 			db.Close()
+			c.Flush()
+			c.Close()
 
 		} else {
 
