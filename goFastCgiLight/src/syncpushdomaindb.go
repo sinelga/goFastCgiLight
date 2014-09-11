@@ -45,11 +45,10 @@ func main() {
 		if locale != "" && themes != "" {
 
 			var extdomainsarr []domains.Domaincsv
-//			var extdomainsarrtoinsert []domains.Domaincsv
-//			var domainstopush []string
+
 			var hostsarr []string
 
-			db, err := sql.Open("sqlite3", "/home/juno/git/goFastCgiLight/goFastCgiLight/singolight.db")
+			db, err := sql.Open("sqlite3", "/home/juno/git/goFastCgiLight/goFastCgiLight/singo.db")
 			if err != nil {
 
 				golog.Err(err.Error())
