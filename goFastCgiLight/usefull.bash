@@ -40,8 +40,18 @@ ZADD pushdomains 1 pilluseksi.info
 stop gofast && start gofast && stop nginx && start nginx
 
 
+dpkg-reconfigure tzdata
+
 echo 'export TZ="Europe/Helsinki"' >> /etc/default/rsyslog
 restart rsyslog
+adduser juno
+passwd
+
+apt-get install git-core
+
+
+
+scp /home/juno/git/goFastCgi/goFastCgi/singo.db 104.131.209.134:
 
 
 
