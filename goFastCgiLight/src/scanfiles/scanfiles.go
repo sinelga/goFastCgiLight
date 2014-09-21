@@ -2,11 +2,8 @@ package scanfiles
 
 import (
 	"log/syslog"
-//	"github.com/garyburd/redigo/redis"
 	"strings"
-//	"fmt"
 	
-
 )
 
 func Scan(golog syslog.Writer, path string) string {

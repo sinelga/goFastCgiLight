@@ -6,7 +6,6 @@ import (
 	"compress/gzip"
 	"domains"
 	"findfreeparagraph"
-	//	"fmt"
 	"io/ioutil"
 	"log/syslog"
 	"os"
@@ -141,7 +140,6 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 		}
 		f(doc)
 
-//		startparametrs :=[]string{"tcp",":6379"}
 		freeparagraph := findfreeparagraph.FindFromQ(golog, locale, themes,"google",startparameters)
 		paragrapharr = append(paragrapharr, freeparagraph)
 		webpagebytes := updatehtmlpage.UpdatePage(golog, site, paragrapharr)

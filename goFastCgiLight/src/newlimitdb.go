@@ -62,7 +62,7 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 
 		site := scanfiles.Scan(*golog, path)
 
-		fmt.Println(site)
+//		fmt.Println(site)
 
 		i, ok := sitesmap[site]
 
