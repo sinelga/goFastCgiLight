@@ -36,3 +36,11 @@ type Domaincsv struct {
 	Domain string
 	Ip     string
 }
+
+//type SiteLimit struct {
+//	
+//	Locale string
+//	Themes string
+//	Site string
+//	Pages int
+//}

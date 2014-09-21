@@ -48,6 +48,7 @@ adduser juno
 passwd
 
 apt-get install git-core
+apt-get install redis-server
 
 
 
