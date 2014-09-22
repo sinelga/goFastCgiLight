@@ -2,25 +2,27 @@ package bthandler
 
 import (
 	"clean_pathinfo"
+	"createfirstgz"
 	"createpage"
 	"log/syslog"
 	"net/http"
 	"strings"
-	"createfirstgz"
 )
 
-func BTrequestHandler(golog syslog.Writer, resp http.ResponseWriter, req *http.Request, locale string, themes string, site string, pathinfo string,bot string,startparameters []string,blocksite bool) {
+func BTrequestHandler(golog syslog.Writer, resp http.ResponseWriter, req *http.Request, locale string, themes string, site string, pathinfo string, bot string, startparameters []string, blocksite bool) {
 
-	
 	pathinfoclean := clean_pathinfo.CleanPath(golog, pathinfo)
-	
-	golog.Info("will block-> "+site)
-	
+
+	if blocksite {
+
+		golog.Info("will block-> " + site)
+
+	}
 
 	var bytepage []byte
 	if strings.HasSuffix(pathinfoclean, ".html") || strings.HasSuffix(pathinfoclean, ".php") || strings.HasSuffix(pathinfoclean, ".jsp") {
 
-		bytepage = createpage.CreateHtmlPage(golog, locale, themes, bot,startparameters)
+		bytepage = createpage.CreateHtmlPage(golog, locale, themes, bot, startparameters)
 
 		resp.Write(bytepage)
 
@@ -28,11 +30,11 @@ func BTrequestHandler(golog syslog.Writer, resp http.ResponseWriter, req *http.R
 
 		resp.WriteHeader(404)
 	}
-	
+
 	if strings.HasSuffix(pathinfoclean, ".html") {
 
-		go createfirstgz.Creategzhtml(golog,locale,themes,site,pathinfoclean,bytepage)
+		go createfirstgz.Creategzhtml(golog, locale, themes, site, pathinfoclean, bytepage)
 
-	}	
+	}
 
 }
