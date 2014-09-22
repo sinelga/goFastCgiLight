@@ -42,8 +42,19 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 		}
 
 	})
+	
+	bloksite := false
+	
+	_, ok := sitestoblock[site]
+	
+	if ok {
 
-	bthandler.BTrequestHandler(*golog, resp, req, locale, themes, site, pathinfo, bot, startparameters)
+		bloksite = true			
+		
+	}
+	
+
+	bthandler.BTrequestHandler(*golog, resp, req, locale, themes, site, pathinfo, bot, startparameters,bloksite)
 
 }
 

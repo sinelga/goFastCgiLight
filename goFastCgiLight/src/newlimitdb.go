@@ -44,11 +44,6 @@ func main() {
 		golog.Err(err.Error())
 	}
 
-//	for site, pages := range sitesmap {
-//
-//		fmt.Println(site, pages)
-//
-//	}
 	
 	limitdbbyredis.MakeNewDb(*golog,c,sitesmap)
 	
@@ -61,8 +56,6 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 	if !fileInfo.IsDir() {
 
 		site := scanfiles.Scan(*golog, path)
-
-//		fmt.Println(site)
 
 		i, ok := sitesmap[site]
 

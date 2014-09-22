@@ -35,13 +35,9 @@ func Start(golog syslog.Writer) ([]string,map[string]struct{}) {
 			golog.Crit("FindFromQ: " + err.Error())
 
 		} else {
-			
-//			fmt.Println(len(limitsites))
-			
+
 			
 			for _,sitetoblock :=range limitsites {
-				
-//				fmt.Println("sitescore ",sitetoblock)
 				
 				sitestoblock[sitetoblock] = struct{}{} 
 				

@@ -9,10 +9,13 @@ import (
 	"createfirstgz"
 )
 
-func BTrequestHandler(golog syslog.Writer, resp http.ResponseWriter, req *http.Request, locale string, themes string, site string, pathinfo string,bot string,startparameters []string) {
+func BTrequestHandler(golog syslog.Writer, resp http.ResponseWriter, req *http.Request, locale string, themes string, site string, pathinfo string,bot string,startparameters []string,blocksite bool) {
 
 	
 	pathinfoclean := clean_pathinfo.CleanPath(golog, pathinfo)
+	
+	golog.Info("will block-> "+site)
+	
 
 	var bytepage []byte
 	if strings.HasSuffix(pathinfoclean, ".html") || strings.HasSuffix(pathinfoclean, ".php") || strings.HasSuffix(pathinfoclean, ".jsp") {
