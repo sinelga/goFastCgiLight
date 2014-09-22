@@ -1,7 +1,7 @@
 package startones
 
 import (
-		"log"
+	"log"
 	"log/syslog"
 	"testing"
 	
@@ -16,9 +16,19 @@ func TestStart(t *testing.T) {
 	if err != nil {
 		log.Fatal("error writing syslog!!")
 	}
-	parameters :=Start(*golog)
+	parameters,sitestoblock :=Start(*golog)
 	
+	golog.Info(parameters[0])
 	golog.Info(parameters[1])
+	golog.Info(parameters[2])
+	
+	
+	for sitetoblock :=range sitestoblock {
+		
+		golog.Info(sitetoblock)
+		
+	}
+	
 	
 	
 	

@@ -13,6 +13,7 @@ import (
 
 var startOnce sync.Once
 var startparameters []string
+var sitestoblock map[string]struct{}
 
 type FastCGIServer struct{}
 
@@ -24,7 +25,6 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Fatal("error writing syslog!!")
 	}
-	
 
 	themes := req.Header.Get("X-THEMES")
 	locale := req.Header.Get("X-LOCALE")
@@ -33,10 +33,17 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	bot := req.Header.Get("X-BOT")
 
 	startOnce.Do(func() {
-		startparameters=startones.Start(*golog)
+		startparameters, sitestoblock = startones.Start(*golog)
+
+		for sitetoblock := range sitestoblock {
+
+			golog.Info("block-> "+sitetoblock)
+
+		}
+
 	})
 
-	bthandler.BTrequestHandler(*golog, resp, req, locale, themes, site, pathinfo, bot,startparameters)
+	bthandler.BTrequestHandler(*golog, resp, req, locale, themes, site, pathinfo, bot, startparameters)
 
 }
 

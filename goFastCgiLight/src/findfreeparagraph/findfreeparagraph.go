@@ -54,27 +54,29 @@ func FindFromQ(golog syslog.Writer, locale string, themes string, bot string,sta
 				golog.Crit(err.Error())
 
 			}
+			
+//			looks like g don't like it
 
-			if pushsite, err := redis.Strings(c.Do("ZRANGEBYSCORE", "pushdomains", "-inf", "+inf", "LIMIT", 0, 1)); err != nil {
-
-				golog.Crit("FindFromQ: " + err.Error())
-
-			} else {
-
-				if len(pushsite) > 0 && bot =="bing" {
-
-					unmarPar.Pushsite = pushsite[0]
-
-					_, err = c.Do("ZINCRBY", "pushdomains", 1, pushsite[0])
-					if err != nil {
-
-						golog.Crit(err.Error())
-
-					}
-
-				}
-
-			}
+//			if pushsite, err := redis.Strings(c.Do("ZRANGEBYSCORE", "pushdomains", "-inf", "+inf", "LIMIT", 0, 1)); err != nil {
+//
+//				golog.Crit("FindFromQ: " + err.Error())
+//
+//			} else {
+//
+//				if len(pushsite) > 0 && bot =="bing" {
+//
+//					unmarPar.Pushsite = pushsite[0]
+//
+//					_, err = c.Do("ZINCRBY", "pushdomains", 1, pushsite[0])
+//					if err != nil {
+//
+//						golog.Crit(err.Error())
+//
+//					}
+//
+//				}
+//
+//			}
 
 		} else {
 

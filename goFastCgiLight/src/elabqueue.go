@@ -22,7 +22,7 @@ func main() {
 		log.Fatal("error writing syslog!!")
 	}
 
-	startparameters=startones.Start(*golog)
+	startparameters,_=startones.Start(*golog)
 
 	c, err := redis.Dial("tcp", ":6379")
 	if err != nil {

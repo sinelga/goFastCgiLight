@@ -1,4 +1,4 @@
-prot,host
+prot,host,pagelimit
 
-tcp,:6379
-tcp,10.128.230.234:6379
+tcp,:6379,5000
+tcp,10.128.230.234:6379,5000
