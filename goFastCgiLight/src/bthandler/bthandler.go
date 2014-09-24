@@ -15,7 +15,7 @@ func BTrequestHandler(golog syslog.Writer, resp http.ResponseWriter, req *http.R
 
 	if blocksite {
 
-		golog.Info("BTrequestHandler:will block-> " + site)
+		golog.Info("BTrequestHandler:will block-> " + site+pathinfo)
 
 	}
 
