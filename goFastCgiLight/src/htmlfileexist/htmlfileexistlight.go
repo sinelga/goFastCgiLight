@@ -14,9 +14,9 @@ import (
 	"updatehtmlpage"
 )
 
-func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site string, pathinfo string,startparameters []string) {
+func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site string, pathinfo string,startparameters []string,blocksite bool) {
 
-	htmlfile := string("www/" + locale + "/" + themes + "/" + site + pathinfo)
+	htmlfile := string("/home/juno/git/goFastCgiLight/goFastCgiLight/www/" + locale + "/" + themes + "/" + site + pathinfo)
 	finfo, err := os.Stat(htmlfile)
 	if err != nil {
 		golog.Err("StartCheckNoDB: " + err.Error())
@@ -115,7 +115,7 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 					}
 				}
 
-				if ptitle != "" && pphrase != "" && plocallink != "" && len(sentensesarr) > 0 {
+				if ptitle != "" && pphrase != ""  && len(sentensesarr) > 0 {
 
 					paragraph := domains.Paragraph{
 						Ptitle:     ptitle,
@@ -142,7 +142,7 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 
 		freeparagraph := findfreeparagraph.FindFromQ(golog, locale, themes,"google",startparameters)
 		paragrapharr = append(paragrapharr, freeparagraph)
-		webpagebytes := updatehtmlpage.UpdatePage(golog, site, paragrapharr)
+		webpagebytes := updatehtmlpage.UpdatePage(golog, site, paragrapharr,blocksite)
 
 		if !index {
 

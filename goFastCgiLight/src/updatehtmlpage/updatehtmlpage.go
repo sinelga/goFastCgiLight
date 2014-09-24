@@ -7,12 +7,26 @@ import (
 	"log/syslog"
 )
 
-func UpdatePage(golog syslog.Writer, htmlfile string, paragraphsarr []domains.Paragraph) []byte {
+func UpdatePage(golog syslog.Writer, htmlfile string, paragraphsarr []domains.Paragraph, blocksite bool) []byte {
 
+	var base string
+	var page string
+
+	if blocksite {
+
+		base = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/_base.html"
+		page = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/indexnolinks.html"
+
+	} else {
+
+		base = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/_base.html"
+		page = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/index.html"
+
+	}
 
 	var index = template.Must(template.ParseFiles(
-		"templ/_base.html",
-		"templ/index.html",
+		base,
+		page,
 	))
 	webpage := bytes.NewBuffer(nil)
 

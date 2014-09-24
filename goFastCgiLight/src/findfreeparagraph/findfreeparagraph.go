@@ -7,20 +7,20 @@ import (
 	"log/syslog"
 )
 
-func GetRecqueParagraph(locale string, themes string) domains.Paragraph {
-
-	sentences := []string{"sentence1", "sentence2", "sentence3", "sentence4", "sentence5", "sentence6", "sentence7", "sentence8"}
-
-	paragraph := domains.Paragraph{
-		Ptitle:     "ptitle",
-		Pphrase:    "pphrase",
-		Plocallink: "plocallink",
-		Phost:      "phost",
-		Sentences:  sentences,
-	}
-
-	return paragraph
-}
+//func GetRecqueParagraph(locale string, themes string) domains.Paragraph {
+//
+//	sentences := []string{"sentence1", "sentence2", "sentence3", "sentence4", "sentence5", "sentence6", "sentence7", "sentence8"}
+//
+//	paragraph := domains.Paragraph{
+//		Ptitle:     "ptitle",
+//		Pphrase:    "pphrase",
+//		Plocallink: "plocallink",
+//		Phost:      "phost",
+//		Sentences:  sentences,
+//	}
+//
+//	return paragraph
+//}
 
 func FindFromQ(golog syslog.Writer, locale string, themes string, bot string,startparameters []string) domains.Paragraph {
 

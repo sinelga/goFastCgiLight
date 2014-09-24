@@ -13,7 +13,7 @@ import (
 
 func Creategzhtml(golog syslog.Writer, locale string, themes string, site string, pathinfoclean string, webpagebytes []byte) {
 
-	_htmlfile := checkpathinfo.Check("www/" + locale + "/" + themes + "/" + site + pathinfoclean)
+	_htmlfile := checkpathinfo.Check("/home/juno/git/goFastCgiLight/goFastCgiLight/www/" + locale + "/" + themes + "/" + site + pathinfoclean)
 
 	var index bool = false
 

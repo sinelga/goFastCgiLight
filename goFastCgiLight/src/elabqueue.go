@@ -8,10 +8,10 @@ import (
 	"log"
 	"log/syslog"
 	"startones"
-
 )
 
 var startparameters []string
+var sitestoblock map[string]struct{}
 
 func main() {
 
@@ -22,7 +22,7 @@ func main() {
 		log.Fatal("error writing syslog!!")
 	}
 
-	startparameters,_=startones.Start(*golog)
+	startparameters, sitestoblock = startones.Start(*golog)
 
 	c, err := redis.Dial("tcp", ":6379")
 	if err != nil {
@@ -31,12 +31,12 @@ func main() {
 	}
 
 	if qpages, err := redis.Int(c.Do("SCARD", "pagetocreate")); err != nil {
-	
+
 		golog.Crit(err.Error())
 
 	} else {
 
-		golog.Info("elabque: Start pagetocreate elaborate "+string(qpages) )
+		golog.Info("elabque: Start pagetocreate elaborate " + string(qpages))
 		for i := 0; i < qpages; i++ {
 
 			msite, _ := redis.Bytes(c.Do("SPOP", "pagetocreate"))
@@ -48,12 +48,22 @@ func main() {
 				golog.Crit(err.Error())
 			}
 
-			htmlfileexist.StartCheckNoDB(*golog, unmar.Locale, unmar.Themes, unmar.Domain, unmar.Pathinfo,startparameters)
+			bloksite := false
+
+			_, ok := sitestoblock[unmar.Domain]
+
+			if ok {
+
+				bloksite = true
+
+			}
+
+			htmlfileexist.StartCheckNoDB(*golog, unmar.Locale, unmar.Themes, unmar.Domain, unmar.Pathinfo, startparameters, bloksite)
 
 		}
 
 	}
-	
+
 	golog.Info("elabque: END pagetocreate")
 	c.Flush()
 	c.Close()

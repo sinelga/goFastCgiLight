@@ -1,0 +1,19 @@
+{{ define "content" }}
+<div class="panel-heading">
+	<ul class="nav nav-pills">
+		<li class="active"><a href="#">Home</a></li>
+	</ul>
+</div>
+
+<h1 class="well well-lg">{{.Ptitle }}</h1>
+<h1 class="well well">{{.Pphrase }}</h1>
+<div class="well well-sm">{{range .Sentences }} {{.}} {{end}}</div>
+<ul>
+<!-- <li><a href="{{.Plocallink }}">{{.Ptitle }}</a></li>  -->	
+	{{if .Pushsite}}
+	<li><a href="http://{{.Pushsite }}{{.Plocallink }}">{{.Ptitle }}</a></li> 
+	{{end}}
+</ul>
+
+
+{{ end }}

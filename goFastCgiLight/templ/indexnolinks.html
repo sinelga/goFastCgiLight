@@ -1,0 +1,14 @@
+ {{ define "content" }}
+<div class="panel-heading">
+	<ul class="nav nav-pills">
+		<li class="active"><a href="#">Home</a></li>
+	</ul>
+</div>
+
+{{range .Paragraphs}}
+<div class="well">
+	<h2>{{.Ptitle }}</h2>
+	<h3>{{.Pphrase }}</h3>
+</div>
+<div class="well well-sm">{{range .Sentences }} {{.}} {{end}}</div>
+{{end}} {{ end }}

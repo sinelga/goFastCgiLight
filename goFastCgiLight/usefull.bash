@@ -31,6 +31,7 @@ GOPATH=$GOPATH:/home/juno/git/goFastCgiLight/goFastCgiLight go test -v
 bin/syncpushdomaindb -locale=fi_FI -themes=porno
 
 ZRANGEBYSCORE pushdomains -inf +inf withscores  LIMIT 0 10000
+ZRANGEBYSCORE limitsites -inf +inf withscores  LIMIT 0 10000
 
 ZADD pushdomains 1 pilluseksi.com
 ZADD pushdomains 1 pilluseksi.info

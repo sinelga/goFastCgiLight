@@ -7,13 +7,27 @@ import (
 	"log/syslog"
 )
 
-func CreateHtmlPage(golog syslog.Writer, locale string, themes string,bot string,startparameters []string) []byte {
+func CreateHtmlPage(golog syslog.Writer, locale string, themes string, bot string, startparameters []string, blocksite bool) []byte {
+	
+	var firstbase string
+	var firstindex string
+
+	if blocksite {
+
+		firstbase = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/_firstbase.html"
+		firstindex = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/firstindexnolinks.html"
+
+	} else {
+
+		firstbase = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/_firstbase.html"
+		firstindex = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/firstindex.html"
+	}
 
 	var index = template.Must(template.ParseFiles(
-		"/home/juno/git/goFastCgiLight/goFastCgiLight/templ/_firstbase.html",
-		"/home/juno/git/goFastCgiLight/goFastCgiLight/templ/firstindex.html",
+		firstbase,
+		firstindex,
 	))
-	paragraph := findfreeparagraph.FindFromQ(golog, locale, themes,bot,startparameters)
+	paragraph := findfreeparagraph.FindFromQ(golog, locale, themes, bot, startparameters)
 
 	webpage := bytes.NewBuffer(nil)
 
