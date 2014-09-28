@@ -52,6 +52,9 @@ apt-get install git-core
 apt-get install redis-server
 
 
+SELECT * FROM keywords where themes='porno' and Hits=0 and Updated <1410838360865
+
+
 
 scp /home/juno/git/goFastCgi/goFastCgi/singo.db 104.131.209.134:
 

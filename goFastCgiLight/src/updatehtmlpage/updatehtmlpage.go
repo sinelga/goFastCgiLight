@@ -11,22 +11,26 @@ func UpdatePage(golog syslog.Writer, htmlfile string, paragraphsarr []domains.Pa
 
 	var base string
 	var page string
+	var mediablock string
 
-	if blocksite {
-
-		base = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/_base.html"
-		page = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/indexnolinks.html"
-
-	} else {
+//	if blocksite {
+//
+//		base = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/_base.html"
+//		page = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/indexnolinks.html"
+//
+//	} else {
 
 		base = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/_base.html"
 		page = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/index.html"
+		mediablock = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/mediablock.html"
+		
 
-	}
+//	}
 
 	var index = template.Must(template.ParseFiles(
 		base,
 		page,
+		mediablock,
 	))
 	webpage := bytes.NewBuffer(nil)
 

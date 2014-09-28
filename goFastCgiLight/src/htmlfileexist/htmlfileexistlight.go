@@ -6,6 +6,7 @@ import (
 	"compress/gzip"
 	"domains"
 	"findfreeparagraph"
+	"fmt"
 	"io/ioutil"
 	"log/syslog"
 	"os"
@@ -14,7 +15,7 @@ import (
 	"updatehtmlpage"
 )
 
-func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site string, pathinfo string,startparameters []string,blocksite bool) {
+func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site string, pathinfo string, startparameters []string, blocksite bool) {
 
 	htmlfile := string("/home/juno/git/goFastCgiLight/goFastCgiLight/www/" + locale + "/" + themes + "/" + site + pathinfo)
 	finfo, err := os.Stat(htmlfile)
@@ -43,79 +44,83 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 		if !index {
 			sf, err := os.Open(htmlfile)
 			if err != nil {
-				golog.Err("StartCheckNoDB: "+htmlfile + err.Error())
+				golog.Err("StartCheckNoDB: " + htmlfile + err.Error())
 			}
 			defer sf.Close()
 			s, err := gzip.NewReader(sf)
 			if err != nil {
-				golog.Err("StartCheckNoDB: "+htmlfile + err.Error())
+				golog.Err("StartCheckNoDB: " + htmlfile + err.Error())
 			}
 			defer s.Close()
 
 			doc, err = html.Parse(s)
 			if err != nil {
-				golog.Err("StartCheckNoDB: "+ htmlfile+ err.Error())
+				golog.Err("StartCheckNoDB: " + htmlfile + err.Error())
 			}
 
 		} else {
 
 			s, err := os.Open(htmlfile)
 			if err != nil {
-				golog.Err("StartCheckNoDB: "+htmlfile + err.Error())
+				golog.Err("StartCheckNoDB: " + htmlfile + err.Error())
 			}
 
 			defer s.Close()
 			doc, err = html.Parse(s)
 			if err != nil {
-				golog.Err("StartCheckNoDB: "+ htmlfile+ err.Error())
+				golog.Err("StartCheckNoDB: " + htmlfile + err.Error())
 			}
 		}
 
 		var f func(*html.Node)
+
 		f = func(n *html.Node) {
 			if n.Type == html.ElementNode {
 
-				if n.Data == "h2" {
-					if n.FirstChild != nil {
-						ptitle = n.FirstChild.Data
-					}
-				}
-
-				if n.Data == "h3" {
-					if n.FirstChild != nil {
-						pphrase = n.FirstChild.Data
-					}
-				}
-
 				for _, a := range n.Attr {
 
-					if a.Val == "well well-lg" {
+					if a.Val == "Ptitle" {
 						if n.FirstChild != nil {
 							ptitle = n.FirstChild.Data
 						}
 
 					}
-					if a.Val == "well well" {
+
+					if a.Val == "Pphrase" {
 						if n.FirstChild != nil {
 							pphrase = n.FirstChild.Data
 						}
+
 					}
-					if a.Val == "well well-sm" {
+					if a.Val == "Sentences" {
 						if n.FirstChild != nil {
 							sentensesarr = stringbylineparser.Parse(n.FirstChild.Data)
 						}
 					}
 
-					if n.Data == "a" {
-
-						if a.Val != "#" {
-							plocallink = a.Val
-
-						}
-					}
 				}
 
-				if ptitle != "" && pphrase != ""  && len(sentensesarr) > 0 {
+				if n.Data == "a" {
+
+					for _, a := range n.Attr {
+
+						if a.Key == "href" && a.Val != "#" {
+							fmt.Println(a.Key)
+							fmt.Println(a.Val)
+							plocallink = a.Val
+						}
+
+					}
+
+				}
+
+				if ptitle != "" && pphrase != "" && len(sentensesarr) > 0 {
+
+					if blocksite {
+
+						plocallink = ""
+
+					}
 
 					paragraph := domains.Paragraph{
 						Ptitle:     ptitle,
@@ -140,9 +145,15 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 		}
 		f(doc)
 
-		freeparagraph := findfreeparagraph.FindFromQ(golog, locale, themes,"google",startparameters)
+		freeparagraph := findfreeparagraph.FindFromQ(golog, locale, themes, "google", startparameters)
+
+		if blocksite {
+			freeparagraph.Plocallink = ""
+
+		}
+
 		paragrapharr = append(paragrapharr, freeparagraph)
-		webpagebytes := updatehtmlpage.UpdatePage(golog, site, paragrapharr,blocksite)
+		webpagebytes := updatehtmlpage.UpdatePage(golog, site, paragrapharr, blocksite)
 
 		if !index {
 

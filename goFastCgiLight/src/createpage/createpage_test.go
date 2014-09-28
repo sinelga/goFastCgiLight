@@ -1,7 +1,7 @@
 package createpage
 
 import (
-//	"io/ioutil"
+
 	"log"
 	"log/syslog"
 	"testing"
@@ -17,17 +17,39 @@ func TestCreateHtmlPage(t *testing.T) {
 		log.Fatal("error writing syslog!!")
 	}
 
+	var blocksite bool
+	var locale string
+	var themes string
+	var site string
+	var pathinfo string
+	var testbitepage []byte
+
+
 	startparameters := []string{"tcp", ":6379", "2"}
 	
 	
-	locale :="fi_FI"
-	themes :="porno"
-	site :="test.com"
-	pathinfo := "/test.html"
-	blocksite := false
+	locale ="fi_FI"
+	themes ="porno"
+	site ="test.com"
+	pathinfo = "/test.html"
+	blocksite = true
 
-	testbitepage := CreateHtmlPage(*golog, locale, themes, "google", startparameters, blocksite)
-	
+	testbitepage = CreateHtmlPage(*golog, locale, themes, "google", startparameters, blocksite)
 	createfirstgz.Creategzhtml(*golog, locale, themes, site, pathinfo,testbitepage)
+	
+	locale ="fi_FI"
+	themes ="porno"
+	site ="test.com"
+	pathinfo = "/test2.html"
+	blocksite = false
+
+	testbitepage = CreateHtmlPage(*golog, locale, themes, "google", startparameters, blocksite)
+	createfirstgz.Creategzhtml(*golog, locale, themes, site, pathinfo,testbitepage)
+	
+	
+	
+	
+	
+	
 	
 }
