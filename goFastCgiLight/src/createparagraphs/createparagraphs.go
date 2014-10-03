@@ -78,7 +78,7 @@ func CreatePr(golog syslog.Writer, locale string, themes string, keywords []stri
 	golog.Info("createparagraphs:CreatePr: Start")
 
 //	numWords := 850
-	numWords := comutils.Random(600,900)
+	numWords := comutils.Random(300,900)
 	prefixLen := 1
 
 	rand.Seed(time.Now().UnixNano()) // Seed the random number generator.

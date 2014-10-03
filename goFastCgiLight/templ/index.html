@@ -1,15 +1,11 @@
  {{ define "content" }}
 <div class="panel-heading">
 	<ul class="nav nav-pills">
-		<li class="active"><a href="#">Home</a></li>
+		<li class="active"><a href="#">Etusivu</a></li> {{range .Paragraphs}}
+		{{if .Plocallink}}
+		<li><a href="{{.Plocallink }}">{{ .Ptitle | FirstWord}}</a></li> {{end}} {{end}}
 	</ul>
 </div>
 
 
-	{{range .Paragraphs}}
-	
-		{{ template "mediablock" . }}
-
-
-	{{end}}
-{{ end }}
+{{range .Paragraphs}} {{ template "mediablock" . }} {{end}} {{ end }}
