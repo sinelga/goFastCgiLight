@@ -30,7 +30,6 @@ func Clone(a, b interface{}) {
 	dec.Decode(b)
 }
 
-func Random(min, max int) int {
-	//    rand.Seed(time.Now().Unix())
+func Random(min, max int) int {	
 	return rand.Intn(max-min) + min
 }
