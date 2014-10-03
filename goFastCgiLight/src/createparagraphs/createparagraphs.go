@@ -1,16 +1,16 @@
 package createparagraphs
 
 import (
-//	_ "code.google.com/p/go-sqlite/go1/sqlite3"
+	//	_ "code.google.com/p/go-sqlite/go1/sqlite3"
+	"bytes"
 	"comutils"
 	"domains"
+	"fmt"
 	"log/syslog"
 	"math/rand"
 	"p_create_locallink"
 	"prtitlegen"
 	"queue/freeparagraphs"
-	"bytes"
-	"fmt"
 	"strings"
 	"time"
 )
@@ -75,10 +75,10 @@ func (c *Chain) Generate(n int, keyword string) string {
 
 func CreatePr(golog syslog.Writer, locale string, themes string, keywords []string, phrases []string, hosts []string, quant int) {
 
-	golog.Info("createparagraphs:CreatePr: Start")
+//	golog.Info("createparagraphs:CreatePr: Start")
 
-//	numWords := 850
-	numWords := comutils.Random(300,900)
+	//	numWords := 850
+	numWords := comutils.Random(300, 900)
 	prefixLen := 1
 
 	rand.Seed(time.Now().UnixNano()) // Seed the random number generator.
