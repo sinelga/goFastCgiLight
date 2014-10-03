@@ -54,10 +54,11 @@ apt-get install libgeoip1 libgeoip-dev  ??
 
 
 SELECT * FROM keywords where themes='porno' and Hits=0 and Updated <1410838360865
+SELECT * FROM keywords where themes='porno' and Hits=1 and Updated <
 
 
 
-scp /home/juno/git/goFastCgi/goFastCgi/singo.db 104.131.209.134:
+scp /home/juno/git/goFastCgi/goFastCgi/singo.db 104.131.209.134:git/goFastCgiLight/goFastCgiLight
 scp /home/juno/git/goFastCgi/goFastCgi/singo.db 104.131.99.251:git/goFastCgiLight/goFastCgiLight
 
 

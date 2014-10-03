@@ -1,7 +1,7 @@
 #! /bin/bash
 #chmod +x!! must be done
 #*/5 * * * * /home/juno/git/goFastCgi/goFastCgi/crongofastscript.bash
-#*/5 * * * * flock -n /tmp/crongofastscript.lock -c /home/juno/git/goFastCgi/goFastCgi/crongofastscript.bash
+#*/5 * * * * flock -n /tmp/crongofastscript.lock -c /home/juno/git/goFastCgiLight/goFastCgiLight/crongofastscript.bash
 
 cd /home/juno/git/goFastCgiLight/goFastCgiLight
 #pgrep elabqueue && echo `date >>/tmp/elabqueue`
