@@ -5,6 +5,7 @@ import (
 	"domains"
 	"html/template"
 	"log/syslog"
+	"strings"
 )
 
 func UpdatePage(golog syslog.Writer, htmlfile string, paragraphsarr []domains.Paragraph, blocksite bool) []byte {
@@ -13,25 +14,27 @@ func UpdatePage(golog syslog.Writer, htmlfile string, paragraphsarr []domains.Pa
 	var page string
 	var mediablock string
 
-//	if blocksite {
-//
-//		base = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/_base.html"
-//		page = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/indexnolinks.html"
-//
-//	} else {
+	base = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/_base.html"
+	page = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/index.html"
+	mediablock = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/mediablock.html"
+	
+		funcMap := template.FuncMap{
+		"FirstWord": firstWord,
+	}
 
-		base = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/_base.html"
-		page = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/index.html"
-		mediablock = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/mediablock.html"
-		
-
-//	}
-
-	var index = template.Must(template.ParseFiles(
+//	var index = template.Must(template.ParseFiles(
+//		base,
+//		page,
+//		mediablock,
+//	))
+	
+	index, _ := template.New("base").Funcs(funcMap).ParseFiles(
 		base,
 		page,
 		mediablock,
-	))
+	)
+	
+	
 	webpage := bytes.NewBuffer(nil)
 
 	htmlpage := domains.Htmlpage{
@@ -46,5 +49,13 @@ func UpdatePage(golog syslog.Writer, htmlfile string, paragraphsarr []domains.Pa
 	webpagebytes = webpage.Bytes()
 
 	return webpagebytes
+
+}
+
+func firstWord(s string) string {
+
+	words := strings.Fields(s)
+
+	return words[0]
 
 }

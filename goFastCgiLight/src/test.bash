@@ -7,7 +7,7 @@ rm ../www/fi_FI/porno/test.com/test2.html.gz
 export GOPATH=$GOPATH:/home/juno/git/goFastCgiLight/goFastCgiLight
 cd createpage 
 go test -v
-#cd ../htmlfileexist
-#go test -v
+cd ../htmlfileexist
+go test -v
 
 

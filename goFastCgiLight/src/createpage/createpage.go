@@ -22,24 +22,22 @@ func CreateHtmlPage(golog syslog.Writer, locale string, themes string, bot strin
 	mediablock = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/mediablock.html"
 
 	funcMap := template.FuncMap{
-		"ToUpper": strings.ToUpper,
 		"FirstWord": firstWord,
 	}
 
-//	var index = template.Must(template.ParseFiles(
-//		firstbase,
-//		firstindex,
-//		mediablock,
-//	))
+	//	var index = template.Must(template.ParseFiles(
+	//		firstbase,
+	//		firstindex,
+	//		mediablock,
+	//	))
 
-//	index.Funcs(funcMap)
+	//	index.Funcs(funcMap)
 
 	index, _ := template.New("base").Funcs(funcMap).ParseFiles(
 		firstbase,
 		firstindex,
 		mediablock,
 	)
-
 
 	paragraph := findfreeparagraph.FindFromQ(golog, locale, themes, bot, startparameters)
 
@@ -67,12 +65,10 @@ func CreateHtmlPage(golog syslog.Writer, locale string, themes string, bot strin
 
 }
 
-
 func firstWord(s string) string {
-	
-		words := strings.Fields(s)
-		
-		return words[0]
-	
-	
+
+	words := strings.Fields(s)
+
+	return words[0]
+
 }
