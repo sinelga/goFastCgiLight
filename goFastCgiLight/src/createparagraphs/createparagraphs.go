@@ -79,6 +79,8 @@ func CreatePr(golog syslog.Writer, locale string, themes string, keywords []stri
 //	golog.Info("createparagraphs:CreatePr: Start")
 
 	//	numWords := 850
+//	  "math/rand"
+	rand.Seed(time.Now().UTC().UnixNano())  
 	numWords := comutils.Random(300, 1000)
 	numWords_str := strconv.Itoa(numWords)
 	golog.Info("numWords --> "+numWords_str)
