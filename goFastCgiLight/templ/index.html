@@ -5,14 +5,11 @@
 		{{if .Plocallink}}
 		<li><a href="{{.Plocallink }}">{{ .Ptitle | FirstWord}}</a></li> 
 		{{else}}
-		
-		
-			
-			<li><a href="#">{{ .Sentences | FirstWordFromSenteces}}</a></li>
+					
+			<li><a href="#{{ .Sentences | FirstWordFromSenteces}}">{{ .Sentences | FirstWordFromSenteces}}</a></li>
 		
 		{{end}}
-		 
-		
+		 		
 		
 		{{end}}
 	</ul>
