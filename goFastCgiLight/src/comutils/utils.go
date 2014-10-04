@@ -5,6 +5,8 @@ import (
 	"encoding/gob"
 	"math/rand"
 	"unicode"
+	
+    "time"
 )
 
 func UpcaseInitial(str string) string {
@@ -31,5 +33,6 @@ func Clone(a, b interface{}) {
 }
 
 func Random(min, max int) int {	
+	rand.Seed(time.Now().UTC().UnixNano())
 	return rand.Intn(max-min) + min
 }

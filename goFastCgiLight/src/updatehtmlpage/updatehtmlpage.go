@@ -22,11 +22,6 @@ func UpdatePage(golog syslog.Writer, htmlfile string, paragraphsarr []domains.Pa
 		"FirstWord": firstWord,
 	}
 
-//	var index = template.Must(template.ParseFiles(
-//		base,
-//		page,
-//		mediablock,
-//	))
 	
 	index, _ := template.New("base").Funcs(funcMap).ParseFiles(
 		base,

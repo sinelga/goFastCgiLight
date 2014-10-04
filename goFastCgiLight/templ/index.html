@@ -3,7 +3,18 @@
 	<ul class="nav nav-pills">
 		<li class="active"><a href="#">Etusivu</a></li> {{range .Paragraphs}}
 		{{if .Plocallink}}
-		<li><a href="{{.Plocallink }}">{{ .Ptitle | FirstWord}}</a></li> {{end}} {{end}}
+		<li><a href="{{.Plocallink }}">{{ .Ptitle | FirstWord}}</a></li> 
+		{{else}}
+		
+		
+			
+			<li><a href="#">{{ .Sentences | FirstWordFromSenteces}}</a></li>
+		
+		{{end}}
+		 
+		
+		
+		{{end}}
 	</ul>
 </div>
 

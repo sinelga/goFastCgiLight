@@ -6,36 +6,31 @@ import (
 	"findfreeparagraph"
 	"html/template"
 	"log/syslog"
-	"strings"
+//	"strings"
+	"templ_funcmap"
 )
 
 func CreateHtmlPage(golog syslog.Writer, locale string, themes string, bot string, startparameters []string, blocksite bool) []byte {
 
 	var paragrapharr []domains.Paragraph
 
-	var firstbase string
-	var firstindex string
+	var base string
+	var page string
 	var mediablock string
 
-	firstbase = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/_base.html"
-	firstindex = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/index.html"
+	base = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/_base.html"
+	page = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/index.html"
 	mediablock = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/mediablock.html"
 
 	funcMap := template.FuncMap{
-		"FirstWord": firstWord,
+		"FirstWord": templ_funcmap.FirstWord,
+		"FirstWordFromSenteces": templ_funcmap.FirstWordFromSenteces,
 	}
 
-	//	var index = template.Must(template.ParseFiles(
-	//		firstbase,
-	//		firstindex,
-	//		mediablock,
-	//	))
-
-	//	index.Funcs(funcMap)
 
 	index, _ := template.New("base").Funcs(funcMap).ParseFiles(
-		firstbase,
-		firstindex,
+		base,
+		page,
 		mediablock,
 	)
 
@@ -65,10 +60,21 @@ func CreateHtmlPage(golog syslog.Writer, locale string, themes string, bot strin
 
 }
 
-func firstWord(s string) string {
+//func firstWord(s string) string {
+//
+//	words := strings.Fields(s)
+//
+//	return words[0]
+//
+//}
+//
+//
+//func firstWordFromSenteces(s []string) string {
+//	
+//	words :=strings.Fields(s[0])
+//	
+//	return words[0]
+//	
+//}
 
-	words := strings.Fields(s)
 
-	return words[0]
-
-}
