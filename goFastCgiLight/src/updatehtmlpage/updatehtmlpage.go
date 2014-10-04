@@ -5,7 +5,8 @@ import (
 	"domains"
 	"html/template"
 	"log/syslog"
-	"strings"
+//	"strings"
+	"templ_funcmap"
 )
 
 func UpdatePage(golog syslog.Writer, htmlfile string, paragraphsarr []domains.Paragraph, blocksite bool) []byte {
@@ -17,19 +18,19 @@ func UpdatePage(golog syslog.Writer, htmlfile string, paragraphsarr []domains.Pa
 	base = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/_base.html"
 	page = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/index.html"
 	mediablock = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/mediablock.html"
-	
-		funcMap := template.FuncMap{
-		"FirstWord": firstWord,
+
+	funcMap := template.FuncMap{
+
+		"FirstWord":             templ_funcmap.FirstWord,
+		"FirstWordFromSenteces": templ_funcmap.FirstWordFromSenteces,
 	}
 
-	
 	index, _ := template.New("base").Funcs(funcMap).ParseFiles(
 		base,
 		page,
 		mediablock,
 	)
-	
-	
+
 	webpage := bytes.NewBuffer(nil)
 
 	htmlpage := domains.Htmlpage{
@@ -47,10 +48,10 @@ func UpdatePage(golog syslog.Writer, htmlfile string, paragraphsarr []domains.Pa
 
 }
 
-func firstWord(s string) string {
-
-	words := strings.Fields(s)
-
-	return words[0]
-
-}
+//func firstWord(s string) string {
+//
+//	words := strings.Fields(s)
+//
+//	return words[0]
+//
+//}
