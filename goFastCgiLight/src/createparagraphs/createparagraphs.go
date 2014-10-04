@@ -13,6 +13,7 @@ import (
 	"queue/freeparagraphs"
 	"strings"
 	"time"
+	"strconv"
 )
 
 var paragraphs []domains.Paragraph
@@ -78,7 +79,9 @@ func CreatePr(golog syslog.Writer, locale string, themes string, keywords []stri
 //	golog.Info("createparagraphs:CreatePr: Start")
 
 	//	numWords := 850
-	numWords := comutils.Random(300, 900)
+	numWords := comutils.Random(300, 1000)
+	numWords_str := strconv.Itoa(numWords)
+	golog.Info("numWords --> "+numWords_str)
 	prefixLen := 1
 
 	rand.Seed(time.Now().UnixNano()) // Seed the random number generator.
