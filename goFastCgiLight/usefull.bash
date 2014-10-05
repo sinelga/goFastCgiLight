@@ -38,6 +38,7 @@ ZADD pushdomains 1 pilluseksi.info
 
 
 stop gofast && start gofast && stop nginx && start nginx
+grep -E 'google,|bing'  logs/access.log |grep -E 'url|search'
 
 
 dpkg-reconfigure tzdata

@@ -6,7 +6,7 @@ import (
 	"compress/gzip"
 	"domains"
 	"findfreeparagraph"
-	"fmt"
+//	"fmt"
 	"io/ioutil"
 	"log/syslog"
 	"os"
@@ -105,8 +105,8 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 					for _, a := range n.Attr {
 
 						if a.Key == "href" && a.Val != "#" {
-							fmt.Println(a.Key)
-							fmt.Println(a.Val)
+//							fmt.Println(a.Key)
+//							fmt.Println(a.Val)
 							plocallink = a.Val
 						}
 

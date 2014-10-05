@@ -23,6 +23,7 @@ func UpdatePage(golog syslog.Writer, htmlfile string, paragraphsarr []domains.Pa
 
 		"FirstWord":             templ_funcmap.FirstWord,
 		"FirstWordFromSenteces": templ_funcmap.FirstWordFromSenteces,
+		"FirstWordFromAllParagraphs": templ_funcmap.FirstWordFromAllParagraphs,
 	}
 
 	index, _ := template.New("base").Funcs(funcMap).ParseFiles(

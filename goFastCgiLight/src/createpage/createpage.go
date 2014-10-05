@@ -25,6 +25,7 @@ func CreateHtmlPage(golog syslog.Writer, locale string, themes string, bot strin
 	funcMap := template.FuncMap{
 		"FirstWord": templ_funcmap.FirstWord,
 		"FirstWordFromSenteces": templ_funcmap.FirstWordFromSenteces,
+		"FirstWordFromAllParagraphs": templ_funcmap.FirstWordFromAllParagraphs,
 	}
 
 
