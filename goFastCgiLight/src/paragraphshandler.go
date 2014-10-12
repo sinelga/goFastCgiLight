@@ -15,6 +15,7 @@ import (
 var localeFlag = flag.String("locale", "", "must be fi_FI/en_US/it_IT")
 var themesFlag = flag.String("themes", "", "must be porno/finance/fortune...")
 var quantFlag = flag.Int("quant", 0, "quant must be > 0")
+var hitsFlag = flag.Int("hits", 0, "if not will be 0")
 
 var keywordsarr []string
 var phrasesarr []string
@@ -92,7 +93,8 @@ func main() {
 					log.Fatal(err)
 				}
 
-				sqlstr := "select keyword from keywords where locale='" + locale + "' and themes='" + themes + "'"
+				sqlstr := "select keyword from keywords where locale='" + locale + "' and themes='" + themes + "' and hits>='"+hits+ "'"
+				golog.Info(sqlstr) 
 
 				rows, err := db.Query(sqlstr)
 				if err != nil {
