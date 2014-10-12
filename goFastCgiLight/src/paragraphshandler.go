@@ -97,7 +97,7 @@ func main() {
 					log.Fatal(err)
 				}
 
-				sqlstr := "select keyword from keywords where locale='" + locale + "' and themes='" + themes + "' and hits>='" + hits + "'"
+				sqlstr := "select keyword from keywords where locale='" + locale + "' and themes='" + themes + "' and hits>=" + hits
 				golog.Info(sqlstr)
 
 				rows, err := db.Query(sqlstr)
