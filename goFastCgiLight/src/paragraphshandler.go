@@ -35,10 +35,14 @@ func main() {
 	var locale string
 	var themes string
 	var quant int
+	var hitsint int
 
 	if *quantFlag > 0 {
 
 		quant = *quantFlag
+		hitsint = *hitsFlag
+
+		hits := strconv.Itoa(hitsint)
 
 		if *localeFlag == "fi_FI" && *themesFlag == "finance" {
 
@@ -59,11 +63,11 @@ func main() {
 
 			locale = "fi_FI"
 			themes = "fortune"
-			
+
 		} else if *localeFlag == "en_US" && *themesFlag == "finance" {
 
 			locale = "en_US"
-			themes = "finance"			
+			themes = "finance"
 
 		} else {
 
@@ -83,7 +87,7 @@ func main() {
 		} else {
 
 			c.Close()
-			
+
 			if countint < quant {
 
 				golog.Info("Time make job add " + strconv.Itoa(quant) + " " + locale + " " + themes)
@@ -93,8 +97,8 @@ func main() {
 					log.Fatal(err)
 				}
 
-				sqlstr := "select keyword from keywords where locale='" + locale + "' and themes='" + themes + "' and hits>='"+hits+ "'"
-				golog.Info(sqlstr) 
+				sqlstr := "select keyword from keywords where locale='" + locale + "' and themes='" + themes + "' and hits>='" + hits + "'"
+				golog.Info(sqlstr)
 
 				rows, err := db.Query(sqlstr)
 				if err != nil {
@@ -109,7 +113,8 @@ func main() {
 
 				}
 				rows.Close()
-				log.Println("keywords", len(keywordsarr))
+				
+				golog.Info("keywords "+strconv.Itoa(len(keywordsarr)))
 
 				sqlstr = "select phrase from phrases where locale='" + locale + "' and themes='" + themes + "'"
 
@@ -157,8 +162,8 @@ func main() {
 			}
 
 		}
-	} else {//end quant
-	
+	} else { //end quant
+
 		println("Check paragraphshandle -h")
 	}
 }
