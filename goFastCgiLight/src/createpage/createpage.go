@@ -61,21 +61,5 @@ func CreateHtmlPage(golog syslog.Writer, locale string, themes string, bot strin
 
 }
 
-//func firstWord(s string) string {
-//
-//	words := strings.Fields(s)
-//
-//	return words[0]
-//
-//}
-//
-//
-//func firstWordFromSenteces(s []string) string {
-//	
-//	words :=strings.Fields(s[0])
-//	
-//	return words[0]
-//	
-//}
 
 

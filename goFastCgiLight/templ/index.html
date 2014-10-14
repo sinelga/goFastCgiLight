@@ -1,10 +1,10 @@
  {{ define "content" }}
-<div class="panel-heading">
+<div class="jumbotron">
 <img class="img-rounded"
 			src="http://lorempixel.com/400/200/fashion/{{.Paragraphs | FirstWordFromAllParagraphs}}" alt='{{.Paragraphs | FirstWordFromAllParagraphs}}'>
 			<p>
 	<ul class="nav nav-pills">
-		<li class="active"><a href="#">Etusivu</a></li> 
+		<li class="active"><a href="/">Etusivu</a></li> 
 		{{range .Paragraphs}}
 		{{if .Plocallink}}
 		<li><a href="{{.Plocallink }}">{{ .Ptitle | FirstWord}}</a></li> 
