@@ -1,10 +1,26 @@
  {{ define "content" }}
 <div class="jumbotron">
-<img class="img-rounded"
-			src="http://lorempixel.com/400/200/fashion" alt=''>
+
+<div class="media">
+
+<img class="media-object img-rounded pull-left" src="http://lorempixel.com/400/200/fashion"  alt="">
+
+<div class="media-body">
+
 			
-			<h1>{{ .Site | SplitDomainName}}</h1>
 			
+			<h3 class="media-heading">{{ .Paragraph.Pphrase}}</h3>
+			
+			{{range . | SomeSentences}}
+			
+				{{.}}
+			
+			{{ end }}
+			
+</div>
+
+</div>						
+<h2 >{{ .Site | SplitDomainName}}</h2>			
 </div>
 
 {{range .Pages}}
@@ -16,9 +32,6 @@
 	</ul>
 
 {{ end }}
-
-
-
 
 
 {{ end }}

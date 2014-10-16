@@ -42,5 +42,5 @@ type Sitetohomepage struct {
 	Themes string
 	Site   string
 	Pages  []string
-//	Paragraph Paragraph
+	Paragraph Paragraph
 }

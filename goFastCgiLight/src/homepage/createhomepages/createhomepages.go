@@ -26,6 +26,7 @@ func CreatePages(golog syslog.Writer, sitesmap map[string]domains.Sitetohomepage
 //		"FirstWordFromAllParagraphs": templ_funcmap.FirstWordFromAllParagraphs,
 		"SplitPathOnWords": templ_funcmap.SplitPathOnWords,
 		"SplitDomainName": templ_funcmap.SplitDomainName,
+		"SomeSentences": templ_funcmap.SomeSentences,
 	}
 
 	index, _ := template.New("base").Funcs(funcMap).ParseFiles(
@@ -36,14 +37,9 @@ func CreatePages(golog syslog.Writer, sitesmap map[string]domains.Sitetohomepage
 
 	for _, siteinfo := range sitesmap {
 
-//		fmt.Println(siteinfo.Locale)
-//		fmt.Println(siteinfo.Themes)
-//		fmt.Println(siteinfo.Site)
 		
 		indexpagefullpath :="/home/juno/git/goFastCgiLight/goFastCgiLight/www/"+siteinfo.Locale+"/"+siteinfo.Themes+"/"+siteinfo.Site+"/index.html"
 				
-
-
 		webpage := bytes.NewBuffer(nil)
 
 		if err := index.Execute(webpage, siteinfo); err != nil {

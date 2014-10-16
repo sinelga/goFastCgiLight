@@ -43,7 +43,7 @@ func SplitPathOnWords(s string) string {
 		if i == 1 {
 			
 			link_title = comutils.UpcaseInitial(word)
-			fmt.Println(word)
+//			fmt.Println(word)
 			
 			
 		} else {
@@ -72,4 +72,22 @@ func SplitDomainName(s string) string {
 	return title
 	
 }
+
+func SomeSentences(s domains.Sitetohomepage) []string {
+	var someSentences []string
+	
+	for  i := 0; i < 3; i++ {
+		
+		someSentences = append(someSentences,s.Paragraph.Sentences[i])
+		
+	}
+		
+ return someSentences	
+	
+}
+
+
+
+
+
 
