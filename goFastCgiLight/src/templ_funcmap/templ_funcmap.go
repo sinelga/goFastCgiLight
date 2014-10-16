@@ -4,7 +4,7 @@ import (
 "strings"
 "domains"
 "comutils"
-"fmt"			
+//"fmt"			
 )
 
 func FirstWord(s string) string {
@@ -49,7 +49,7 @@ func SplitPathOnWords(s string) string {
 		} else {
 			
 			link_title = link_title +" "+word
-			fmt.Println(word)
+//			fmt.Println(word)
 			
 		}
 			
@@ -76,7 +76,7 @@ func SplitDomainName(s string) string {
 func SomeSentences(s domains.Sitetohomepage) []string {
 	var someSentences []string
 	
-	for  i := 0; i < 3; i++ {
+	for  i := 0; i < 4; i++ {
 		
 		someSentences = append(someSentences,s.Paragraph.Sentences[i])
 		

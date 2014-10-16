@@ -3,11 +3,9 @@
 
 <div class="media">
 
-<img class="media-object img-rounded pull-left" src="http://lorempixel.com/400/200/fashion"  alt="">
+<img class="media-object img-rounded pull-left" src="http://lorempixel.com/300/200/fashion/{{ .Site | SplitDomainName}}"  alt="{{ .Paragraph.Ptitle}}">
 
 <div class="media-body">
-
-			
 			
 			<h3 class="media-heading">{{ .Paragraph.Pphrase}}</h3>
 			
@@ -27,7 +25,7 @@
 
 	<ul class="list-group">
 
-	<a class="list-group-item" href="{{.}}">{{ . | SplitPathOnWords}}</a>
+		<a class="list-group-item" href="{{.}}">{{ . | SplitPathOnWords}}</a>
 	
 	</ul>
 

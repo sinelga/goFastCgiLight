@@ -21,7 +21,7 @@ func CreatePages(golog syslog.Writer, sitesmap map[string]domains.Sitetohomepage
 //	mediablock = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/mediablock.html"
 
 	funcMap := template.FuncMap{
-//		"FirstWord":                  templ_funcmap.FirstWord,
+		"FirstWord":                  templ_funcmap.FirstWord,
 //		"FirstWordFromSenteces":      templ_funcmap.FirstWordFromSenteces,
 //		"FirstWordFromAllParagraphs": templ_funcmap.FirstWordFromAllParagraphs,
 		"SplitPathOnWords": templ_funcmap.SplitPathOnWords,

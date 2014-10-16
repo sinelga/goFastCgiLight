@@ -73,7 +73,7 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 
 				paragraph = findfreeparagraph.FindFromQ(*golog, "fi_FI", "porno", "google", startparameters)
 				
-				fmt.Println(paragraph.Pphrase)
+//				fmt.Println(paragraph.Pphrase)
 				
 				sitesmap[mapkey] = domains.Sitetohomepage{
 
@@ -96,6 +96,7 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 					Pages:  pages,
 					Paragraph: paragraph,
 				}
+			
 
 			}
 
