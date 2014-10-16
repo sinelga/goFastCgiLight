@@ -37,4 +37,10 @@ type Domaincsv struct {
 	Ip     string
 }
 
-
+type Sitetohomepage struct {
+	Locale string
+	Themes string
+	Site   string
+	Pages  []string
+//	Paragraph Paragraph
+}

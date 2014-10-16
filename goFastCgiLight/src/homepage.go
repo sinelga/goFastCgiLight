@@ -1,12 +1,14 @@
 package main
 
 import (
+	"domains"
 	"flag"
 	"fmt"
 	"homepage/checkrootdir"
 	"log/syslog"
 	"os"
 	"path/filepath"
+	"homepage/createhomepages"
 )
 
 const APP_VERSION = "0.1"
@@ -16,14 +18,8 @@ var versionFlag *bool = flag.Bool("v", false, "Print the version number.")
 
 var golog, _ = syslog.New(syslog.LOG_ERR, "golog")
 
-type Sitetohomepage struct {
-	Locale string
-	Themes string
-	Site   string
-	Pages  []string
-}
 
-var sitesmap map[string]Sitetohomepage
+var sitesmap map[string]domains.Sitetohomepage
 
 func main() {
 	flag.Parse() // Scan the arguments list
@@ -32,7 +28,7 @@ func main() {
 		fmt.Println("Version:", APP_VERSION)
 	}
 
-	sitesmap = make(map[string]Sitetohomepage)
+	sitesmap = make(map[string]domains.Sitetohomepage)
 
 	err := filepath.Walk("/home/juno/git/goFastCgiLight/goFastCgiLight/www", scan)
 	if err != nil {
@@ -40,18 +36,11 @@ func main() {
 		golog.Err(err.Error())
 	}
 
-	fmt.Println("sites ", len(sitesmap))
+//	fmt.Println("sites ", len(sitesmap))
+	
+	
+	createhomepages.CreatePages(*golog,sitesmap)
 
-	for site, siteinfo := range sitesmap {
-
-		fmt.Println(site)
-		for _, page := range siteinfo.Pages {
-
-			fmt.Println(page)
-
-		}
-
-	}
 
 }
 
@@ -59,6 +48,7 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 
 	if !fileInfo.IsDir() {
 
+//		fmt.Println(path)
 		siteinfo := checkrootdir.Check(*golog, path)
 
 		if len(siteinfo) == 4 {
@@ -67,8 +57,7 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 
 			if !ok {
 
-				//				fmt.Println(siteinfo[2])
-				sitesmap[siteinfo[2]] = Sitetohomepage{
+				sitesmap[siteinfo[2]] = domains.Sitetohomepage{
 
 					siteinfo[0], siteinfo[1], siteinfo[2], []string{siteinfo[3]}}
 
@@ -76,7 +65,7 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 
 				pages := append(sitesmap[siteinfo[2]].Pages, siteinfo[3])
 
-				sitesmap[siteinfo[2]] = Sitetohomepage{
+				sitesmap[siteinfo[2]] = domains.Sitetohomepage{
 
 					siteinfo[0],
 					siteinfo[1],

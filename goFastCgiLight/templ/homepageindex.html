@@ -1,0 +1,24 @@
+ {{ define "content" }}
+<div class="jumbotron">
+<img class="img-rounded"
+			src="http://lorempixel.com/400/200/fashion" alt=''>
+			
+			<h1>{{ .Site | SplitDomainName}}</h1>
+			
+</div>
+
+{{range .Pages}}
+
+	<ul class="list-group">
+
+	<a class="list-group-item" href="{{.}}">{{ . | SplitPathOnWords}}</a>
+	
+	</ul>
+
+{{ end }}
+
+
+
+
+
+{{ end }}
