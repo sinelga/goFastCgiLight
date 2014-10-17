@@ -65,7 +65,7 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 		mapkey := siteinfo[0] + siteinfo[1] + siteinfo[2]
 		//		fmt.Println(mapkey)
 
-		if len(siteinfo) == 4 {
+		if len(siteinfo) == 4 && len(strings.Split(siteinfo[2],".")) > 0 {
 
 			_, ok := sitesmap[mapkey]
 
