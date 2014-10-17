@@ -79,13 +79,14 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 					Locale:    siteinfo[0],
 					Themes:    siteinfo[1],
 					Site:      siteinfo[2],
-					Pages:     []string{siteinfo[3]},
+					Pages:     []string{siteinfo[3],paragraph.Plocallink},
 					Paragraph: paragraph,
 				}
 
 			} else {
 
 				pages := append(sitesmap[mapkey].Pages, siteinfo[3])
+//				pages = 
 				paragraph = sitesmap[mapkey].Paragraph
 
 				sitesmap[mapkey] = domains.Sitetohomepage{
