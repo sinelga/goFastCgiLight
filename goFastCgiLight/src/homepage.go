@@ -2,6 +2,7 @@ package main
 
 import (
 	"domains"
+	"findfreeparagraph"
 	"flag"
 	"fmt"
 	"homepage/checkrootdir"
@@ -9,8 +10,7 @@ import (
 	"log/syslog"
 	"os"
 	"path/filepath"
-	"findfreeparagraph"
-//	"startones"
+	//	"startones"
 	"io/ioutil"
 	"strings"
 )
@@ -34,16 +34,15 @@ func main() {
 	if *versionFlag {
 		fmt.Println("Version:", APP_VERSION)
 	}
-	
-	
-		content, err := ioutil.ReadFile("/home/juno/git/goFastCgiLight/goFastCgiLight/config.txt")
+
+	content, err := ioutil.ReadFile("/home/juno/git/goFastCgiLight/goFastCgiLight/config.txt")
 	if err != nil {
 		//Do something
 		golog.Err(err.Error())
 	}
 	parameters := strings.Split(string(content), ",")
 	startparameters = []string{strings.TrimSpace(parameters[0]), strings.TrimSpace(parameters[1]), strings.TrimSpace(parameters[2])}
-	
+
 	sitesmap = make(map[string]domains.Sitetohomepage)
 
 	err = filepath.Walk("/home/juno/git/goFastCgiLight/goFastCgiLight/www", scan)
@@ -65,23 +64,23 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 		mapkey := siteinfo[0] + siteinfo[1] + siteinfo[2]
 		//		fmt.Println(mapkey)
 
-		if len(siteinfo) == 4 && len(strings.Split(siteinfo[2],".")) > 1 {
+		if len(siteinfo) == 4 && len(strings.Split(siteinfo[2], ".")) > 1 {
 
 			_, ok := sitesmap[mapkey]
 
 			if !ok {
 
 				paragraph = findfreeparagraph.FindFromQ(*golog, "fi_FI", "porno", "google", startparameters)
-				
-//				fmt.Println(paragraph.Pphrase)
-				
+
+				//				fmt.Println(paragraph.Pphrase)
+
 				sitesmap[mapkey] = domains.Sitetohomepage{
 
-					Locale: siteinfo[0],
-					Themes: siteinfo[1],
-					Site:   siteinfo[2],
-					Pages:  []string{siteinfo[3]},
-					Paragraph: paragraph, 
+					Locale:    siteinfo[0],
+					Themes:    siteinfo[1],
+					Site:      siteinfo[2],
+					Pages:     []string{siteinfo[3]},
+					Paragraph: paragraph,
 				}
 
 			} else {
@@ -90,15 +89,18 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 				paragraph = sitesmap[mapkey].Paragraph
 
 				sitesmap[mapkey] = domains.Sitetohomepage{
-					Locale: siteinfo[0],
-					Themes: siteinfo[1],
-					Site:   siteinfo[2],
-					Pages:  pages,
+					Locale:    siteinfo[0],
+					Themes:    siteinfo[1],
+					Site:      siteinfo[2],
+					Pages:     pages,
 					Paragraph: paragraph,
 				}
-			
 
 			}
+
+		} else {
+			
+			golog.Info(" nothing to do !!! for "+mapkey)
 
 		}
 
