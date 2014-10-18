@@ -29,6 +29,7 @@ func CreatePages(golog syslog.Writer, sitesmap map[string]domains.Sitetohomepage
 		"SplitDomainName":  templ_funcmap.SplitDomainName,
 		"SomeSentences":    templ_funcmap.SomeSentences,
 		"RandomAndLimitPages": templ_funcmap.RandomAndLimitPages,
+		"LatSentences": templ_funcmap.LatSentences,
 	}
 
 	index, _ := template.New("base").Funcs(funcMap).ParseFiles(

@@ -5,6 +5,8 @@ import (
 	"domains"
 	"strings"
 	//"fmt"
+	"math/rand"
+	"time"
 )
 
 func FirstWord(s string) string {
@@ -85,9 +87,17 @@ func RandomAndLimitPages(s []string) []string {
 
 	if len(s) > 10 {
 
+		rand.Seed(time.Now().UTC().UnixNano())
+		dest := make([]string, len(s))
+		perm := rand.Perm(len(s))
+
+		for i, v := range perm {
+			dest[v] = s[i]
+		}
+
 		for i := 0; i < 10; i++ {
 
-			pages = append(pages, s[i])
+			pages = append(pages, dest[i])
 
 		}
 	} else {
@@ -96,5 +106,22 @@ func RandomAndLimitPages(s []string) []string {
 	}
 
 	return pages
+}
+
+func LatSentences(s domains.Sitetohomepage) []string {
+	var someSentences []string
+
+	sentNum := len(s.Paragraph.Sentences)
+
+	if sentNum > 15 {
+
+		for i := sentNum - 15; i < sentNum; i++ {
+
+			someSentences = append(someSentences, s.Paragraph.Sentences[i])
+
+		}
+	}
+
+	return someSentences
 
 }

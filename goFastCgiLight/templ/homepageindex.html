@@ -21,8 +21,10 @@
 <h2 >{{ .Site | SplitDomainName}}</h2>			
 </div>
 
+<i class="fa fa-check fa-lg">Tänään Kummat Linkit</i>
+<p>
 <div class="row">
-<div class="col-md-6">
+<div class="col-md-4">
 {{range .Pages | RandomAndLimitPages}}
 
 	<ul class="list-group">
@@ -33,5 +35,13 @@
 
 {{ end }}
 </div>
+<div class="col-md-8">
+
+			{{range . | LatSentences}}
+			
+				{{.}}
+			
+			{{ end }}
+
 </div>
 {{ end }}
