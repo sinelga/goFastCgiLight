@@ -28,6 +28,7 @@ func CreatePages(golog syslog.Writer, sitesmap map[string]domains.Sitetohomepage
 		"SplitPathOnWords": templ_funcmap.SplitPathOnWords,
 		"SplitDomainName":  templ_funcmap.SplitDomainName,
 		"SomeSentences":    templ_funcmap.SomeSentences,
+		"RandomAndLimitPages": templ_funcmap.RandomAndLimitPages,
 	}
 
 	index, _ := template.New("base").Funcs(funcMap).ParseFiles(
@@ -50,17 +51,6 @@ func CreatePages(golog syslog.Writer, sitesmap map[string]domains.Sitetohomepage
 
 		}
 
-		//		if err != nil {
-		//
-		//			golog.Err(err.Error())
-		//		}
-		//		if !src.IsDir() {
-		//
-		//			  if os.MkdirAll(indexdirectory, 0777) != nil {
-		//			  	golog.Err(err.Error())
-		//
-		//			  }
-		//		}
 
 		indexpagefullpath := "/home/juno/git/goFastCgiLight/goFastCgiLight/www/" + siteinfo.Locale + "/" + siteinfo.Themes + "/" + siteinfo.Site + "/index.html"
 
