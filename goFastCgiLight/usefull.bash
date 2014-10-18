@@ -33,6 +33,8 @@ bin/syncpushdomaindb -locale=fi_FI -themes=porno
 ZRANGEBYSCORE pushdomains -inf +inf withscores  LIMIT 0 10000
 ZRANGEBYSCORE limitsites -inf +inf withscores  LIMIT 0 10000
 
+SRANDMEMBER pagetocreate
+
 ZADD pushdomains 1 pilluseksi.com
 ZADD pushdomains 1 pilluseksi.info
 
@@ -61,6 +63,8 @@ SELECT * FROM keywords where themes='porno' and Hits=1 and Updated <
 
 scp /home/juno/git/goFastCgi/goFastCgi/singo.db 104.131.209.134:git/goFastCgiLight/goFastCgiLight
 scp /home/juno/git/goFastCgi/goFastCgi/singo.db 104.131.99.251:git/goFastCgiLight/goFastCgiLight
+
+bin/startsite -locale=fi_FI -themes=porno -site=
 
 
 

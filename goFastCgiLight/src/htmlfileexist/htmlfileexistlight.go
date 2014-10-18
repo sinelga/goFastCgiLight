@@ -33,7 +33,7 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 			index = true
 		}
 
-		if pathinfo == "/index.html" {
+		if pathinfo != "/index.html" {
 
 			var paragrapharr []domains.Paragraph
 			var ptitle string
