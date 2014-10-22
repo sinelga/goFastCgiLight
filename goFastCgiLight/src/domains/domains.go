@@ -43,4 +43,5 @@ type Sitetohomepage struct {
 	Site   string
 	Pages  []string
 	Paragraph Paragraph
+	Variant int
 }

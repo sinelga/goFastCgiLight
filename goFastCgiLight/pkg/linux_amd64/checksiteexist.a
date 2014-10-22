@@ -1,6 +1,6 @@
 !<arch>
 __.PKGDEF       0           0     0     644     27576     `
-go object linux amd64 go1.3.1 X:precisestack
+go object linux amd64 go1.3.3 X:precisestack
 
 $$
 package checksiteexist
@@ -207,7 +207,7 @@ package checksiteexist
 
 $$
 _go_.6          0           0     0     644     12324     `
-go object linux amd64 go1.3.1 X:precisestack
+go object linux amd64 go1.3.3 X:precisestack
 
 !
   go13ldencoding/json.a@github.com/HouzuoGuo/tiedot/db.alog/syslog.a ş"".CheckDB  à  ÚdH‹%    HD$øH;w¸€   è    ëáHìˆ   H%    H,$H‰ïH‰ŞH¥H¥H‹œ$ø   H‰\$H‹´$   H‰t$H4%    Hl$ H‰ïH¥H¥è    H‹\$0H‰\$XH‹\$8H‰\$`HÇ$    è    H‹D$H‰D$PH‰D$@H‹\$XH‰$H‹\$`H‰\$è    H\$H,$H‰ïH‰ŞH¥H¥H¥H‹L$@¸    H‰D$xH‰D$H‰Œ$€   H‰L$ è    HÇ$    è    H‹\$H‰\$HHÇ$    HÇD$    è    H‹D$HH‹\$H‰H‹t$PH,$H‰ïH¥H¥H‹œ$ğ   H‰\$H‰D$è    H‹D$ H‹L$(Hƒø t2H‰D$hH‰$H‰L$pH‰L$è    H\$H,$H‰ïH‰ŞH¥H¥è    H‹\$HH‹+H‰¬$  HÄˆ   Ã"

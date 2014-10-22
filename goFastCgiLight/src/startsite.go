@@ -23,6 +23,7 @@ var golog, _ = syslog.New(syslog.LOG_ERR, "golog")
 var localeFlag = flag.String("locale", "", "must be fi_FI/en_US/it_IT")
 var themesFlag = flag.String("themes", "", "must be porno/finance/fortune...")
 var siteFlag = flag.String("site", "", "any valid domain ")
+var variantFlag =flag.Int("variant",0," 0 1 2 3 ...")
 var paragraph domains.Paragraph
 var sitesmap map[string]domains.Sitetohomepage
 
@@ -37,6 +38,7 @@ func main() {
 	locale := *localeFlag
 	themes := *themesFlag
 	site := *siteFlag
+	variant :=*variantFlag
 
 	content, err := ioutil.ReadFile("/home/juno/git/goFastCgiLight/goFastCgiLight/config.txt")
 	if err != nil {
@@ -65,6 +67,7 @@ func main() {
 				Site:      site,
 				Pages:     []string{paragraph.Plocallink},
 				Paragraph: paragraph,
+				Variant: variant,
 			}
 
 		} else {
@@ -77,6 +80,7 @@ func main() {
 					Site:      site,
 					Pages:     pages,
 					Paragraph: paragraph,
+					Variant: variant,
 				}
 
 		}

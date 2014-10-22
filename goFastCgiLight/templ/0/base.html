@@ -1,0 +1,33 @@
+{{ define "base" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/css/{{ .Locale}}/{{ .Themes }}/{{ .Variant }}/bootstrap.min.css">
+<link rel="stylesheet" href="/css/{{ .Locale}}/{{ .Themes }}/{{ .Variant }}/main.css">
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+	rel="stylesheet">
+
+</head>
+<body>
+
+<!-- <div class="container">	 -->
+
+{{ template "content" . }}
+<!-- </div> -->
+	<script src="//code.jquery.com/jquery.js"></script>
+	<script
+		src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+</body>
+</html>
+
+{{end}}

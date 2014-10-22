@@ -1,6 +1,6 @@
 !<arch>
 __.PKGDEF       0           0     0     644     20604     `
-go object linux amd64 go1.3.1 X:precisestack
+go object linux amd64 go1.3.3 X:precisestack
 
 $$
 package getphrasesfromdb
@@ -145,7 +145,7 @@ package getphrasesfromdb
 
 $$
 _go_.6          0           0     0     644     11030     `
-go object linux amd64 go1.3.1 X:precisestack
+go object linux amd64 go1.3.3 X:precisestack
 
 !
   go13ldRcode.google.com/p/go-sqlite/go1/sqlite3.adatabase/sql.alog/syslog.a ş"".GetAll  €  ødH‹%    H„$XÿÿÿH;w¸    è    ëŞHì(  HÇ$    è    H‹|$H‰¼$ˆ   H¬$0  H‰îè    HÇ„$¸      HÇ„$À      HÇ„$È      HÇ„$à       HÇ„$è       HÇ„$ğ       H%    H,$H‰ïH‰ŞH¥H¥H‹œ$˜  H‰\$H‹´$   H‰t$H4%    Hl$ H‰ïH¥H¥H‹œ$¨  H‰\$0H‹´$°  H‰t$8H4%    Hl$@H‰ïH¥H¥è    H‹L$PH‹D$XH‹œ$  H‰$H‰Œ$   H‰L$H‰„$˜   H‰D$H|$1ÀH«H«H«è    H‹\$0H‰\$xH‹L$8H‹\$@H‰œ$¨   Hƒù H‰Œ$    t?H‰$H‹Y ÿÓH‹T$H‹L$H‹œ$ˆ   H‰$H‰”$Ğ   H‰T$H‰Œ$Ø   H‰L$è    H‹\$xH‰$¹    Qjè    YYH…À…Ğ  H‹\$xH‰$è    H¶\$€û „g  HÇ$    è    H‹T$H‰”$€   H¼$À   1ÀH«H«Hœ$À   Hƒû „&  H‰ÙHÇÇ   HÇÆ   ¸    H‰„$°   H‰H‰”$¸   H‰SH‹\$xH‰$H‰Œ$  H‰L$H‰¼$  H‰|$H‰´$   H‰t$è    H‹”$à   H‹Œ$è   H‹œ$ğ   H‰ØH)ËHƒû}LHÇ$    H‰”$ø   H‰T$H‰Œ$   H‰L$H‰„$  H‰D$HÇD$    è    H‹T$(H‹L$0H‹D$8I‰ÉIÿÁH‹´$€   H‰×I‰ÈMkÀLÇH¥H¥H‰”$ø   L‰Œ$   H‰„$  H‰”$à   L‰Œ$è   H‰„$ğ   éƒşÿÿ‰éÓşÿÿH‹\$xH‰$è    H‹œ$à   H‰œ$¸  H‹œ$è   H‰œ$À  H‹œ$ğ   H‰œ$È  è    HÄ(  Ãè    HÄ(  Ã0
