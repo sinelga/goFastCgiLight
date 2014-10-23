@@ -9,6 +9,7 @@ import (
 	"log/syslog"
 	"strings"
 	"homepage/createhomepages"
+	"time"
 )
 
 const APP_VERSION = "0.1"
@@ -55,6 +56,7 @@ func main() {
 		paragraph = findfreeparagraph.FindFromQ(*golog, "fi_FI", "porno", "google", startparameters)
 
 		mapkey := locale + themes + site
+		currenttime := time.Now().Local()
 
 		_, ok := sitesmap[mapkey]
 
@@ -68,6 +70,8 @@ func main() {
 				Pages:     []string{paragraph.Plocallink},
 				Paragraph: paragraph,
 				Variant: variant,
+				Created:    currenttime.Format("2006-01-02 15:04:05"),
+				Updated:    currenttime.Format("2006-01-02 15:04:05"),
 			}
 
 		} else {
@@ -81,6 +85,8 @@ func main() {
 					Pages:     pages,
 					Paragraph: paragraph,
 					Variant: variant,
+					Created:    currenttime.Format("2006-01-02 15:04:05"),
+					Updated:    currenttime.Format("2006-01-02 15:04:05"),
 				}
 
 		}

@@ -50,4 +50,6 @@ type Sitetohomepage struct {
 	Pages  []string
 	Paragraph Paragraph
 	Variant int
+	Created string
+	Updated string
 }
