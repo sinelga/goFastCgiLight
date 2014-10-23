@@ -27,16 +27,19 @@ func CreatePages(golog syslog.Writer, sitesmap map[string]domains.Sitetohomepage
 
 	for _, siteinfo := range sitesmap {
 
+		locale := siteinfo.Locale
+		themes := siteinfo.Themes	
+		
 		variant := siteinfo.Variant
 		variantstr := strconv.Itoa(variant)
+		
 
-		base := "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/"+variantstr+"/base.html"
-		page := "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/"+variantstr+"/homepageindex.html"
+		base := "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/"+locale+"/"+themes+"/"+variantstr+"/base.html"
+		page := "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/"+locale+"/"+themes+"/"+variantstr+"/homepageindex.html"
 
 		index, _ := template.New("base").Funcs(funcMap).ParseFiles(
 			base,
 			page,
-			//		mediablock,
 		)
 
 		indexdirectory := "/home/juno/git/goFastCgiLight/goFastCgiLight/www/" + siteinfo.Locale + "/" + siteinfo.Themes + "/" + siteinfo.Site

@@ -6,6 +6,13 @@
 
 /* Toggle Styles */
 
+@import url('http://fonts.googleapis.com/css?family=Gloria+Hallelujah');
+
+.titleH1 {
+	
+	font-family: 'Gloria Hallelujah', cursive;
+}
+
 #wrapper {
     padding-left: 0;
     -webkit-transition: all 0.5s ease;

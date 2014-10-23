@@ -5,24 +5,25 @@ import (
 	"domains"
 	"html/template"
 	"log/syslog"
-//	"strings"
+	//	"strings"
 	"templ_funcmap"
+	"time"
 )
 
-func UpdatePage(golog syslog.Writer, htmlfile string, paragraphsarr []domains.Paragraph, blocksite bool) []byte {
+func UpdatePage(golog syslog.Writer, htmlfile string, paragraphsarr []domains.Paragraph, blocksite bool, locale string, themes string, variant string, created string, updated string) []byte {
 
 	var base string
 	var page string
 	var mediablock string
 
-	base = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/_base.html"
-	page = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/index.html"
-	mediablock = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/mediablock.html"
+	base = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/" + locale + "/" + themes + "/" + variant + "/base.html"
+	page = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/" + locale + "/" + themes + "/" + variant + "/page.html"
+	mediablock = "/home/juno/git/goFastCgiLight/goFastCgiLight/templ/" + locale + "/" + themes + "/" + variant + "/mediablock.html"
 
 	funcMap := template.FuncMap{
 
-		"FirstWord":             templ_funcmap.FirstWord,
-		"FirstWordFromSenteces": templ_funcmap.FirstWordFromSenteces,
+		"FirstWord":                  templ_funcmap.FirstWord,
+		"FirstWordFromSenteces":      templ_funcmap.FirstWordFromSenteces,
 		"FirstWordFromAllParagraphs": templ_funcmap.FirstWordFromAllParagraphs,
 	}
 
@@ -31,11 +32,17 @@ func UpdatePage(golog syslog.Writer, htmlfile string, paragraphsarr []domains.Pa
 		page,
 		mediablock,
 	)
+	currenttime := time.Now().Local()
 
 	webpage := bytes.NewBuffer(nil)
 
 	htmlpage := domains.Htmlpage{
+		Locale:     locale,
+		Themes:     themes,
+		Variant:    variant,
 		Paragraphs: paragraphsarr,
+		Created:    created,
+		Updated:    currenttime.Format("2006-01-02 15:04:05"),
 	}
 
 	if err := index.Execute(webpage, htmlpage); err != nil {

@@ -64,7 +64,7 @@ SELECT * FROM keywords where themes='porno' and Hits=1 and Updated <
 scp /home/juno/git/goFastCgi/goFastCgi/singo.db 104.131.209.134:git/goFastCgiLight/goFastCgiLight
 scp /home/juno/git/goFastCgi/goFastCgi/singo.db 104.131.99.251:git/goFastCgiLight/goFastCgiLight
 
-bin/startsite -locale=fi_FI -themes=porno -site=
+bin/startsite -locale=fi_FI -themes=porno -site= -variant=0
 
 
 

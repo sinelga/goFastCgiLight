@@ -1,0 +1,42 @@
+ {{ define "content" }}
+
+<div id="wrapper">
+
+	<div id="sidebar-wrapper">
+		<ul class="sidebar-nav">
+			<li class="active"><a href="/">Etusivu</a></li> 
+			{{range .Paragraphs}}
+			{{if .Plocallink}}
+			<li><a href="{{.Plocallink }}">{{ .Ptitle | FirstWord}}</a></li>
+			{{else}}
+
+			<li><a href="#{{ .Sentences | FirstWordFromSenteces}}">{{ .Sentences | FirstWordFromSenteces}}</a></li> {{end}} {{end}}
+
+		</ul>
+	</div>
+
+	<div class="jumbotron">
+	<a href="#menu-toggle" class="btn btn-default btn-lg" id="menu-toggle">Toggle Menu</a>
+	<div class="media">
+		<img class="img-roundedmedia-object pull-left "
+			src="http://lorempixel.com/400/200/fashion/{{.Paragraphs | FirstWordFromAllParagraphs}}"
+			alt='{{.Paragraphs | FirstWordFromAllParagraphs}}'>
+			
+			<div class="media-body">
+				<h1 class="media-heading titleH1">{{.Paragraphs | FirstWordFromAllParagraphs}}</h1>
+			
+			</div>
+	</div>		
+		
+	</div>
+
+
+
+	<div id="page-content-wrapper">
+
+		<div class="container-fluid">{{range .Paragraphs}} {{ template "mediablock" . }} {{end}}</div>
+	</div>
+
+</div>
+
+{{ end }}

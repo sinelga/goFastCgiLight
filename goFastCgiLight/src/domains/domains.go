@@ -20,7 +20,13 @@ type Paragraph struct {
 }
 
 type Htmlpage struct {
+	Locale string
+	Themes string
+	Variant string
+	Created string
+	Updated string
 	Paragraphs []Paragraph
+	
 }
 
 type SiteQue struct {

@@ -1,0 +1,78 @@
+ {{ define "content" }}
+
+<div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+ 
+                
+                {{range .Pages | RandomAndLimitPages}}
+                
+                	<li> <a href="{{.}}">{{ . | SplitPathOnWords}}</a></li>
+                
+                {{ end }}
+                
+            </ul>
+        </div>
+
+<div id="page-content-wrapper">
+
+
+ <div class="container-fluid">
+ <a href="#menu-toggle" class="btn btn-default btn-lg" id="menu-toggle">Toggle Menu</a>
+<div class="row">
+
+<div class="col-md-7">
+<div class="jumbotron">
+
+<div class="media">
+
+<img class="media-object img-rounded pull-left" src="http://lorempixel.com/300/200/fashion/{{ .Site | SplitDomainName}}"  alt="{{ .Paragraph.Ptitle}}">
+
+<div class="media-body">
+			
+			<h3 class="media-heading">{{ .Paragraph.Pphrase}}</h3>
+			
+			{{range . | SomeSentences}}
+			
+				{{.}}
+			
+			{{ end }}
+			
+</div>
+
+</div>						
+<h2 >{{ .Site | SplitDomainName}}</h2>			
+</div>
+
+	<div class="jumbotron">
+
+	{{range . | LatSentences}}
+			
+		{{.}}
+			
+	{{ end }}
+	
+	</div>
+
+</div>
+
+<div class="col-md-5">
+
+<div class="media">
+	
+	<img class="media-object img-rounded pull-left" src="/img/fi_FI/porno/0/0.jpg" alt="{{ .Paragraph.Ptitle}}">
+
+</div>
+
+
+
+</div>
+
+
+</div>
+</div>
+</div>
+</div>
+{{ end }}

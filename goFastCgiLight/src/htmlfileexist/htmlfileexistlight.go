@@ -6,7 +6,7 @@ import (
 	"compress/gzip"
 	"domains"
 	"findfreeparagraph"
-	//	"fmt"
+//	"fmt"
 	"io/ioutil"
 	"log/syslog"
 	"os"
@@ -40,6 +40,11 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 			var pphrase string
 			var sentensesarr []string
 			var plocallink string
+			var locale string
+			var themes string
+			var variant string
+			var created string
+			var updated string
 
 			var doc *html.Node
 
@@ -89,6 +94,7 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 						}
 
 						if a.Val == "Pphrase" {
+
 							if n.FirstChild != nil {
 								pphrase = n.FirstChild.Data
 							}
@@ -98,6 +104,44 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 							if n.FirstChild != nil {
 								sentensesarr = stringbylineparser.Parse(n.FirstChild.Data)
 							}
+						}
+
+					}
+
+					if n.Data == "meta" {
+
+						for _, meta := range n.Attr {
+
+							if meta.Key == "locale" {
+
+								locale = meta.Val
+
+							}
+
+							if meta.Key == "themes" {
+
+								themes = meta.Val
+
+							}
+
+							if meta.Key == "variant" {
+
+								variant = meta.Val
+
+							}
+
+							if meta.Key == "created" {
+
+								created = meta.Val
+
+							}
+
+							if meta.Key == "updated" {
+
+								updated = meta.Val
+
+							}
+
 						}
 
 					}
@@ -153,7 +197,7 @@ func StartCheckNoDB(golog syslog.Writer, locale string, themes string, site stri
 			}
 
 			paragrapharr = append(paragrapharr, freeparagraph)
-			webpagebytes := updatehtmlpage.UpdatePage(golog, site, paragrapharr, blocksite)
+			webpagebytes := updatehtmlpage.UpdatePage(golog, site, paragrapharr, blocksite,locale,themes,variant,created,updated)
 
 			if !index {
 

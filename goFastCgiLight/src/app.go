@@ -28,6 +28,7 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 
 	themes := req.Header.Get("X-THEMES")
 	locale := req.Header.Get("X-LOCALE")
+	variant := req.Header.Get("X-VARIANT")
 	site := req.Header.Get("X-DOMAIN")
 	pathinfo := req.Header.Get("X-PATHINFO")
 	bot := req.Header.Get("X-BOT")
@@ -54,7 +55,7 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	}
 	
 
-	bthandler.BTrequestHandler(*golog, resp, req, locale, themes, site, pathinfo, bot, startparameters,bloksite)
+	bthandler.BTrequestHandler(*golog, resp, req, locale, themes, site, pathinfo, bot, startparameters,bloksite,variant)
 
 }
 
