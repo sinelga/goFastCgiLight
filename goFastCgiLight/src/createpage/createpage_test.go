@@ -31,7 +31,7 @@ func TestCreateHtmlPage(t *testing.T) {
 	
 	locale ="fi_FI"
 	themes ="porno"
-	variant ="0"
+	variant ="1"
 	site ="test.com"
 	pathinfo = "/test.html"
 	blocksite = false
@@ -41,7 +41,7 @@ func TestCreateHtmlPage(t *testing.T) {
 	
 	locale ="fi_FI"
 	themes ="porno"
-	variant ="0"
+	variant ="1"
 	site ="test.com"
 	pathinfo = "/test2.html"
 	blocksite = false

@@ -1,0 +1,25 @@
+{{ define "mediablock" }}
+
+
+<div class="media">
+
+	<div class="media-body">
+		<i class="fa fa-check fa-2x">
+		<a name="{{ .Sentences | FirstWordFromSenteces}}"></a></i>
+		
+		<h2 id='Ptitle' class="media-heading text-primary">{{.Ptitle }}</h2>
+		<h3 id='Pphrase' class="media-heading text-info">
+			{{.Pphrase }}
+			</h3>
+			
+			<div class="" id='Sentences'>{{range .Sentences }}
+				{{.}} {{end}}</div>
+				
+			
+	</div>
+
+</div>
+
+{{if .Plocallink}}
+<a id='Plocallink' href="{{.Plocallink }}">{{.Ptitle }}</a>
+{{end}} {{end}}

@@ -67,4 +67,8 @@ scp /home/juno/git/goFastCgi/goFastCgi/singo.db 104.131.99.251:git/goFastCgiLigh
 bin/startsite -locale=fi_FI -themes=porno -site= -variant=0
 
 
+grep -E 'www.google|bing' fi_FIporno_access.log |grep -E 'url|search'
+grep -E 'www.google|bing' logs/access.log |grep -E 'url|search'
+
+
 

@@ -1,0 +1,114 @@
+ {{ define "content" }}
+ 
+     <nav class="navbar navbar-inverse navbar-static-top menu" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                	
+                	                
+                {{range .Pages | RandomAndLimitPages}}
+                
+                	<li> <a href="{{.}}">{{ . | SplitPathOnWords}}</a></li>
+                
+                {{ end }}
+                
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+ 
+ 
+ 
+
+ <div class="container conteinerupmargine">
+ 
+         <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">{{ .Site | SplitDomainName}}
+                    <small>{{ .Paragraph.Ptitle}}</small>
+                </h1>
+            </div>
+        </div>
+
+<div class="row">
+
+<div class="col-md-4">
+
+<img class="img-responsive" src="/0.jpg" alt="">
+
+                <h3>Lisätiedot</h3>
+                <ul>
+                	{{range . | SomeSentences}}
+                    <li>{{.}}</li>
+    
+                    
+                    {{ end }}
+                </ul>
+
+<!-- 
+<div class="jumbotron">
+
+<div class="media">
+
+<img class="media-object img-rounded pull-left" src="http://lorempixel.com/300/200/fashion/{{ .Site | SplitDomainName}}"  alt="{{ .Paragraph.Ptitle}}">
+
+<div class="media-body">
+			
+			<h3 class="media-heading">{{ .Paragraph.Pphrase}}</h3>
+			
+			{{range . | SomeSentences}}
+			
+				{{.}}
+			
+			{{ end }}
+			
+</div>
+
+</div>						
+<h2 >{{ .Site | SplitDomainName}}</h2>			
+</div>
+
+	<div class="jumbotron">
+
+	{{range . | LatSentences}}
+			
+		{{.}}
+			
+	{{ end }}
+	
+	</div>
+ -->
+</div>
+
+<div class="col-md-4">
+
+               <h3>Kuvaus</h3>
+                <p>
+                			{{range . | LatSentences}}
+			
+				{{.}}
+			
+			{{ end }}
+                
+                </p>
+
+<!-- <div class="media">
+	
+	<img class="media-object img-rounded pull-left" src="/img/fi_FI/porno/0/0.jpg" alt="{{ .Paragraph.Ptitle}}">
+
+</div> -->
+
+
+
+</div>
+
+
+</div>
+</div>
+
+{{ end }}
