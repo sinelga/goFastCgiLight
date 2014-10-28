@@ -6,14 +6,16 @@ import (
 	"flag"
 	"fmt"
 	"homepage/checkrootdir"
-	//	"homepage/createhomepages"
+	"homepage/createhomepages"
 	"log/syslog"
 	"os"
 	"path/filepath"
 	//	"startones"
 	"homepage/checkmetadata"
 	"io/ioutil"
+	"strconv"
 	"strings"
+	"time"
 )
 
 const APP_VERSION = "0.1"
@@ -48,7 +50,7 @@ func main() {
 		golog.Err(err.Error())
 	}
 
-	//	createhomepages.CreatePages(*golog, sitesmap)
+	createhomepages.CreatePages(*golog, sitesmap)
 
 }
 
@@ -69,6 +71,8 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 
 			if len(siteinfo) == 4 && len(strings.Split(siteinfo[2], ".")) > 1 && (strings.HasSuffix(pathshot, ".html") || strings.HasSuffix(pathshot, ".gz")) {
 
+				currenttime := time.Now().Local()
+
 				_, ok := sitesmap[mapkey]
 
 				if !ok {
@@ -81,6 +85,15 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 							fmt.Println(meta)
 						}
 
+						variantint, err := strconv.Atoi(metadata[0])
+						if err != nil {
+
+							golog.Err(err.Error())
+
+						}
+
+						created := metadata[1]
+
 						paragraph = findfreeparagraph.FindFromQ(*golog, locale, themes, "google", startparameters)
 						sitesmap[mapkey] = domains.Sitetohomepage{
 
@@ -89,11 +102,14 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 							Site:      site,
 							Pages:     []string{pathshot, paragraph.Plocallink},
 							Paragraph: paragraph,
+							Variant:   variantint,
+							Created:   created,
+							Updated:   currenttime.Format("2006-01-02 15:04:05"),
 						}
 
 					} else {
 
-						fmt.Println("!!! no metadata in " + locale+"/"+themes+"/"+site+"/index.hmtl")
+						fmt.Println("!!! no metadata in " + locale + "/" + themes + "/" + site + "/index.hmtl")
 
 					}
 
@@ -101,6 +117,9 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 
 					pages := append(sitesmap[mapkey].Pages, siteinfo[3])
 					paragraph = sitesmap[mapkey].Paragraph
+					created := sitesmap[mapkey].Created
+					updated := sitesmap[mapkey].Updated
+					variant := sitesmap[mapkey].Variant
 
 					sitesmap[mapkey] = domains.Sitetohomepage{
 						Locale:    locale,
@@ -108,18 +127,21 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 						Site:      site,
 						Pages:     pages,
 						Paragraph: paragraph,
+						Variant:   variant,
+						Created:   created,
+						Updated:   updated,
 					}
 
 				}
 
 			} else {
 
-				golog.Info(" nothing to do !!! for " + mapkey + " Path " + path)
+				golog.Err(" nothing to do !!! for " + mapkey + " Path " + path)
 
 			}
 
 		} else {
-			golog.Info(" nothing to do !!! for too SHOT?? " + path)
+			golog.Err(" nothing to do !!! for too SHOT?? " + path)
 
 		}
 
