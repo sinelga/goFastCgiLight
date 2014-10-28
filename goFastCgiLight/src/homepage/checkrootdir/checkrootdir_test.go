@@ -11,10 +11,10 @@ var golog, _ = syslog.New(syslog.LOG_ERR, "golog")
 
 func TestCheck(t *testing.T) {
 	
-	var testArr =[]string{"/home/juno/git/goFastCgiLight/goFastCgiLight/www/it_IT/finance/test.com/index.html",
-		"/home/juno/git/goFastCgiLight/goFastCgiLight/www/it_IT/finance/test.com/test.html.gz",
-		"/home/juno/git/goFastCgiLight/goFastCgiLight/www/it_IT/finance/test.com/tesss12345678/test2/index.html",
-		"/home/juno/git/goFastCgiLight/goFastCgiLight/www/it_IT/finance/test.com/tesss12345678/test2/test.html.gz",
+	var testArr =[]string{"/home/juno/git/goFastCgiLight/goFastCgiLight/www/fi_FI/porno/index.html",
+//		"/home/juno/git/goFastCgiLight/goFastCgiLight/www/fi_FI/porno/test.com/test.html.gz",
+//		"/home/juno/git/goFastCgiLight/goFastCgiLight/www/fi_FI/porno/test.com/tesss12345678/test2/index.html",
+//		"/home/juno/git/goFastCgiLight/goFastCgiLight/www/fi_FI/porno/test.com/tesss12345678/test2/test.html.gz",
 				
 	}
 	

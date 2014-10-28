@@ -6,11 +6,12 @@ import (
 	"flag"
 	"fmt"
 	"homepage/checkrootdir"
-	"homepage/createhomepages"
+	//	"homepage/createhomepages"
 	"log/syslog"
 	"os"
 	"path/filepath"
 	//	"startones"
+	"homepage/checkmetadata"
 	"io/ioutil"
 	"strings"
 )
@@ -19,13 +20,9 @@ const APP_VERSION = "0.1"
 
 // The flag package provides a default help printer via -h switch
 var versionFlag *bool = flag.Bool("v", false, "Print the version number.")
-
 var golog, _ = syslog.New(syslog.LOG_ERR, "golog")
-
 var sitesmap map[string]domains.Sitetohomepage
-
 var startparameters []string
-
 var paragraph domains.Paragraph
 
 func main() {
@@ -51,57 +48,78 @@ func main() {
 		golog.Err(err.Error())
 	}
 
-	createhomepages.CreatePages(*golog, sitesmap)
+	//	createhomepages.CreatePages(*golog, sitesmap)
 
 }
 
 func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 
 	if !fileInfo.IsDir() {
-
+		//		fmt.Println("path ",path)
 		siteinfo := checkrootdir.Check(*golog, path)
 
-		mapkey := siteinfo[0] + siteinfo[1] + siteinfo[2]
-		//		fmt.Println(mapkey)
+		if len(siteinfo) > 2 {
 
-		if len(siteinfo) == 4 && len(strings.Split(siteinfo[2], ".")) > 1 {
+			mapkey := siteinfo[0] + siteinfo[1] + siteinfo[2]
 
-			_, ok := sitesmap[mapkey]
+			locale := siteinfo[0]
+			themes := siteinfo[1]
+			site := siteinfo[2]
+			pathshot := siteinfo[3]
 
-			if !ok {
+			if len(siteinfo) == 4 && len(strings.Split(siteinfo[2], ".")) > 1 && (strings.HasSuffix(pathshot, ".html") || strings.HasSuffix(pathshot, ".gz")) {
 
-				paragraph = findfreeparagraph.FindFromQ(*golog, "fi_FI", "porno", "google", startparameters)
+				_, ok := sitesmap[mapkey]
 
-				//				fmt.Println(paragraph.Pphrase)
+				if !ok {
 
-				sitesmap[mapkey] = domains.Sitetohomepage{
+					metadata := checkmetadata.Check(*golog, locale, themes, site)
 
-					Locale:    siteinfo[0],
-					Themes:    siteinfo[1],
-					Site:      siteinfo[2],
-					Pages:     []string{siteinfo[3],paragraph.Plocallink},
-					Paragraph: paragraph,
+					if metadata != nil {
+						for _, meta := range metadata {
+
+							fmt.Println(meta)
+						}
+
+						paragraph = findfreeparagraph.FindFromQ(*golog, locale, themes, "google", startparameters)
+						sitesmap[mapkey] = domains.Sitetohomepage{
+
+							Locale:    locale,
+							Themes:    themes,
+							Site:      site,
+							Pages:     []string{pathshot, paragraph.Plocallink},
+							Paragraph: paragraph,
+						}
+
+					} else {
+
+						fmt.Println("!!! no metadata in " + locale+"/"+themes+"/"+site+"/index.hmtl")
+
+					}
+
+				} else {
+
+					pages := append(sitesmap[mapkey].Pages, siteinfo[3])
+					paragraph = sitesmap[mapkey].Paragraph
+
+					sitesmap[mapkey] = domains.Sitetohomepage{
+						Locale:    locale,
+						Themes:    themes,
+						Site:      site,
+						Pages:     pages,
+						Paragraph: paragraph,
+					}
+
 				}
 
 			} else {
 
-				pages := append(sitesmap[mapkey].Pages, siteinfo[3])
-//				pages = 
-				paragraph = sitesmap[mapkey].Paragraph
-
-				sitesmap[mapkey] = domains.Sitetohomepage{
-					Locale:    siteinfo[0],
-					Themes:    siteinfo[1],
-					Site:      siteinfo[2],
-					Pages:     pages,
-					Paragraph: paragraph,
-				}
+				golog.Info(" nothing to do !!! for " + mapkey + " Path " + path)
 
 			}
 
 		} else {
-			
-			golog.Info(" nothing to do !!! for "+mapkey)
+			golog.Info(" nothing to do !!! for too SHOT?? " + path)
 
 		}
 

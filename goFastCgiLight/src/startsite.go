@@ -53,7 +53,7 @@ func main() {
 
 	for i := 0; i < 10; i++ {
 
-		paragraph = findfreeparagraph.FindFromQ(*golog, "fi_FI", "porno", "google", startparameters)
+		paragraph = findfreeparagraph.FindFromQ(*golog, locale, themes, "google", startparameters)
 
 		mapkey := locale + themes + site
 		currenttime := time.Now().Local()
