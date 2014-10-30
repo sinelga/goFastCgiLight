@@ -13,7 +13,7 @@ func Check(golog syslog.Writer, locale string, themes string, site string) []str
 	indexpagefullpath := "/home/juno/git/goFastCgiLight/goFastCgiLight/www/" + locale + "/" + themes + "/" + site + "/index.html"
 
 	if _, err := os.Stat(indexpagefullpath); err == nil {
-//		fmt.Println("file exists; processing... " + indexpagefullpath)
+
 		retarr = Getmetadata(golog, indexpagefullpath)
 	}
 

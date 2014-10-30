@@ -18,21 +18,17 @@ import (
 	"time"
 )
 
-const APP_VERSION = "0.1"
-
-// The flag package provides a default help printer via -h switch
-var versionFlag *bool = flag.Bool("v", false, "Print the version number.")
 var golog, _ = syslog.New(syslog.LOG_ERR, "golog")
 var sitesmap map[string]domains.Sitetohomepage
 var startparameters []string
 var paragraph domains.Paragraph
 
+var indexhtml_not_exist map[string]struct{}
+
 func main() {
 	flag.Parse() // Scan the arguments list
-
-	if *versionFlag {
-		fmt.Println("Version:", APP_VERSION)
-	}
+	
+	indexhtml_not_exist = make(map[string]struct{})
 
 	content, err := ioutil.ReadFile("/home/juno/git/goFastCgiLight/goFastCgiLight/config.txt")
 	if err != nil {
@@ -51,6 +47,13 @@ func main() {
 	}
 
 	createhomepages.CreatePages(*golog, sitesmap)
+	
+	for key := range(indexhtml_not_exist) {
+		
+		fmt.Println("bin/startsite -locale=fi_FI -themes=porno -site="+key+" -variant=2")
+				
+	}
+	
 
 }
 
@@ -80,10 +83,6 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 					metadata := checkmetadata.Check(*golog, locale, themes, site)
 
 					if metadata != nil {
-						for _, meta := range metadata {
-
-							fmt.Println(meta)
-						}
 
 						variantint, err := strconv.Atoi(metadata[0])
 						if err != nil {
@@ -109,7 +108,8 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 
 					} else {
 
-						fmt.Println("!!! no metadata in " + locale + "/" + themes + "/" + site + "/index.hmtl")
+//						fmt.Println("!!! no metadata in " + locale + "/" + themes + "/" + site + "/index.hmtl")
+						indexhtml_not_exist[site] = struct{}{}
 
 					}
 
@@ -142,6 +142,7 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 
 		} else {
 			golog.Err(" nothing to do !!! for too SHOT?? " + path)
+			
 
 		}
 
