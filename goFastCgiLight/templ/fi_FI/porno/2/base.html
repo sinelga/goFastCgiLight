@@ -1,0 +1,42 @@
+{{ define "base" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta locale="{{ .Locale }}">
+<meta themes="{{ .Themes }}">
+<meta variant="{{ .Variant }}">
+<meta created= "{{ .Created }}">
+<meta updated= "{{ .Updated }}">
+
+<link rel="stylesheet" href="/css/{{ .Locale}}/{{ .Themes }}/{{ .Variant }}/bootstrap.min.css">
+<link rel="stylesheet" href="/css/{{ .Locale}}/{{ .Themes }}/{{ .Variant }}/main.css"> 
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+	rel="stylesheet">
+	
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+
+
+{{ template "content" . }}
+
+	<script src="//code.jquery.com/jquery.js"></script>
+	<script
+		src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		
+		    <script>
+    $('.carousel').carousel({
+        interval: 10000 //changes the speed
+    })
+    </script>
+
+</body>
+</html>
+
+{{end}}

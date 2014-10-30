@@ -40,7 +40,7 @@ ZADD pushdomains 1 pilluseksi.info
 
 
 stop gofast && start gofast && stop nginx && start nginx
-grep -E 'google|bing'  logs/access.log |grep -E 'url|search'
+grep -E 'www.google|bing'  logs/access.log |grep -E 'url|search'
 
 cat logs/access.log |grep -E 'www.google|bing' |grep q= |grep -v .js |grep -v .css|grep -v .woff|grep -v .eot  |grep -E 'url|search'
 
