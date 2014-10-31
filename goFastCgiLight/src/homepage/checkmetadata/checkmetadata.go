@@ -9,16 +9,16 @@ import (
 	"strings"
 )
 
-var index bool = false
+//var index bool = false
 
 func Check(golog syslog.Writer, locale string, themes string, site string, path string) []string {
 
 	var retarr []string
 
-	if strings.HasSuffix(path, "/index.html") {
-
-		index = true
-	}
+//	if strings.HasSuffix(path, "/index.html") {
+//
+//		index = true
+//	}
 
 	indexpagefullpath := "/home/juno/git/goFastCgiLight/goFastCgiLight/www/" + locale + "/" + themes + "/" + site + "/index.html"
 
@@ -34,15 +34,6 @@ func Check(golog syslog.Writer, locale string, themes string, site string, path 
 		
 	}
 
-//	if _, err := os.Stat(indexpagefullpath); err == nil {
-//
-//		retarr = Getmetadata(golog, indexpagefullpath)
-//	} else {
-
-//		fmt.Println(indexpagefullpath + " no exist try from " + path)
-//		retarr = Getmetadata(golog, path)
-//
-//	}
 
 	return retarr
 }
@@ -50,6 +41,15 @@ func Check(golog syslog.Writer, locale string, themes string, site string, path 
 func Getmetadata(golog syslog.Writer, indexpagefullpath string) []string {
 	
 //	fmt.Println("Getmetadata from "+indexpagefullpath)
+
+
+	var index bool = false
+	
+	if strings.HasSuffix(indexpagefullpath, "/index.html") {
+
+		index = true
+	}
+
 
 	var doc *html.Node
 
