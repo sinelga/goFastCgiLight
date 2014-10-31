@@ -9,7 +9,7 @@ cd createpage
 go test -v
 cd ..
 
-cd htmlfileexist
-go test -v
+#cd htmlfileexist
+#go test -v
 
 

@@ -50,7 +50,7 @@ func main() {
 	
 	for key := range(indexhtml_not_exist) {
 		
-		fmt.Println("bin/startsite -locale=fi_FI -themes=porno -site="+key+" -variant=2")
+		fmt.Println("bin/startsite -locale=fi_FI -themes=porno -site="+key+" -variant=")
 				
 	}
 	
@@ -80,7 +80,7 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 
 				if !ok {
 
-					metadata := checkmetadata.Check(*golog, locale, themes, site)
+					metadata := checkmetadata.Check(*golog, locale, themes, site,path)
 
 					if metadata != nil {
 

@@ -2,19 +2,34 @@ package checkmetadata
 
 import (
 	"code.google.com/p/go.net/html"
-//	"fmt"
+	"compress/gzip"
+	"fmt"
 	"log/syslog"
 	"os"
+	"strings"
 )
 
-func Check(golog syslog.Writer, locale string, themes string, site string) []string {
+var index bool = false
+
+func Check(golog syslog.Writer, locale string, themes string, site string, path string) []string {
 
 	var retarr []string
+
+	if strings.HasSuffix(path, "/index.html") {
+
+		index = true
+	}
+
 	indexpagefullpath := "/home/juno/git/goFastCgiLight/goFastCgiLight/www/" + locale + "/" + themes + "/" + site + "/index.html"
 
 	if _, err := os.Stat(indexpagefullpath); err == nil {
 
 		retarr = Getmetadata(golog, indexpagefullpath)
+	} else {
+
+		fmt.Println(indexpagefullpath + " no exist try from " + path)
+		retarr = Getmetadata(golog, path)
+
 	}
 
 	return retarr
@@ -24,16 +39,42 @@ func Getmetadata(golog syslog.Writer, indexpagefullpath string) []string {
 
 	var doc *html.Node
 
-	s, err := os.Open(indexpagefullpath)
-	if err != nil {
-		golog.Err("checkmetadata:Getmetadata " + indexpagefullpath + err.Error())
+	if !index {
+
+		sf, err := os.Open(indexpagefullpath)
+		if err != nil {
+			golog.Err("StartCheckNoDB: " + indexpagefullpath + err.Error())
+		}
+		defer sf.Close()
+		s, err := gzip.NewReader(sf)
+		if err != nil {
+			golog.Err("StartCheckNoDB: " + indexpagefullpath + err.Error())
+		}
+		defer s.Close()
+		doc, err = html.Parse(s)
+		if err != nil {
+			golog.Err("checkmetadata:Getmetadata " + indexpagefullpath + err.Error())
+		}
+
+	} else {
+
+		s, err := os.Open(indexpagefullpath)
+		if err != nil {
+			golog.Err("checkmetadata:Getmetadata " + indexpagefullpath + err.Error())
+		}
+
+		defer s.Close()
+		doc, err = html.Parse(s)
+		if err != nil {
+			golog.Err("checkmetadata:Getmetadata " + indexpagefullpath + err.Error())
+		}
+
 	}
 
-	defer s.Close()
-	doc, err = html.Parse(s)
-	if err != nil {
-		golog.Err("checkmetadata:Getmetadata " + indexpagefullpath + err.Error())
-	}
+	//	doc, err = html.Parse(s)
+	//	if err != nil {
+	//		golog.Err("checkmetadata:Getmetadata " + indexpagefullpath + err.Error())
+	//	}
 	var variant string
 	var created string
 	var updated string
