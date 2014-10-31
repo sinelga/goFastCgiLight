@@ -27,7 +27,7 @@ func Check(golog syslog.Writer, locale string, themes string, site string, path 
 		retarr = Getmetadata(golog, indexpagefullpath)
 	} else {
 
-		fmt.Println(indexpagefullpath + " no exist try from " + path)
+//		fmt.Println(indexpagefullpath + " no exist try from " + path)
 		retarr = Getmetadata(golog, path)
 
 	}
@@ -36,6 +36,8 @@ func Check(golog syslog.Writer, locale string, themes string, site string, path 
 }
 
 func Getmetadata(golog syslog.Writer, indexpagefullpath string) []string {
+	
+	fmt.Println("Getmetadata from "+indexpagefullpath)
 
 	var doc *html.Node
 
@@ -71,10 +73,6 @@ func Getmetadata(golog syslog.Writer, indexpagefullpath string) []string {
 
 	}
 
-	//	doc, err = html.Parse(s)
-	//	if err != nil {
-	//		golog.Err("checkmetadata:Getmetadata " + indexpagefullpath + err.Error())
-	//	}
 	var variant string
 	var created string
 	var updated string
