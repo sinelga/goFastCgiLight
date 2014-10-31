@@ -3,7 +3,7 @@ package checkmetadata
 import (
 	"code.google.com/p/go.net/html"
 	"compress/gzip"
-//	"fmt"
+	"fmt"
 	"log/syslog"
 	"os"
 	"strings"
@@ -15,17 +15,12 @@ func Check(golog syslog.Writer, locale string, themes string, site string, path 
 
 	var retarr []string
 
-//	if strings.HasSuffix(path, "/index.html") {
-//
-//		index = true
-//	}
-
 	indexpagefullpath := "/home/juno/git/goFastCgiLight/goFastCgiLight/www/" + locale + "/" + themes + "/" + site + "/index.html"
-
 
 	_,err := os.Stat(indexpagefullpath)
 	if  os.IsNotExist(err) {
 		
+		fmt.Println("not exist",indexpagefullpath)
 		retarr = Getmetadata(golog, path)
 		
 	} else {
@@ -34,14 +29,10 @@ func Check(golog syslog.Writer, locale string, themes string, site string, path 
 		
 	}
 
-
 	return retarr
 }
 
 func Getmetadata(golog syslog.Writer, indexpagefullpath string) []string {
-	
-//	fmt.Println("Getmetadata from "+indexpagefullpath)
-
 
 	var index bool = false
 	

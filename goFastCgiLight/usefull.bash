@@ -72,5 +72,7 @@ bin/startsite -locale=fi_FI -themes=porno -site= -variant=0
 grep -E 'www.google|bing' fi_FIporno_access.log |grep -E 'url|search'
 grep -E 'www.google|bing' logs/access.log |grep -E 'url|search'
 
-
+touch -t 201101250000 dummy
+touch dummy
+find www -newer dummy -exec ls -l  {} \;
 
