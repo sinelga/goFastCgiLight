@@ -3,7 +3,7 @@ package checkmetadata
 import (
 	"code.google.com/p/go.net/html"
 	"compress/gzip"
-	"fmt"
+//	"fmt"
 	"log/syslog"
 	"os"
 	"strings"
@@ -22,22 +22,34 @@ func Check(golog syslog.Writer, locale string, themes string, site string, path 
 
 	indexpagefullpath := "/home/juno/git/goFastCgiLight/goFastCgiLight/www/" + locale + "/" + themes + "/" + site + "/index.html"
 
-	if _, err := os.Stat(indexpagefullpath); err == nil {
 
-		retarr = Getmetadata(golog, indexpagefullpath)
+	_,err := os.Stat(indexpagefullpath)
+	if  os.IsNotExist(err) {
+		
+		retarr = Getmetadata(golog, path)
+		
 	} else {
+		
+		retarr = Getmetadata(golog, indexpagefullpath)
+		
+	}
+
+//	if _, err := os.Stat(indexpagefullpath); err == nil {
+//
+//		retarr = Getmetadata(golog, indexpagefullpath)
+//	} else {
 
 //		fmt.Println(indexpagefullpath + " no exist try from " + path)
-		retarr = Getmetadata(golog, path)
-
-	}
+//		retarr = Getmetadata(golog, path)
+//
+//	}
 
 	return retarr
 }
 
 func Getmetadata(golog syslog.Writer, indexpagefullpath string) []string {
 	
-	fmt.Println("Getmetadata from "+indexpagefullpath)
+//	fmt.Println("Getmetadata from "+indexpagefullpath)
 
 	var doc *html.Node
 

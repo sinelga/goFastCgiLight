@@ -108,7 +108,7 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 
 					} else {
 
-//						fmt.Println("!!! no metadata in " + locale + "/" + themes + "/" + site + "/index.hmtl")
+						fmt.Println("!!! no metadata in " + path)
 						indexhtml_not_exist[site] = struct{}{}
 
 					}
