@@ -31,20 +31,20 @@ func TestCreateHtmlPage(t *testing.T) {
 	
 	locale ="fi_FI"
 	themes ="porno"
-	variant ="2"
+	variant ="3"
 	site ="test.com"
 	pathinfo = "/test.html"
-	blocksite = false
+	blocksite = true
 
 	testbitepage = CreateHtmlPage(*golog, locale, themes, "google", startparameters, blocksite,variant)
 	createfirstgz.Creategzhtml(*golog, locale, themes, site, pathinfo,testbitepage)
 	
 	locale ="fi_FI"
 	themes ="porno"
-	variant ="2"
+	variant ="3"
 	site ="test.com"
 	pathinfo = "/test2.html"
-	blocksite = false
+	blocksite = true
 
 	testbitepage = CreateHtmlPage(*golog, locale, themes, "google", startparameters, blocksite,variant)
 	createfirstgz.Creategzhtml(*golog, locale, themes, site, pathinfo,testbitepage)

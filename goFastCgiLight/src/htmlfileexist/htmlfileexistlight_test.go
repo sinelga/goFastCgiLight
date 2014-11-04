@@ -23,21 +23,21 @@ func TestStartCheckNoDB(t *testing.T) {
 	}
 	startparameters := []string{"tcp", ":6379", "2"}
 	
-	blocksite = false
+	blocksite = true
 	locale = "fi_FI"
 	themes = "porno"
 	site = "test.com"
 	pathinfo = "/test.html.gz"
 	StartCheckNoDB(*golog, locale, themes, site, pathinfo, startparameters, blocksite)
 	
-	blocksite = false
+	blocksite = true
 	locale = "fi_FI"
 	themes = "porno"
 	site = "test.com"
 	pathinfo = "/test.html.gz"
 	StartCheckNoDB(*golog, locale, themes, site, pathinfo, startparameters, blocksite)
 	
-	blocksite = false
+	blocksite = true
 	locale = "fi_FI"
 	themes = "porno"
 	site = "test.com"
@@ -45,7 +45,7 @@ func TestStartCheckNoDB(t *testing.T) {
 	StartCheckNoDB(*golog, locale, themes, site, pathinfo, startparameters, blocksite)
 	
 	
-	blocksite = false
+	blocksite = true
 	locale = "fi_FI"
 	themes = "porno"
 	site = "test.com"

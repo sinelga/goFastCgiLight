@@ -5,10 +5,10 @@ import (
 	"findfreeparagraph"
 	"flag"
 	"fmt"
+	"homepage/createhomepages"
 	"io/ioutil"
 	"log/syslog"
 	"strings"
-	"homepage/createhomepages"
 	"time"
 )
 
@@ -24,9 +24,14 @@ var golog, _ = syslog.New(syslog.LOG_ERR, "golog")
 var localeFlag = flag.String("locale", "", "must be fi_FI/en_US/it_IT")
 var themesFlag = flag.String("themes", "", "must be porno/finance/fortune...")
 var siteFlag = flag.String("site", "", "any valid domain ")
-var variantFlag =flag.Int("variant",0," 0 1 2 3 ...")
-var paragraph domains.Paragraph
-var sitesmap map[string]domains.Sitetohomepage
+var variantFlag = flag.Int("variant", 0, " 0 1 2 3 ...")
+//var paragraph domains.Paragraph
+var paragraphs []domains.Paragraph
+
+//var sitesmap map[string]domains.Sitetohomepage
+var pages []string
+
+var sitetohomepage domains.Sitetohomepage
 
 func main() {
 
@@ -39,7 +44,7 @@ func main() {
 	locale := *localeFlag
 	themes := *themesFlag
 	site := *siteFlag
-	variant :=*variantFlag
+	variant := *variantFlag
 
 	content, err := ioutil.ReadFile("/home/juno/git/goFastCgiLight/goFastCgiLight/config.txt")
 	if err != nil {
@@ -48,52 +53,32 @@ func main() {
 	}
 	parameters := strings.Split(string(content), ",")
 	startparameters = []string{strings.TrimSpace(parameters[0]), strings.TrimSpace(parameters[1]), strings.TrimSpace(parameters[2])}
-	
-	sitesmap = make(map[string]domains.Sitetohomepage)
+
+	//	sitesmap = make(map[string]domains.Sitetohomepage)
+	//	paragraphs = make([]domains.Paragraph,10)
 
 	for i := 0; i < 10; i++ {
 
-		paragraph = findfreeparagraph.FindFromQ(*golog, locale, themes, "google", startparameters)
-
-		mapkey := locale + themes + site
-		currenttime := time.Now().Local()
-
-		_, ok := sitesmap[mapkey]
-
-		if !ok {
-
-			sitesmap[mapkey] = domains.Sitetohomepage{
-
-				Locale:    locale,
-				Themes:    themes,
-				Site:      site,
-				Pages:     []string{paragraph.Plocallink},
-				Paragraph: paragraph,
-				Variant: variant,
-				Created:    currenttime.Format("2006-01-02 15:04:05"),
-				Updated:    currenttime.Format("2006-01-02 15:04:05"),
-			}
-
-		} else {
-			
-				pages := append(sitesmap[mapkey].Pages, paragraph.Plocallink)
-				paragraph = sitesmap[mapkey].Paragraph
-					sitesmap[mapkey] = domains.Sitetohomepage{
-					Locale:    locale,
-					Themes:    themes,
-					Site:      site,
-					Pages:     pages,
-					Paragraph: paragraph,
-					Variant: variant,
-					Created:    currenttime.Format("2006-01-02 15:04:05"),
-					Updated:    currenttime.Format("2006-01-02 15:04:05"),
-				}
-
-		}
-
+		paragraph := findfreeparagraph.FindFromQ(*golog, locale, themes, "google", startparameters)
+		paragraphs = append(paragraphs, paragraph)
+		pages = append(pages, paragraph.Plocallink)
 	}
-	
-	createhomepages.CreatePages(*golog, sitesmap)
-		
+
+	currenttime := time.Now().Local()
+
+	sitetohomepage = domains.Sitetohomepage{
+
+		Locale:    locale,
+		Themes:    themes,
+		Site:      site,
+		Pages:     pages,
+		Paragraph: paragraphs,
+		Variant:   variant,
+		Created:   currenttime.Format("2006-01-02 15:04:05"),
+		Updated:   currenttime.Format("2006-01-02 15:04:05"),
+	}
+
+
+	createhomepages.CreatePages(*golog, sitetohomepage)
 
 }

@@ -1,0 +1,32 @@
+{{ define "mediablock" }}
+
+
+<div class="jumbotron top-space">
+
+
+<i class="fa fa-caret-right fa-2x">
+		<a name="{{ .Sentences | FirstWordFromSenteces}}"></a></i>
+         <div id='Ptitle' class="lead">{{.Ptitle }}</div>
+         <div id='Pphrase' class="intro-info">{{.Pphrase }}</div>
+
+</div>
+
+
+                   
+                    
+<div class="thin text-muted" id='Sentences'>
+{{range .Sentences }}
+	{{.}} 							
+							
+{{end}}
+
+</div>           
+{{if .Plocallink}}
+<a id='Plocallink' href="{{.Plocallink }}">{{.Ptitle }}</a>
+{{end}}
+
+
+
+ {{end}}
+
+        

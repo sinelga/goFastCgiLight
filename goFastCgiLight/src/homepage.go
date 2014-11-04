@@ -6,7 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"homepage/checkrootdir"
-	"homepage/createhomepages"
+//	"homepage/createhomepages"
 	"log/syslog"
 	"os"
 	"path/filepath"
@@ -46,7 +46,7 @@ func main() {
 		golog.Err(err.Error())
 	}
 
-	createhomepages.CreatePages(*golog, sitesmap)
+//	createhomepages.CreatePages(*golog, sitesmap)
 	
 	for key := range(indexhtml_not_exist) {
 		
@@ -100,7 +100,7 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 							Themes:    themes,
 							Site:      site,
 							Pages:     []string{pathshot, paragraph.Plocallink},
-							Paragraph: paragraph,
+//							Paragraph: paragraph,
 							Variant:   variantint,
 							Created:   created,
 							Updated:   currenttime.Format("2006-01-02 15:04:05"),
@@ -116,7 +116,7 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 				} else {
 
 					pages := append(sitesmap[mapkey].Pages, siteinfo[3])
-					paragraph = sitesmap[mapkey].Paragraph
+//					paragraph = sitesmap[mapkey].Paragraph
 					created := sitesmap[mapkey].Created
 					updated := sitesmap[mapkey].Updated
 					variant := sitesmap[mapkey].Variant
@@ -126,7 +126,7 @@ func scan(path string, fileInfo os.FileInfo, inpErr error) (err error) {
 						Themes:    themes,
 						Site:      site,
 						Pages:     pages,
-						Paragraph: paragraph,
+//						Paragraph: paragraph,
 						Variant:   variant,
 						Created:   created,
 						Updated:   updated,

@@ -1,0 +1,260 @@
+ {{ define "content" }}
+ 
+ 
+ 	<!-- Fixed navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top headroom " >
+		<div class="container">
+			<div class="navbar-header">
+				<!-- Button for smallest screens -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+				<a class="navbar-brand" href="index.html"><img src="/img/logo.png" alt="Progressus"></a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav pull-right">
+					<li class="active"><a href="#">Etusiva</a></li>
+					
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Lisää sivuja <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+						
+						    {{range .Pages}}
+                
+                				<li> <a href="{{.}}">{{ . | SplitPathOnWords}}</a></li>
+                
+                			{{ end }}
+
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div> 
+	<!-- /.navbar -->
+	
+	
+			<!-- Header -->
+	<header id="head">
+		<div class="container">
+			<div class="row">
+				<h1 class="lead">{{ .Site | SplitDomainName}}</h1>
+						<br> <br>
+		<h2 class="thin">{{ . | Pphrase_0 }}</h2>
+		<p class="text-muted">
+			{{ . | Pphrase_1 }}
+		</p>
+	
+			</div>
+		</div>
+	</header>
+	<!-- /Header -->
+ 
+		<!-- Intro -->
+	<div class="container text-center">
+		<br> <br>
+		<h2 class="thin">{{ . | Pphrase_2 }}</h2>
+		<p class="text-muted">
+			{{ . | Pphrase_3 }}
+		</p>		
+	</div>
+	<!-- /Intro-->
+		
+		<div class="jumbotron top-space">
+		<div class="container">
+			
+			<h3 class="text-center thin">{{ . | Pphrase_8 }}</h3>
+			
+			<div class="row">
+			
+				<div class="col-md-3 col-sm-6 highlight">
+					<div class="h-caption"><h4><i class="fa fa-cogs fa-5"></i>{{ . | Ptitle_0 }}</h4></div>
+					<div class="h-body text-center">
+						<p>
+						   {{range . | Fist5_0_Sentences}}
+                    			<li>{{.}}</li>                          
+                    		{{ end }}
+						</p>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-6 highlight">
+					<div class="h-caption"><h4><i class="fa fa-heart fa-5"></i>{{ . | Ptitle_1 }}</h4></div>
+					<div class="h-body text-center">
+					
+						<p>
+                        	{{range . | Fist5_1_Sentences}}
+                    			<li>{{.}}</li>                          
+                    		{{ end }}
+						</p>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 highlight">
+					<div class="h-caption"><h4><i class="fa fa-smile-o fa-5"></i>{{ . | Ptitle_2 }}</h4></div>
+					<div class="h-body text-center">
+						<p>
+						<img class="img-responsive img-border img-left" src="http://104.131.99.251/images/fi_FI/porno/3/rimage.jpg" alt="">
+						</p>
+						    {{range . | Fist5_2_Sentences}}
+                    			{{.}}                       
+                    		{{ end }}
+						
+					</div>
+				</div>
+				
+				
+				<div class="col-md-3 col-sm-6 highlight">
+					<div class="h-caption"><h4><i class="fa fa-flash fa-5"></i>{{ . | Ptitle_3 }}</h4></div>
+					<div class="h-body text-center">
+						<p>
+							{{range . | Fist5_3_Sentences}}			
+								<li>{{.}}</li> 
+							{{ end }}
+						 </p>
+					</div>
+				</div>
+			</div> <!-- /row  -->
+		
+		</div>
+	</div>
+	<!-- /Highlights -->
+	
+	<!-- container -->
+	<div class="container">
+
+		<h2 class="text-center top-space">{{ . | Ptitle_4 }}.</h2>
+		<br>
+
+		<div class="row">
+			<div class="col-sm-6">
+				<h3>{{ . | Pphrase_4 }}</h3>
+				<p>
+							{{range . | Last10_0_Sentences}}
+                    			{{.}}                         
+                    		{{ end }}
+				
+				</p>
+			</div>
+			<div class="col-sm-6">
+				<h3>{{ . | Pphrase_5 }}</h3>
+				<p>
+						{{range . | Last10_1_Sentences}}
+                    		{{.}}                         
+                    	{{ end }}
+					
+				</p>
+			</div>
+		</div> <!-- /row -->
+
+		<div class="row">
+			<div class="col-sm-6">
+				<h3>{{ . | Pphrase_6 }}</h3>
+				<p>
+						{{range . | Last10_2_Sentences}}
+                    		{{.}}                         
+                    	{{ end }}				
+	
+				</p>
+			</div>
+			<div class="col-sm-6">
+				<h3>{{ . | Pphrase_7 }}</h3>
+				<p>
+						{{range . | Last10_3_Sentences}}
+                    		{{.}}                         
+                    	{{ end }}					
+				
+				</p>
+			</div>
+		</div> <!-- /row -->
+
+		<div class="jumbotron top-space">
+			<h4>
+				{{range . | Fist5_4_Sentences}}			
+					{{.}}
+				{{ end }}
+			</h4>
+     		<p class="text-right"><a class="btn btn-primary btn-large">Lue lisää »</a></p>
+  		</div>
+
+</div>	<!-- /container -->
+	
+	
+<footer id="footer" class="top-space">
+
+		<div class="footer1">
+			<div class="container">
+				<div class="row">
+					
+					<div class="col-md-3 widget">
+						<h3 class="widget-title">Contact</h3>
+						<div class="widget-body">
+							<p>0700444941<br>
+								
+								<br>
+								0700444942	
+							</p>	
+						</div>
+					</div>
+
+					<div class="col-md-3 widget">
+						<h3 class="widget-title">Follow me</h3>
+						<div class="widget-body">
+							<p class="follow-me-icons">
+								<a href=""><i class="fa fa-twitter fa-2"></i></a>
+								<a href=""><i class="fa fa-dribbble fa-2"></i></a>
+								<a href=""><i class="fa fa-github fa-2"></i></a>
+								<a href=""><i class="fa fa-facebook fa-2"></i></a>
+							</p>	
+						</div>
+					</div>
+
+					<div class="col-md-6 widget">
+						<h3 class="widget-title">{{ . | Pphrase_9 }}</h3>
+						<div class="widget-body">
+							<p>
+							{{range . | Fist5_5_Sentences}}			
+								{{.}}
+							{{ end }}
+							</p>
+							<p>
+ 							{{range . | Fist5_6_Sentences}}			
+								{{.}}
+							{{ end }}						
+							</p>
+						</div>
+					</div>
+
+				</div> <!-- /row of widgets -->
+			</div>
+		</div>
+
+		<div class="footer2">
+			<div class="container">
+				<div class="row">
+					
+					<div class="col-md-6 widget">
+						<div class="widget-body">
+							<p class="simplenav">
+							
+							{{range .Pages}}
+                
+                			<a href="{{.}}">{{ . | SplitPathOnWords}}</a> |
+                
+                			{{ end }}
+							
+							</p>
+						</div>
+					</div>
+
+					<div class="col-md-6 widget">
+						<div class="widget-body">
+							<p class="text-right">
+								Copyright &copy; 2014. 
+							</p>
+						</div>
+					</div>
+
+				</div> <!-- /row of widgets -->
+			</div>
+		</div>
+
+	</footer>	
+
+
+{{ end }}

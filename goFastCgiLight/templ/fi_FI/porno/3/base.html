@@ -1,0 +1,49 @@
+{{ define "base" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta locale="{{ .Locale }}">
+<meta themes="{{ .Themes }}">
+<meta variant="{{ .Variant }}">
+<meta created="{{ .Created }}">
+<meta updated="{{ .Updated }}">
+
+<link rel="stylesheet" href="/css/{{ .Locale}}/{{ .Themes }}/{{ .Variant }}/bootstrap.min.css"> 
+
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+	rel="stylesheet">
+	
+	
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700" media="screen" rel="stylesheet">
+<link media="screen" href="/css/{{ .Locale}}/{{ .Themes }}/{{ .Variant }}/bootstrap-theme.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/{{ .Locale}}/{{ .Themes }}/{{ .Variant }}/main.css">
+
+ 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="/js/html5shiv.js"></script>
+	<script src="/js/respond.min.js"></script>
+	<![endif]-->
+   
+
+</head>
+<body class="home">
+
+{{ template "content" . }}
+	
+ 	<script src="//code.jquery.com/jquery.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+	<script src="//cdn.jsdelivr.net/headroomjs/0.5.0/headroom.min.js"></script>
+<script src="//cdn.jsdelivr.net/headroomjs/0.5.0/jQuery.headroom.min.js"></script>
+
+	<script src="/js/template.js"></script>
+	
+
+</body>
+</html>
+
+{{ end }}

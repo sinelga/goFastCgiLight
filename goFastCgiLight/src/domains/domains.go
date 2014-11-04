@@ -48,7 +48,7 @@ type Sitetohomepage struct {
 	Themes string
 	Site   string
 	Pages  []string
-	Paragraph Paragraph
+	Paragraph []Paragraph
 	Variant int
 	Created string
 	Updated string

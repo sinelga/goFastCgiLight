@@ -1,0 +1,141 @@
+ {{ define "content" }}
+ 
+  	<!-- Fixed navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top headroom " >
+		<div class="container">
+			<div class="navbar-header">
+				<!-- Button for smallest screens -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+				<a class="navbar-brand" href="index.html"><img src="/img/logo.png" alt="Progressus"></a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav pull-right">
+					
+				 <li class="active"><a href="/">Etusivu</a></li> 
+			{{range .Paragraphs}}
+			{{if .Plocallink}}
+			<li><a href="{{.Plocallink }}">{{ .Ptitle | FirstWord}}</a></li>
+			{{else}}
+
+			<li><a href="#{{ .Sentences | FirstWordFromSenteces}}">{{ .Sentences | FirstWordFromSenteces}}</a></li> {{end}} {{end}}
+         	
+            </ul>	
+
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div> 
+	<!-- /.navbar -->
+  			<!-- Header -->
+	<header id="head">
+		<div class="container">
+			<div class="row">
+				<h1 class="lead">{{.Paragraphs | FirstWordFromAllParagraphs}}</h1>
+				
+				<div class="media">
+				<img class="img-rounded media-object img-center"
+			src="http://104.131.99.251/images/fi_FI/porno/3/rimage.jpg" alt='{{.Paragraphs | FirstWordFromAllParagraphs}}'>
+				<div class="media-body">
+				<br><br>	
+				
+				</div>
+				
+				</div>
+				
+				
+	
+			</div>
+		</div>
+	</header>
+	<!-- /Header -->
+ 
+ 
+<div class ="container">
+
+
+	<div >
+
+		<div class="container-fluid">{{range .Paragraphs}} {{ template "mediablock" . }} {{end}}</div>
+	</div>
+
+</div>
+
+
+<footer id="footer" class="top-space">
+
+		<div class="footer1">
+			<div class="container">
+				<div class="row">
+					
+					<div class="col-md-3 widget">
+						<h3 class="widget-title">Contact</h3>
+						<div class="widget-body">
+							<p>0700444941<br>
+								
+								<br>
+								0700444942	
+							</p>	
+						</div>
+					</div>
+
+					<div class="col-md-3 widget">
+						<h3 class="widget-title">Follow me</h3>
+						<div class="widget-body">
+							<p class="follow-me-icons">
+								<a href=""><i class="fa fa-twitter fa-2"></i></a>
+								<a href=""><i class="fa fa-dribbble fa-2"></i></a>
+								<a href=""><i class="fa fa-github fa-2"></i></a>
+								<a href=""><i class="fa fa-facebook fa-2"></i></a>
+							</p>	
+						</div>
+					</div>
+
+					<div class="col-md-6 widget">
+						<h3 class="widget-title"></h3>
+						<div class="widget-body">
+							<p>
+
+							</p>
+							<p>
+ 					
+							</p>
+						</div>
+					</div>
+
+				</div> <!-- /row of widgets -->
+			</div>
+		</div>
+
+		<div class="footer2">
+			<div class="container">
+				<div class="row">
+					
+					<div class="col-md-6 widget">
+						<div class="widget-body">
+							<p class="simplenav">
+
+							
+							</p>
+						</div>
+					</div>
+
+					<div class="col-md-6 widget">
+						<div class="widget-body">
+							<p class="text-right">
+								Copyright &copy; 2014 
+							</p>
+						</div>
+					</div>
+
+				</div> <!-- /row of widgets -->
+			</div>
+		</div>
+
+	</footer>	
+
+
+
+
+
+
+{{ end }}
