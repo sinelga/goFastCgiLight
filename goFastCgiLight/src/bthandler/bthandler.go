@@ -13,11 +13,11 @@ func BTrequestHandler(golog syslog.Writer, resp http.ResponseWriter, req *http.R
 
 	pathinfoclean := clean_pathinfo.CleanPath(golog, pathinfo)
 
-	if blocksite {
-
-		golog.Info("BTrequestHandler:will block-> " + site+pathinfo)
-
-	}
+//	if blocksite {
+//
+//		golog.Info("BTrequestHandler:will block-> " + site+pathinfo)
+//
+//	}
 
 	var bytepage []byte
 	if strings.HasSuffix(pathinfoclean, ".html")  {
