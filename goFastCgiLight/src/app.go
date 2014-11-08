@@ -35,7 +35,7 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	uid_got := req.Header.Get("X-NGINXBROWSERIDGOT")
 	uid_set := req.Header.Get("X-NGINXBROWSERIDSET")
 	
-	uid_got2 := req.Header.Get("UID_GOT")
+	uid_got2 := req.Header.Get("UID-GOT")
 		
 
 	startOnce.Do(func() {
