@@ -35,7 +35,14 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	uid_got := req.Header.Get("X-NGINXBROWSERIDGOT")
 	uid_set := req.Header.Get("X-NGINXBROWSERIDSET")
 	
-	uid_got2 := req.Header.Get("UID-GOT")
+//	uid_got2 := req.Header.Get("UID-GOT")
+	
+	
+	for key,val :=range req.Header {
+		
+		golog.Info(key+" "+val[0])
+		
+	}
 		
 
 	startOnce.Do(func() {
@@ -60,12 +67,12 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	}
 	
 	
-	golog.Info("uid_set "+uid_set+" uid_got "+uid_got+" uid_got2 " +uid_got2)
+//	golog.Info("uid_set "+uid_set+" uid_got "+uid_got+" uid_got2 " +uid_got2)
 	
 
 	if uid_set =="" {
 		
-		golog.Info("!!!not first visit "+site+pathinfo)
+		golog.Info("!!!not first visit "+site+pathinfo+" "+ uid_got)
 		
 	}
 
