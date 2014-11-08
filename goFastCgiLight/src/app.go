@@ -56,6 +56,9 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 		
 	}
 	
+	
+	golog.Info("uid_set "+uid_set+"  uid_got "+uid_got)
+	
 
 	if uid_got !="" && uid_set =="" {
 		
