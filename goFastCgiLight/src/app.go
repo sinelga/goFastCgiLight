@@ -38,17 +38,16 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 //	uid_got2 := req.Header.Get("UID-GOT")
 	
 	
-	for key,val :=range req.Header {
+//	for key,val :=range req.Header {
+//		
+//		if key !="X-Bot" && key !="X-Themes" && key !=" X-Variant" && key !="X-Locale" && key !="X-Variant" && key !="X-Nginxbrowseridset" && key !="X-Callback" && key !="X-Pathinfo" {
+//		
+//		golog.Info(key+" "+val[0])
+//		
+//		}
+//		
+//	}
 		
-		if key !="X-Bot" && key !="X-Themes" && key !=" X-Variant" && key !="X-Locale" && key !="X-Variant" && key !="X-Nginxbrowseridset" && key !="X-Callback" && key !="X-Pathinfo" {
-		
-		golog.Info(key+" "+val[0])
-		
-		}
-		
-	}
-		
-
 	startOnce.Do(func() {
 		startparameters, sitestoblock = startones.Start(*golog)
 
@@ -76,7 +75,7 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 
 	if uid_set =="" {
 		
-		golog.Info("!!!not first visit "+site+pathinfo+" "+ uid_got)
+		golog.Info("??? not first visit "+site+pathinfo+" "+ uid_got)
 		
 	}
 
