@@ -34,6 +34,9 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	bot := req.Header.Get("X-BOT")
 	uid_got := req.Header.Get("X-NGINX-BROWSER-ID-GOT")
 	uid_set := req.Header.Get("X-NGINX-BROWSER-ID-SET")
+	
+	uid_got2 := req.Header.Get("UID_GOT")
+		
 
 	startOnce.Do(func() {
 		startparameters, sitestoblock = startones.Start(*golog)
@@ -57,7 +60,7 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	}
 	
 	
-	golog.Info("uid_set "+uid_set+" uid_got "+uid_got)
+	golog.Info("uid_set "+uid_set+" uid_got "+uid_got+" uid_got2 " +uid_got2)
 	
 
 	if uid_set =="" {
