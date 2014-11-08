@@ -32,8 +32,8 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	site := req.Header.Get("X-DOMAIN")
 	pathinfo := req.Header.Get("X-PATHINFO")
 	bot := req.Header.Get("X-BOT")
-	uid_got := req.Header.Get("X-NGINX-BROWSER-ID-GOT")
-	uid_set := req.Header.Get("X-NGINX-BROWSER-ID-SET")
+	uid_got := req.Header.Get("X-NGINXBROWSERIDGOT")
+	uid_set := req.Header.Get("X-NGINXBROWSERIDSET")
 	
 	uid_got2 := req.Header.Get("UID_GOT")
 		
