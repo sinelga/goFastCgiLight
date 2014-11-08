@@ -40,7 +40,7 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	
 	for key,val :=range req.Header {
 		
-		if key !="X-Bot" && key !="X-Themes" && key !=" X-Variant" && key !="X-Locale" {
+		if key !="X-Bot" && key !="X-Themes" && key !=" X-Variant" && key !="X-Locale" && key !="X-Variant" && key !="X-Nginxbrowseridset" {
 		
 		golog.Info(key+" "+val[0])
 		
