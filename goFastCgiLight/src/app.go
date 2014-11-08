@@ -32,6 +32,8 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	site := req.Header.Get("X-DOMAIN")
 	pathinfo := req.Header.Get("X-PATHINFO")
 	bot := req.Header.Get("X-BOT")
+	uid_got := req.Header.Get("X-NGINX-BROWSER-ID-GOT")
+	uid_set := req.Header.Get("X-NGINX-BROWSER-ID-SET")
 
 	startOnce.Do(func() {
 		startparameters, sitestoblock = startones.Start(*golog)
@@ -54,6 +56,13 @@ func (s FastCGIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 		
 	}
 	
+
+	if uid_got !="" && uid_set =="" {
+		
+		golog.Info("!!!not first visit "+site+pathinfo)
+		
+	}
+
 
 	bthandler.BTrequestHandler(*golog, resp, req, locale, themes, site, pathinfo, bot, startparameters,bloksite,variant)
 
