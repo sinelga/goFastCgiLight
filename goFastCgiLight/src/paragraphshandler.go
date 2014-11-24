@@ -97,7 +97,7 @@ func main() {
 					log.Fatal(err)
 				}
 
-				sqlstr := "select keyword from keywords where locale='" + locale + "' and themes='" + themes + "' and hits>=" + hits
+				sqlstr := "select keyword from keywords where locale='" + locale + "' and themes='" + themes + "' and hits>=" + hits + " and Cl=0"
 				golog.Info(sqlstr)
 
 				rows, err := db.Query(sqlstr)
@@ -113,8 +113,8 @@ func main() {
 
 				}
 				rows.Close()
-				
-				golog.Info("keywords "+strconv.Itoa(len(keywordsarr)))
+
+				golog.Info("keywords " + strconv.Itoa(len(keywordsarr)))
 
 				sqlstr = "select phrase from phrases where locale='" + locale + "' and themes='" + themes + "'"
 

@@ -79,3 +79,8 @@ touch -t 201101250000 dummy
 touch dummy
 find www -newer dummy -exec ls -l  {} \;
 
+# if was done some local modification
+git stash save --keep-index
+git stash drop
+
+
