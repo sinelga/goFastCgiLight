@@ -64,9 +64,7 @@ SELECT * FROM keywords where themes='porno' and Hits=1 and Updated <
 select Phrase from phrases  group by Phrase having count(*) >1
 
 
-
-
-scp /home/juno/git/goFastCgi/goFastCgi/singo.db 104.131.209.134:git/goFastCgiLight/goFastCgiLight
+#scp /home/juno/git/goFastCgi/goFastCgi/singo.db 104.131.209.134:git/goFastCgiLight/goFastCgiLight
 scp /home/juno/git/goFastCgi/goFastCgi/singo.db 104.131.99.251:git/goFastCgiLight/goFastCgiLight
 
 bin/startsite -locale=fi_FI -themes=porno -site= -variant=0
